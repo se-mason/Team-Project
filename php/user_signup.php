@@ -1,9 +1,13 @@
 <?php
-require 'php/connection.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require 'connection.php';
 
 // Read Form Data
-$fullname = trim($_POST['fullname']);
-$username = trim($_POST['username']);
+$userId = trim($_POST['userId']);
+$name = trim($_POST['name']);
 $email = trim($_POST['email']);
 $address = trim($_POST['address']);
 $postcode = trim($_POST['postcode']);
@@ -20,21 +24,21 @@ else {
 }
 
 
-// Check if username already exists
-$stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-$stmt->bind_param("s", $username);
+// Check if userId already exists
+$stmt = $conn->prepare("SELECT * FROM iBayMembers WHERE userId = ?");
+$stmt->bind_param("s", $userId);
 $stmt->execute();
 $stmt->store_result();
 
-// Error message for existing username
+// Error message for existing userId
 if ($stmt->num_rows > 0) {
-    die("Username already exists.");
+    die("userId already exists.");
 }
 $stmt->close();
 
 // Create account with SQL statement
-$stmt = $conn->prepare("INSERT INTO users (fullname, username, email, address, postcode, password) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssss", $fullname, $username, $email, $address, $postcode, $hashed_password);
+$stmt = $conn->prepare("INSERT INTO iBayMembers (userId, name, email, address, postcode, password) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssss", $userId, $name, $email, $address, $postcode, $hashed_password);
 
 // Execute the statement and check for errors
 if ($stmt->execute()) {

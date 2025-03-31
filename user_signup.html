@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Signup</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="stylesheets/styles.css" />
 </head>
 <body>
   <div class="signup-container">
     <h2>Sign Up</h2>
     <form action="php/user_signup.php" method="POST">
         <!-- POST to hide the input information from the browser  -->
-      <input type="text" name="fullname" placeholder="Full Name" required />
-      <input type="text" name="username" placeholder="Username" required />
+      <input type="text" name="userId" placeholder="Username" required />
+      <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Email Address" required />
       <input type="text" name="address" placeholder="Address" required />
       <input type="text" name="postcode" placeholder="Postcode" required />
