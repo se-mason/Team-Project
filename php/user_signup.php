@@ -1,9 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require 'connection.php';
+require_once 'popup.php';
 
 // Read Form Data
 $userId = trim($_POST['userId']);
@@ -16,7 +13,7 @@ $confirm_password = $_POST['confirm_password'];
 
 // Check password match
 if ($password !== $confirm_password) {
-    die("Passwords do not match.");
+    redirectWithPopup("../user_signup.html", "Passwords do not match");
 }
 else {
     // Hash the password
@@ -32,7 +29,19 @@ $stmt->store_result();
 
 // Error message for existing userId
 if ($stmt->num_rows > 0) {
-    die("userId already exists.");
+    redirectWithPopup("../user_signup.html", "Username already exists");
+}
+$stmt->close();
+
+// Check if email already exists
+$stmt = $conn->prepare("SELECT email FROM iBayMembers WHERE userId = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$stmt->store_result();
+
+// Error message for existing userId
+if ($stmt->num_rows > 0) {
+    redirectWithPopup("../user_signup.html", "Email already asscociated with account");
 }
 $stmt->close();
 
@@ -42,9 +51,11 @@ $stmt->bind_param("ssssss", $userId, $name, $email, $address, $postcode, $hashed
 
 // Execute the statement and check for errors
 if ($stmt->execute()) {
-    echo "Account created successfully!";
+    redirectWithPopup("../standard_index.html", "Account created successfully");
+
 } else {
-    echo "Error: " . $stmt->error;
+    redirectWithPopup("../user_signup.html", "Error");
+
 }
 
 // Close connections
