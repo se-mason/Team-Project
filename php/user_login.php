@@ -42,3 +42,4 @@ if (password_verify($password, $stored_hashed_password))  {
 
 
 $stmt->close();
+?>
