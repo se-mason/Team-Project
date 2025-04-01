@@ -34,7 +34,7 @@ if ($stmt->num_rows > 0) {
 $stmt->close();
 
 // Check if email already exists
-$stmt = $conn->prepare("SELECT email FROM iBayMembers WHERE userId = ?");
+$stmt = $conn->prepare("SELECT email FROM iBayMembers WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->store_result();
