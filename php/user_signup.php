@@ -25,7 +25,7 @@ else {
 
 
 // Check if userId already exists
-$stmt = $conn->prepare("SELECT * FROM iBayMembers WHERE userId = ?");
+$stmt = $conn->prepare("SELECT userId FROM iBayMembers WHERE userId = ?");
 $stmt->bind_param("s", $userId);
 $stmt->execute();
 $stmt->store_result();
