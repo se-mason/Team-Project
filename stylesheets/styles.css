@@ -1,48 +1,130 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General page style */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .signup-container {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-  }
-  
-  .signup-container h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  .signup-container input[type="text"],
-  .signup-container input[type="email"],
-  .signup-container input[type="password"] {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .signup-container input[type="submit"] {
-    width: 100%;
-    padding: 0.6rem;
-    border: none;
-    background-color: #28a745;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .signup-container input[type="submit"]:hover {
-    background-color: #218838;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+}
+
+/* Optional wrapper to center a specific container */
+.signup-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Signup form styling */
+.signup-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.signup-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.signup-container input[type="text"],
+.signup-container input[type="email"],
+.signup-container input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.signup-container input[type="submit"] {
+  width: 100%;
+  padding: 0.6rem;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.signup-container input[type="submit"]:hover {
+  background-color: #218838;
+}
+
+/* Nav bar styles */
+.navbar {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  display: block;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-left .nav-link,
+.nav-logo {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+.nav-logo {
+  font-size: 1.5em;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.account-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.account-btn {
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.account-menu {
+  position: absolute;
+  right: 0;
+  background-color: white;
+  color: black;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.account-menu a {
+  display: block;
+  padding: 5px 0;
+  color: black;
+  text-decoration: none;
+}
+
+.account-menu a:hover {
+  background-color: #f0f0f0;
+}

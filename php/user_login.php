@@ -24,6 +24,17 @@ $stmt->fetch();
 
 // Verify password
 if (password_verify($password, $stored_hashed_password))  {
+    // Start session for user data
+    session_start();
+    $_SESSION['userId'] = $userId;
+    echo "
+  <script>
+    sessionStorage.setItem('userId', '" . htmlspecialchars($userId) . "');
+    window.location.href = '../standard_index.html';
+  </script>
+    ";
+    exit;
+
     redirectWithPopup("../standard_index.html", "Log in Succesful!");
 } else {
     redirectWithPopup("../login_page.html", "Incorrect password");

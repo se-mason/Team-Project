@@ -51,6 +51,17 @@ $stmt->bind_param("ssssss", $userId, $name, $email, $address, $postcode, $hashed
 
 // Execute the statement and check for errors
 if ($stmt->execute()) {
+    // Start session for user data
+    session_start();
+    $_SESSION['userId'] = $userId;
+    echo "
+  <script>
+    sessionStorage.setItem('userId', '" . htmlspecialchars($userId) . "');
+    window.location.href = '../standard_index.html';
+  </script>
+    ";
+    exit;
+    
     redirectWithPopup("../standard_index.html", "Account created successfully");
 
 } else {
