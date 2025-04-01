@@ -10,9 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (userId) {
           // Account section (logged in)
           accountSection.innerHTML = `
-            <button id="accountBtn" class="account-btn">Account ▾</button>
+            <button id="accountBtn" class="account-btn">Account: ${userId} ▾</button>
             <div id="accountMenu" class="account-menu" style="display: none;">
-              <p>Logged in as <strong>${userId}</strong></p>
               <a href="profile.html">Profile</a>
               <a href="#" id="logoutBtn">Log out</a>
             </div>
