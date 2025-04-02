@@ -29,10 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
           menu.style.display = menu.style.display === "block" ? "none" : "block";
         });
 
-        // Clear session and reload page when logging out
+        // Clear session and redirect to the home page when logging out
         document.getElementById("logoutBtn").addEventListener("click", () => {
           sessionStorage.removeItem("userId");
-          window.location.reload();
+          window.location.href = "standard_index.html"; // Redirect to home page
         });
 
         // Enable "Add Listing" button if it exists

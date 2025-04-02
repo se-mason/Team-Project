@@ -2,21 +2,18 @@
 // Include the database connection script
 require 'connection.php';
 
-// Check if the 'userId' query parameter was provided
-if (!isset($_GET['userId'])) {
-    http_response_code(400); // Bad request
-    echo json_encode(["error" => "User ID not provided."]);
-    exit;
+// Check if a userId is provided (for logged-in users)
+$userId = isset($_GET['userId']) ? $_GET['userId'] : null;
+
+if ($userId) {
+    // If logged in: retrieve all items not created by this user
+    $stmt = $conn->prepare("SELECT itemId, title, price FROM iBayItems WHERE userId != ?");
+    $stmt->bind_param("s", $userId); 
+} else {
+    // If not logged in: retrieve all items
+    $stmt = $conn->prepare("SELECT itemId, title, price FROM iBayItems");
 }
-
-// Sanitize the userId by converting it to an integer
-$userId = $_GET['userId'];
-
-// Prepare an SQL query to select item listings belonging to the given user
-$stmt = $conn->prepare("SELECT itemId, title, price FROM iBayItems WHERE userId = ?");
-$stmt->bind_param("s", $userId); 
 $stmt->execute();
-
 
 // Get the result set from the executed query
 $result = $stmt->get_result();

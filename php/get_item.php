@@ -10,7 +10,7 @@ if (!isset($_GET['id'])) {
 }
 
 // Sanitize the item ID by converting it to an integer
-$itemId = intval($_GET['id']);
+$itemId = $_GET['id'];
 
 // Prepare an SQL statement to fetch the item details by itemId
 $sql = "SELECT * FROM iBayItems WHERE itemId = ?";
