@@ -129,3 +129,39 @@ body {
 .account-menu a:hover {
   background-color: #f0f0f0;
 }
+
+
+/* listing wrapper for profile page,could reuse? */
+
+#listings-wrapper {
+  margin-top: 20px;
+  max-height: 500px; /* scroll area */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.listings {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.listing-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.listing-item h3 {
+  margin: 0 0 5px;
+}
+
+.listing-item p {
+  margin: 0;
+  color: #333;
+}

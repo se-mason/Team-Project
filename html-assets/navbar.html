@@ -1,16 +1,28 @@
-<!-- Nav bar snippet-->
+<!-- Nav bar snippet -->
 
+<!-- Main navigation header -->
 <header class="navbar">
-    <nav class="nav-container">
-      <div class="nav-left">
-        <a href="standard_index.html" class="nav-logo">iBay</a>
-        <a href="#" id="addListingBtn" class="nav-link">Add Listing</a>
-        <a href="shop.html" class="nav-link">Example button</a>
+  <nav class="nav-container">
+    
+    <!-- Left side of the navbar: logo and navigation links -->
+    <div class="nav-left">
+      <!-- Site logo, links to the homepage -->
+      <a href="standard_index.html" class="nav-logo">iBay</a>
+
+      <!-- Link to add a new listing (behavior changes based on login status via JS) -->
+      <a href="#" id="addListingBtn" class="nav-link">Add Listing</a>
+
+      <!-- Example static link (can be renamed or redirected) -->
+      <a href="shop.html" class="nav-link">Example button</a>
+    </div>
+
+    <!-- Right side of the navbar: account/login area -->
+    <div class="nav-right">
+      <!-- This section will be populated dynamically by JavaScript -->
+      <div class="account-dropdown" id="accountSection">
+        <!-- JavaScript will insert login or account menu here -->
       </div>
-      <div class="nav-right">
-        <div class="account-dropdown" id="accountSection">
-          <!-- JavaScript will insert content here -->
-        </div>
-      </div>
-    </nav>
-  </header>
+    </div>
+
+  </nav>
+</header>
