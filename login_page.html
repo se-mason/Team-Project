@@ -3,57 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>iBay - Sign Up</title>
+  <title>iBay - Sign In</title>
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
-  <!--icons, denoted with <i> tag-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
-    #postcode {
-      text-transform: uppercase;
+    /* styles specific to login page */
+    .login-container {
+      max-width: 400px;
     }
-    #postcode::placeholder {
-      text-transform: none;
+    .forgot-password {
+      text-align: right;
+      margin-top: -10px;
+      margin-bottom: 15px;
+    }
+    .forgot-password a {
+      font-size: 13px;
+      color: #666;
+    }
+    .forgot-password a:hover {
+      color: #3498db;
+    }
+    .login-footer {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .login-footer p {
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
   <div class="signup-wrapper">
-    <div class="signup-container">
-      <h2><i class="fas fa-user-plus"></i> Create Account</h2>
-      <form action="php/user_signup.php" method="POST" id="signupForm" novalidate>
+    <div class="signup-container login-container">
+      <h2><i class="fas fa-sign-in-alt"></i> Sign In</h2>
+      <form action="php/user_login.php" method="POST" id="loginForm" novalidate>
         <div class="input-group">
           <i class="fas fa-user"></i>
           <input type="text" name="userId" placeholder="Username" required />
         </div>
         <div class="input-group">
-          <i class="fas fa-id-card"></i>
-          <input type="text" name="name" placeholder="Full Name" required />
-        </div>
-        <div class="input-group">
-          <i class="fas fa-envelope"></i>
-          <input type="email" name="email" placeholder="Email Address" required />
-        </div>
-        <div class="input-group">
-          <i class="fas fa-home"></i>
-          <input type="text" name="address" placeholder="Address" required />
-        </div>
-        <div class="input-group">
-          <i class="fas fa-map-marker-alt"></i>
-          <input type="text" name="postcode" id="postcode" placeholder="Postcode" required />
-        </div>
-        <div class="input-group">
           <i class="fas fa-lock"></i>
           <input type="password" name="password" id="password" placeholder="Password" required />
         </div>
-        <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required />
-          <span class="password-error" style="display: none; color: #e74c3c; font-size: 12px; margin-top: 5px;">Passwords do not match</span>
+        <div class="forgot-password">
+          <a href="forgot_password.html">Forgot Password?</a>
         </div>
-        <input type="submit" value="Create Account" />
+        <input type="submit" value="Sign In" />
       </form>
-      <div class="form-footer">
-        <p>Already have an account? <a href="login_page.html">Sign In</a></p>
+      <div class="login-footer">
+        <p>Don't have an account? <a href="user_signup.html">Create Account</a></p>
         <p><a href="standard_index.html"><i class="fas fa-arrow-left"></i> Return to iBay</a></p>
       </div>
     </div>
@@ -63,42 +61,5 @@
   <div id="popup" class="popup-overlay" style="display:none;"></div>
   <!-- Link to the popup script -->
   <script src="scripts/popup.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('signupForm');
-      const password = document.getElementById('password');
-      const confirmPassword = document.getElementById('confirmPassword');
-      const postcode = document.getElementById('postcode');
-      const passwordError = document.querySelector('.password-error');
-
-      // Auto-capitalize postcode
-      postcode.addEventListener('input', function() {
-        this.value = this.value.toUpperCase();
-      });
-
-      // Check passwords match
-      function checkPasswords() {
-        if (password.value !== confirmPassword.value) {
-          passwordError.style.display = 'block';
-          return false;
-        } else {
-          passwordError.style.display = 'none';
-          return true;
-        }
-      }
-
-      // Add event listeners for password fields
-      password.addEventListener('input', checkPasswords);
-      confirmPassword.addEventListener('input', checkPasswords);
-
-      // Form submission
-      form.addEventListener('submit', function(e) {
-        if (!checkPasswords()) {
-          e.preventDefault();
-          return false;
-        }
-      });
-    });
-  </script>
 </body>
-</html>
+</html> 
