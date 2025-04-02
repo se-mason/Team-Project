@@ -3,38 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Login</title>
-
-  <!-- Main site styling -->
-  <link rel="stylesheet" href="stylesheets/styles.css" />
-
-  <!-- Popup message styling (for login errors, alerts, etc.) -->
-  <link rel="stylesheet" href="stylesheets/popup.css" />
+  <title>iBay - Sign Up</title>
+  <link rel="stylesheet" href="stylesheets/mainstyle.css" />
+  <!--icons, denoted with <i> tag-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    #postcode {
+      text-transform: uppercase;
+    }
+    #postcode::placeholder {
+      text-transform: none;
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Sign in container -->
   <div class="signup-wrapper">
     <div class="signup-container">
-      <h2>Sign In</h2>
-
-      <!-- Login form sends credentials to user_login.php using POST (hides password in URL) -->
-      <form action="php/user_login.php" method="POST">
-        <input type="text" name="userId" placeholder="Username" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <input type="submit" value="Login" />
+      <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+      <form action="php/user_signup.php" method="POST" id="signupForm" novalidate>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" name="userId" placeholder="Username" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-id-card"></i>
+          <input type="text" name="name" placeholder="Full Name" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" placeholder="Email Address" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-home"></i>
+          <input type="text" name="address" placeholder="Address" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" name="postcode" id="postcode" placeholder="Postcode" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" id="password" placeholder="Password" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required />
+          <span class="password-error" style="display: none; color: #e74c3c; font-size: 12px; margin-top: 5px;">Passwords do not match</span>
+        </div>
+        <input type="submit" value="Create Account" />
       </form>
-
-      <!-- Additional navigation links -->
-      <p>Don't have an account? <a href="user_signup.html">Sign Up</a></p>
-      <p><a href="standard_index.html">Return to iBay</a></p>
+      <div class="form-footer">
+        <p>Already have an account? <a href="login_page.html">Sign In</a></p>
+        <p><a href="standard_index.html"><i class="fas fa-arrow-left"></i> Return to iBay</a></p>
+      </div>
     </div>
   </div>
 
-  <!-- Popup message container (hidden by default, shown via JS) -->
+  <!-- Popup container -->
   <div id="popup" class="popup-overlay" style="display:none;"></div>
-
-  <!-- Script to handle displaying popup messages passed via URL (e.g. ?popup=Login+failed) -->
+  <!-- Link to the popup script -->
   <script src="scripts/popup.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('signupForm');
+      const password = document.getElementById('password');
+      const confirmPassword = document.getElementById('confirmPassword');
+      const postcode = document.getElementById('postcode');
+      const passwordError = document.querySelector('.password-error');
+
+      // Auto-capitalize postcode
+      postcode.addEventListener('input', function() {
+        this.value = this.value.toUpperCase();
+      });
+
+      // Check passwords match
+      function checkPasswords() {
+        if (password.value !== confirmPassword.value) {
+          passwordError.style.display = 'block';
+          return false;
+        } else {
+          passwordError.style.display = 'none';
+          return true;
+        }
+      }
+
+      // Add event listeners for password fields
+      password.addEventListener('input', checkPasswords);
+      confirmPassword.addEventListener('input', checkPasswords);
+
+      // Form submission
+      form.addEventListener('submit', function(e) {
+        if (!checkPasswords()) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    });
+  </script>
 </body>
 </html>
