@@ -1,3 +1,13 @@
+/* Favicon */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600&display=swap');
+
+/* Prevent favicon stretching */
+link[rel="icon"] {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
 * {
     margin: 0;
     padding: 0;
