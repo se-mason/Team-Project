@@ -4,61 +4,249 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iBay -> Add Listing</title>
-  <link rel="stylesheet" href="stylesheets/styles.css" />
+  <link rel="stylesheet" href="stylesheets/mainstyle.css" />
   <link rel="stylesheet" href="stylesheets/popup.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    .listing-form-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .form-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #333;
+      font-size: 1.8rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .listing-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-input {
+      padding: 0.75rem;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-input:focus {
+      border-color: #601a8a;
+      outline: none;
+    }
+
+    .form-select {
+      padding: 0.75rem;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      background-color: white;
+      cursor: pointer;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #666;
+    }
+
+    .form-select option:disabled {
+      color: #666;
+    }
+
+    .form-textarea {
+      padding: 0.75rem;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 120px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .photo-upload {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      border: 2px dashed #ddd;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .photo-upload i {
+      font-size: 2rem;
+      color: #601a8a;
+    }
+
+    .photo-upload p {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #666;
+      margin: 0;
+    }
+
+    .photo-preview {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .preview-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .submit-btn {
+      padding: 1rem;
+      background-color: #601a8a;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .submit-btn:hover {
+      background-color: #4a1366;
+    }
+
+    .date-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  </style>
 </head>
 <body>
+  <header class="header">
+    <a href="standard_index.html" class="logo">
+      <img src="iBay logo.png" alt="iBay">
+    </a>
+    
+    <div class="account-dropdown">
+      <button class="account-btn">
+        <i class="fas fa-user"></i>
+        Account
+      </button>
+      <div class="dropdown-content">
+        <a href="login_page.html"><i class="fas fa-sign-in-alt"></i> Log In</a>
+        <a href="user_signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
+        <a href="account.html"><i class="fas fa-user-circle"></i> My Account</a>
+        <a href="my_listings.html"><i class="fas fa-list"></i> My Listings</a>
+        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+      </div>
+    </div>
+  </header>
 
-  <!-- Load navbar -->
-  <div id="navbar-container"></div>
+  <div class="listing-form-container">
+    <h2 class="form-title">Create New Listing</h2>
+    <form action="php/new_listing.php" method="POST" class="listing-form" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="title">Item Title</label>
+        <input type="text" id="title" name="title" class="form-input" placeholder="Enter item title" required />
+      </div>
 
-  <!-- Body section -->
-      <h2>List item</h2>
-    <div>
-            <form action="php/new_listing.php" method="POST">
-                <!-- POST to hide the input information from the browser  -->
-                <input type="text" name="title" placeholder="Item Name" required />
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="category" class="form-select" required>
+          <option value="" disabled selected hidden>Select a category</option>
+          <option value="misc">Miscellaneous</option>
+          <option value="electronics">Electronics</option>
+          <option value="clothing">Clothing</option>
+          <option value="books">Books</option>
+        </select>
+      </div>
 
-                <!-- Drop down menu for category-->
-                <label for="category">Category:</label>
-                <select id="category" name="category" required>
-                    <option value="" disabled selected hidden>Select a category</option>
-                    <option value="misc">Misc</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="books">Books</option>
-                </select>
+      <div class="form-group">
+        <label for="price">Price (£)</label>
+        <input type="number" id="price" name="price" class="form-input" min="0" max="1000001" step="0.01" placeholder="0.00" required />
+      </div>
 
-                <!-- Price, capped at 1 million-->
-                <label for="price">Price (£):</label>
-                <input type="number" id="price" name="price" min="0" max="1000001" step="0.01" required>
+      <div class="form-group">
+        <label for="postage">Postage Information</label>
+        <input type="text" id="postage" name="postage" class="form-input" placeholder="Enter postage details" required />
+      </div>
 
-                <!-- Postage-->
-                <input type="text" name="postage" placeholder="Postage Information" required />
+      <div class="form-group">
+        <label for="description">Item Description</label>
+        <textarea id="description" name="description" class="form-textarea" placeholder="Enter a detailed description of your item..." required></textarea>
+      </div>
 
-                <!-- Description text area-->
-                <label for="description">Item Description:</label>
-                <textarea id="description" name="description" rows="6" placeholder="Enter a detailed description..." required></textarea>
+      <div class="form-group">
+        <label>Item Photos</label>
+        <div class="photo-upload">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Click or drag photos to upload</p>
+          <input type="file" name="photos[]" multiple accept="image/*" class="form-input" required />
+          <div class="photo-preview" id="photo-preview"></div>
+        </div>
+      </div>
 
-                <!-- Date mangement-->
-                <label for="start">Bid start date:</label>
-                <input type="date" id="start" name="start"/>
-
-                <label for="end">Bid end date:</label>
-                <input type="date" id="end" name="finish" required/>
-
-                <!-- Submission-->
-                <input type="submit" value="List Item" />
-            </form>
+      <div class="date-group">
+        <div class="form-group">
+          <label for="start">Bid Start Date</label>
+          <input type="date" id="start" name="start" class="form-input" required />
         </div>
 
+        <div class="form-group">
+          <label for="end">Bid End Date</label>
+          <input type="date" id="end" name="finish" class="form-input" required />
+        </div>
+      </div>
 
+      <button type="submit" class="submit-btn">
+        <i class="fas fa-plus-circle"></i> Create Listing
+      </button>
+    </form>
+  </div>
 
   <!-- Popup container -->
   <div id="popup" class="popup-overlay" style="display:none;"></div>
+  
   <!-- Scripts -->
   <script src="scripts/popup.js"></script>
   <script src="scripts/navbar_loader.js"></script>
-
+  <script>
+    // Photo preview functionality
+    document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+      const preview = document.getElementById('photo-preview');
+      preview.innerHTML = '';
+      
+      for (let file of e.target.files) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'preview-image';
+          preview.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
 </body>
 </html>
