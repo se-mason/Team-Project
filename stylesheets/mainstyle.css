@@ -395,6 +395,15 @@ link[rel="icon"] {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .menu-header h3 {
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
   }
 
   .category-section {
@@ -403,13 +412,28 @@ link[rel="icon"] {
 
   .category-title {
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 400;
     color: #333;
     margin-bottom: 15px;
+    cursor: pointer;
+  }
+
+  .category-link {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+  }
+
+  .category-link:hover {
+    color: #601a8a;
   }
 
   .subcategory-list {
     list-style: none;
+    padding-left: 15px;
   }
 
   .subcategory-item {
@@ -419,8 +443,11 @@ link[rel="icon"] {
   .subcategory-link {
     color: #666;
     text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s;
+    transition: color 0.2s ease;
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    font-size: 0.95rem;
   }
 
   .subcategory-link:hover {
