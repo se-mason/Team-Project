@@ -6,6 +6,7 @@
   <title>iBay - Sign Up</title>
   <link rel="icon" type="image/png" href="iBay i.png" />
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
+  <link rel="stylesheet" href="stylesheets/signup.css" />
   <!--icons, denoted with <i> tag-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
@@ -49,13 +50,13 @@
         <div class="input-group">
           <i class="fas fa-lock"></i>
           <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required />
-          <span class="password-error" style="display: none; color: #e74c3c; font-size: 12px; margin-top: 5px;">Passwords do not match</span>
+          <span class="password-error">Passwords do not match</span>
         </div>
         <input type="submit" value="Create Account" />
       </form>
       <div class="form-footer">
-        <p>Already have an account? <a href="login_page.html">Sign In</a></p>
-        <p><a href="standard_index.html"><i class="fas fa-arrow-left"></i> Return to iBay</a></p>
+        <p>Already have an account? <a href="login.html">Sign In</a></p>
+        <p><a href="home.html"><i class="fas fa-arrow-left"></i> Return to iBay</a></p>
       </div>
     </div>
   </div>
@@ -65,7 +66,7 @@
   </footer>
 
   <!-- Popup container -->
-  <div id="popup" class="popup-overlay" style="display:none;"></div>
+  <div id="popup" class="popup-overlay"></div>
   <!-- Link to the popup script -->
   <script src="scripts/popup.js"></script>
   <script>

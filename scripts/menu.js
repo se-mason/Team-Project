@@ -5,18 +5,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const subcategoryLinks = document.querySelectorAll('.subcategory-link');
   let menuTimeout;
 
-  // Prevent default behavior for all category and subcategory links
-  categoryLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-    });
-  });
+  // Function to reset menu scroll
+  function resetMenuScroll() {
+    categoriesMenu.scrollTop = 0;
+  }
 
-  subcategoryLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-    });
-  });
+  // Function to close menu
+  function closeMenu() {
+    categoriesMenu.classList.remove('active');
+    categoriesMenu.style.left = '-300px';
+    setTimeout(() => {
+      categoriesMenu.style.display = 'none';
+      resetMenuScroll();
+    }, 300);
+  }
 
   // Menu button click handler
   menuBtn.addEventListener('click', function() {
@@ -25,10 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
       categoriesMenu.style.left = '0';
       categoriesMenu.style.display = 'block';
     } else {
-      categoriesMenu.style.left = '-300px';
-      setTimeout(() => {
-        categoriesMenu.style.display = 'none';
-      }, 300);
+      closeMenu();
     }
   });
 
@@ -41,27 +40,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Mouse leave handler for menu
   categoriesMenu.addEventListener('mouseleave', function() {
-    categoriesMenu.style.left = '-300px';
-    menuTimeout = setTimeout(() => {
-      categoriesMenu.style.display = 'none';
-    }, 300);
-  });
-
-  // Reset scroll position when menu is closed
-  categoriesMenu.addEventListener('transitionend', function() {
-    if (!categoriesMenu.classList.contains('active')) {
-      categoriesMenu.scrollTop = 0;
-    }
+    closeMenu();
   });
 
   // Close menu when clicking outside
   document.addEventListener('click', function(event) {
     if (!categoriesMenu.contains(event.target) && !menuBtn.contains(event.target)) {
-      categoriesMenu.classList.remove('active');
-      categoriesMenu.style.left = '-300px';
-      setTimeout(() => {
-        categoriesMenu.style.display = 'none';
-      }, 300);
+      closeMenu();
     }
+  });
+
+  // Reset scroll when menu is closed
+  categoriesMenu.addEventListener('transitionend', function() {
+    if (!categoriesMenu.classList.contains('active')) {
+      resetMenuScroll();
+    }
+  });
+
+  // Handle category and subcategory link clicks
+  categoryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Allow the default navigation behavior
+      // The menu will close automatically due to the click outside handler
+    });
+  });
+
+  subcategoryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Allow the default navigation behavior
+      // The menu will close automatically due to the click outside handler
+    });
   });
 }); 

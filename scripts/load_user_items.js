@@ -3,21 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Retrieve the logged-in user's ID from sessionStorage
   const userId = sessionStorage.getItem("userId");
 
-  // Detect the current page from the URL (e.g., 'profile.html' or 'standard_index.html')
-  // If the URL ends in '/' (i.e., home page), default to 'standard_index.html'
-  const currentPage = window.location.pathname.split("/").pop() || "standard_index.html";
+  // Detect the current page from the URL (e.g., 'profile.html' or 'home.html')
+  // If the URL ends in '/' (i.e., home page), default to 'home.html'
+  const currentPage = window.location.pathname.split("/").pop() || "html/home.html";
 
   // Determine which PHP file to call based on the page
   let phpEndpoint = "";
 
-  if (currentPage === "profile.html") {
+  if (currentPage === "html/profile.html") {
     // Profile page: must have a logged-in user
     if (!userId) {
       console.error("No user ID found in sessionStorage.");
       return;
     }
     phpEndpoint = `../php/get_user_listings.php?userId=${userId}`;
-  } else if (currentPage === "standard_index.html") {
+  } else if (currentPage === "html/home.html") {
     // Homepage: show all items not posted by the user if logged in, or all items if not
     phpEndpoint = userId 
       ? `../php/get_non_user_listings.php?userId=${userId}`
