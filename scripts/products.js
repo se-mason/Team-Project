@@ -16,7 +16,8 @@ function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
     return {
         category: params.get('category'),
-        subcategory: params.get('subcategory')
+        subcategory: params.get('subcategory'),
+        search: params.get('search')
     };
 }
 
@@ -43,10 +44,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
     const subcategory = urlParams.get('subcategory');
+    const searchTerm = urlParams.get('search');
 
     // Initialize category and subcategory selects
     const categorySelect = document.getElementById('categorySelect');
     const subcategorySelect = document.getElementById('subcategorySelect');
+    const searchBar = document.querySelector('.search-bar');
+
+    // Set search term from URL if present
+    if (searchTerm) {
+        searchBar.value = searchTerm;
+    }
+
+    // Handle search input
+    searchBar.addEventListener('input', function() {
+        updateUrlAndFilter();
+    });
+
+    // Handle search button click
+    document.querySelector('.search-button').addEventListener('click', function() {
+        updateUrlAndFilter();
+    });
+
+    // Handle Enter key in search bar
+    searchBar.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            updateUrlAndFilter();
+        }
+    });
 
     // Handle category selection
     categorySelect.addEventListener('change', function() {
@@ -84,10 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
             subcategorySelect.value = subcategory;
         }
     }
-
-    // Handle search input
-    const searchInput = document.getElementById('productSearch');
-    searchInput.addEventListener('input', debounce(applyFilters, 300));
 
     // Handle price range inputs
     const minPriceInput = document.getElementById('minPrice');
@@ -139,6 +160,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             params.delete('subcategory');
         }
+
+        if (searchBar.value) {
+            params.set('search', searchBar.value);
+        } else {
+            params.delete('search');
+        }
         
         window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
         filterProducts();
@@ -148,20 +175,46 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterProducts() {
         const selectedCategory = categorySelect.value;
         const selectedSubcategory = subcategorySelect.value;
-        const searchTerm = document.getElementById('productSearch').value.toLowerCase();
-        const minPrice = document.getElementById('minPrice').value;
-        const maxPrice = document.getElementById('maxPrice').value;
+        const searchTerm = searchBar.value.toLowerCase();
+        const minPrice = document.querySelector('.price-input[placeholder="Min"]').value;
+        const maxPrice = document.querySelector('.price-input[placeholder="Max"]').value;
         const selectedConditions = Array.from(document.querySelectorAll('input[name="condition"]:checked'))
             .map(checkbox => checkbox.value);
         const selectedLocation = locationSelect.value;
 
-        // TODO: Implement actual filtering logic with your backend
-        console.log('Filtering products with:', {
-            category: selectedCategory,
-            subcategory: selectedSubcategory,
-            priceRange: { min: minPrice, max: maxPrice },
-            conditions: selectedConditions,
-            location: selectedLocation
+        // Get all product cards
+        const productCards = document.querySelectorAll('.product-card');
+        
+        productCards.forEach(card => {
+            const title = card.querySelector('.product-title').textContent.toLowerCase();
+            const description = card.querySelector('.product-description')?.textContent.toLowerCase() || '';
+            const price = parseFloat(card.querySelector('.product-price').textContent.replace(/[^0-9.]/g, ''));
+            const condition = card.querySelector('.product-condition').textContent.toLowerCase();
+            const location = card.querySelector('.product-location').textContent.toLowerCase();
+            const category = card.getAttribute('data-category')?.toLowerCase() || '';
+            const subcategory = card.getAttribute('data-subcategory')?.toLowerCase() || '';
+
+            // Check if product matches all filters
+            const matchesSearch = !searchTerm || 
+                                title.includes(searchTerm) || 
+                                description.includes(searchTerm);
+            
+            const matchesCategory = !selectedCategory || category === selectedCategory;
+            const matchesSubcategory = !selectedSubcategory || subcategory === selectedSubcategory;
+            const matchesPrice = (!minPrice || price >= parseFloat(minPrice)) && 
+                               (!maxPrice || price <= parseFloat(maxPrice));
+            const matchesCondition = selectedConditions.length === 0 || 
+                                   selectedConditions.includes(condition);
+            const matchesLocation = !selectedLocation || 
+                                  location.includes(selectedLocation.toLowerCase());
+
+            // Show/hide product based on filters
+            if (matchesSearch && matchesCategory && matchesSubcategory && 
+                matchesPrice && matchesCondition && matchesLocation) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
         });
     }
 

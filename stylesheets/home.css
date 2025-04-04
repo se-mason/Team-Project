@@ -1,122 +1,144 @@
-/* Index Page Styles */
-.hero-section {
-    background: linear-gradient(135deg, #601a8a 0%, #8a1a60 100%);
-    padding: 4rem 2rem;
-    text-align: center;
-    color: white;
-    margin-bottom: 2rem;
-}
-
-.hero-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
-
-.hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.hero-search {
-    max-width: 600px;
-    margin: 0 auto;
+main {
+    width: 100%;
+    overflow-x: hidden;
     position: relative;
 }
 
-.hero-search input {
+body {
+    overflow-x: hidden;
     width: 100%;
-    padding: 1rem 3rem 1rem 1.5rem;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.hero-search button {
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #601a8a 0%, #8a2be2 100%);
+    padding: 6rem 2rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    margin-top: -64px; /* Offset for header height */
+    padding-top: calc(6rem + 64px); /* Add header height to padding */
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    position: relative;
+}
+
+.hero-section::before {
+    content: '';
     position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #601a8a;
-    font-size: 1.2rem;
-    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/pattern.png') repeat;
+    opacity: 0.1;
+}
+
+.hero-content {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
 }
 
 /* Featured Categories */
 .featured-categories {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 5rem 2rem;
+    background: #fff;
 }
 
 .section-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: #333;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
     text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #601a8a;
+    margin: 1rem auto 0;
+    border-radius: 2px;
 }
 
 .categories-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .category-card {
     background: white;
-    border-radius: 8px;
-    overflow: hidden;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .category-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
 }
 
-.category-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+.category-card i {
+    font-size: 3rem;
+    color: #601a8a;
+    margin-bottom: 1rem;
 }
 
-.category-info {
-    padding: 1.5rem;
-    text-align: center;
-}
-
-.category-name {
-    font-size: 1.2rem;
+.category-card h3 {
+    font-size: 1.5rem;
     color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.category-description {
-    color: #666;
-    font-size: 0.9rem;
     margin-bottom: 1rem;
 }
 
 .browse-category-btn {
     display: inline-block;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 2rem;
     background: transparent;
     color: #601a8a;
-    border: 1px solid #601a8a;
-    border-radius: 4px;
+    border: 2px solid #601a8a;
+    border-radius: 25px;
     text-decoration: none;
+    font-weight: 600;
     transition: all 0.2s;
 }
 
 .browse-category-btn:hover {
     background: #601a8a;
     color: white;
+    transform: translateY(-2px);
 }
 
 /* Featured Items */
@@ -182,14 +204,14 @@
 
 /* How It Works */
 .how-it-works {
-    padding: 4rem 2rem;
-    background: white;
+    padding: 5rem 2rem;
+    background: #f8f9fa;
 }
 
 .steps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -197,26 +219,48 @@
 .step-card {
     text-align: center;
     padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    display: block;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    text-decoration: none;
 }
 
 .step-icon {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     background: #f0e6f6;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
+    transition: all 0.3s;
+}
+
+.step-card:hover .step-icon {
+    background: #601a8a;
 }
 
 .step-icon i {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #601a8a;
+    transition: all 0.3s;
+}
+
+.step-card:hover .step-icon i {
+    color: white;
 }
 
 .step-title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #333;
     margin-bottom: 1rem;
 }
@@ -224,25 +268,36 @@
 .step-description {
     color: #666;
     line-height: 1.6;
+    font-size: 1.1rem;
 }
 
-/* Call to Action */
+/* CTA Section */
 .cta-section {
-    background: linear-gradient(135deg, #601a8a 0%, #8a1a60 100%);
-    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #601a8a 0%, #8a2be2 100%);
+    padding: 5rem 2rem;
     text-align: center;
     color: white;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-bottom: -48px; /* Offset for footer height */
+    padding-bottom: calc(5rem + 48px); /* Add footer height to padding */
+    position: relative;
 }
 
 .cta-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
+    font-weight: 700;
 }
 
 .cta-text {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
     opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cta-buttons {
@@ -252,12 +307,14 @@
 }
 
 .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 1rem 2rem;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    font-weight: 500;
+    border-radius: 25px;
     text-decoration: none;
-    transition: all 0.2s;
+    font-weight: 600;
+    transition: all 0.3s;
 }
 
 .cta-btn.primary {
@@ -284,6 +341,40 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
         font-size: 2rem;
     }
 
@@ -291,19 +382,11 @@
         font-size: 1rem;
     }
 
-    .categories-grid,
-    .items-grid,
-    .steps-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .cta-title {
+        font-size: 2rem;
     }
 
-    .cta-buttons {
-        flex-direction: column;
-    }
-
-    .featured-categories,
-    .featured-items,
-    .how-it-works {
-        padding: 1rem;
+    .cta-text {
+        font-size: 1rem;
     }
 } 
