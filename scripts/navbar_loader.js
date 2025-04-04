@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch the shared navbar HTML fragment from an external file
   const basePath = window.location.pathname.includes('html/') ? 'html/' : '../';
-  fetch(`${basePath}html-assets/navbar.html`)
+  fetch(`${basePath}../html-assets/navbar.html`)
     .then((response) => response.text()) // Convert the response to plain text
     .then((html) => {
       // Insert the navbar HTML into the page
@@ -17,9 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🟢 Logged-in view: show account button with dropdown and logout
 
         accountSection.innerHTML = `
-          <button id="accountBtn" class="account-btn">${userId} ▾</button>
-          <div id="accountMenu" class="account-menu" style="display: none;">
-            <a href="profile.html">Profile</a>
+          <button class="account-btn">
+            <i class="fas fa-user"></i>${userId} ▾
+          </button>
+          <div class="dropdown-content">
+            <a href="profile.html"><i class="fas fa-user-circle"></i> My Account</a>
+            <a href="my_listings.html"><i class="fas fa-list"></i> My Listings</a>
             <a href="standard_index.html" id="logoutBtn">Log out</a>
           </div>
         `;

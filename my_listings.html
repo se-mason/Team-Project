@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Listings - iBay</title>
+  <link rel="icon" type="image/png" href="../iBay i.png" />
+  <link rel="stylesheet" href="../stylesheets/mainstyle.css" />
+  <link rel="stylesheet" href="../stylesheets/my_listings.css" />
+  <link rel="stylesheet" href="../stylesheets/popup.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  
+</head>
+<body>
+  <!-- Load navbar -->
+  <div id="navbar-container"></div>
+
+  <main class="listings-container">
+    <div class="listings-header">
+      <h1>My Listings</h1>
+      <a href="new_listing.html" class="new-listing-btn">
+        <i class="fas fa-plus"></i> New Listing
+      </a>
+    </div>
+
+    <div class="listings-filters">
+      <select id="status-filter">
+        <option value="all">All Status</option>
+        <option value="active">Active</option>
+        <option value="sold">Sold</option>
+        <option value="expired">Expired</option>
+      </select>
+      <select id="sort-by">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="price-low">Price: Low to High</option>
+      </select>
+    </div>
+
+    <div id="empty-state" class="empty-state">
+      <i class="fas fa-box-open"></i>
+      <h2>No Listings Yet</h2>
+      <p>Start selling by creating your first listing!</p>
+      <a href="new_listing.html" class="new-listing-btn">
+        <i class="fas fa-plus"></i> Create Listing
+      </a>
+    </div>
+
+    <div id="listings-wrapper">
+        <div id="listings-container" class="listings"></div>
+    </div>
+
+    <div id="listings-grid" class="listings-grid">
+      <!-- Listings will be dynamically inserted here -->
+    </div>
+
+  </main>
+
+  <!-- Popup container -->
+  <div id="popup" class="popup-overlay"></div>
+  
+  <footer class="footer">
+    <p class="footer-text">Copyright © 2025 iBay Inc. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../scripts/menu.js"></script>
+  <script src="../scripts/menu_loader.js"></script>
+  <script src="../scripts/account_dropdown.js"></script>
+  <script src="../scripts/search.js"></script>
+  <script src="../scripts/my_listings.js"></script>
+
+  <script src="scripts/navbar_loader.js"></script>
+  <script src="scripts/load_user_items.js"></script>
+  <script src="../scripts/popup.js"></script>
+  <script src="../scripts/navbar_loader.js"></script>
+</body>
+</html> 
