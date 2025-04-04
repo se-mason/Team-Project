@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const menuBtn = document.querySelector('.menu-btn');
+  const menuBtn = document.querySelector('.menu-button');
   const categoriesMenu = document.querySelector('.categories-menu');
   const categoryLinks = document.querySelectorAll('.category-link');
   const subcategoryLinks = document.querySelectorAll('.subcategory-link');
+  const accountBtn = document.querySelector('.account-btn');
+  const dropdownContent = document.querySelector('.dropdown-content');
   let menuTimeout;
 
   // Function to reset menu scroll
@@ -48,6 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!categoriesMenu.contains(event.target) && !menuBtn.contains(event.target)) {
       closeMenu();
     }
+    // Also close dropdown if clicking outside
+    if (!accountBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
+      dropdownContent.style.display = 'none';
+    }
   });
 
   // Reset scroll when menu is closed
@@ -71,4 +77,19 @@ document.addEventListener('DOMContentLoaded', function() {
       // The menu will close automatically due to the click outside handler
     });
   });
+
+  // Account dropdown functionality
+  accountBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+  });
+
+  // Handle logout
+  const logoutBtn = document.querySelector('.logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'login.html';
+    });
+  }
 }); 

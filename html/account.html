@@ -4,23 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iBay - My Account</title>
-  <link rel="icon" type="image/png" href="iBay i.png" />
-  <link rel="stylesheet" href="stylesheets/mainstyle.css" />
-  <link rel="stylesheet" href="stylesheets/account.css" />
+  <link rel="icon" type="image/png" href="../iBay i.png" />
+  <link rel="stylesheet" href="../stylesheets/mainstyle.css" />
+  <link rel="stylesheet" href="../stylesheets/account.css" />
+  <link rel="stylesheet" href="../stylesheets/popup.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
-
-  <!-- Load navbar -->
-  <div id="navbar-container"></div>
-
-  <header class="header">
+  <header>
     <div class="header-left">
-      <button class="menu-btn">
+      <button class="menu-button" id="menuButton">
         <i class="fas fa-bars"></i>
       </button>
       <a href="home.html" class="logo">
-        <img src="iBay logo.png" alt="iBay">
+        <img src="../iBay logo.png" alt="iBay">
       </a>
       <!-- Categories Menu -->
       <div class="categories-menu">
@@ -28,76 +25,105 @@
       </div>
     </div>
 
-    <div class="account-dropdown">
-      <button class="account-btn">
-        <i class="fas fa-user"></i>
-        Account
-      </button>
-      <div class="dropdown-content">
-        <a href="login_page.html"><i class="fas fa-sign-in-alt"></i> Log In</a>
-        <a href="user_signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
-        <a href="account.html"><i class="fas fa-user-circle"></i> My Account</a>
-        <a href="my_listings.html"><i class="fas fa-list"></i> My Listings</a>
-        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+    <div class="header-center">
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for anything...">
+        <button class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="account-dropdown">
+        <button class="account-btn">
+          <i class="fas fa-user"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+          <a href="user_signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
+          <a href="account.html"><i class="fas fa-user-circle"></i> My Account</a>
+          <a href="my_listings.html"><i class="fas fa-list"></i> My Listings</a>
+          <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
     <div class="account-container">
-        <!-- Account Sidebar Navigation -->
+        <!-- Sidebar Navigation -->
         <div class="account-sidebar">
             <h2>My Account</h2>
-            <nav class="account-nav">
-                <a href="#overview" class="nav-item active" data-section="overview">
-                    <i class="fas fa-user-circle"></i> Account Overview
+            <nav class="sidebar-menu">
+                <a href="#overview" class="sidebar-item active">
+                    <i class="fas fa-user-circle"></i>
+                    Account Overview
                 </a>
-                <a href="#listings" class="nav-item" data-section="listings">
-                    <i class="fas fa-tags"></i> My Active Listings
+                <a href="#listings" class="sidebar-item">
+                    <i class="fas fa-tag"></i>
+                    My Active Listings
                 </a>
-                <a href="#purchases" class="nav-item" data-section="purchases">
-                    <i class="fas fa-shopping-bag"></i> Purchase History
+                <a href="#history" class="sidebar-item">
+                    <i class="fas fa-history"></i>
+                    Purchase History
                 </a>
-                <a href="#saved" class="nav-item" data-section="saved">
-                    <i class="fas fa-heart"></i> Saved Items
+                <a href="#saved" class="sidebar-item">
+                    <i class="fas fa-heart"></i>
+                    Saved Items
                 </a>
-                <a href="#settings" class="nav-item" data-section="settings">
-                    <i class="fas fa-cog"></i> Account Settings
+                <a href="#settings" class="sidebar-item">
+                    <i class="fas fa-cog"></i>
+                    Account Settings
                 </a>
             </nav>
         </div>
 
-        <!-- Account Content Area -->
+        <!-- Main Content Area -->
         <div class="account-content">
             <!-- Account Overview Section -->
             <section id="overview" class="account-section active">
                 <h2><i class="fas fa-user-circle"></i> Account Overview</h2>
-                <div class="account-info">
+                <div class="profile-section">
                     <div class="profile-picture">
-                        <img src="https://via.placeholder.com/150" alt="Profile Picture">
-                        <button class="edit-btn"><i class="fas fa-camera"></i> Change Photo</button>
+                        <img src="../images/default-profile.png" alt="Profile Picture">
+                        <button class="change-photo-btn">
+                            <i class="fas fa-camera"></i>
+                            Change Photo
+                        </button>
                     </div>
                     <div class="personal-info">
-                        <h3>Personal Information</h3>
                         <div class="info-group">
                             <label>Name:</label>
-                            <span>John Doe</span>
-                            <button class="edit-btn small"><i class="fas fa-edit"></i></button>
+                            <span class="value">John Doe</span>
+                            <button class="edit-btn">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </button>
                         </div>
                         <div class="info-group">
                             <label>Email:</label>
-                            <span>john.doe@example.com</span>
-                            <button class="edit-btn small"><i class="fas fa-edit"></i></button>
+                            <span class="value">john.doe@example.com</span>
+                            <button class="edit-btn">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </button>
+                        </div>
+                        <div class="info-group">
+                            <label>Address:</label>
+                            <span class="value">123 Main St, City, Country</span>
+                            <button class="edit-btn">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </button>
                         </div>
                         <div class="info-group">
                             <label>Phone:</label>
-                            <span>+44 123 456 7890</span>
-                            <button class="edit-btn small"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="info-group">
-                            <label>Location:</label>
-                            <span>London, UK</span>
-                            <button class="edit-btn small"><i class="fas fa-edit"></i></button>
+                            <span class="value">+1 234 567 8900</span>
+                            <button class="edit-btn">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -126,8 +152,8 @@
             </section>
 
             <!-- Purchase History Section -->
-            <section id="purchases" class="account-section">
-                <h2><i class="fas fa-shopping-bag"></i> Purchase History</h2>
+            <section id="history" class="account-section">
+                <h2><i class="fas fa-history"></i> Purchase History</h2>
                 <div class="purchase-history">
                     <div class="purchase-card">
                         <img src="https://via.placeholder.com/100" alt="Product">
@@ -163,30 +189,93 @@
             <!-- Account Settings Section -->
             <section id="settings" class="account-section">
                 <h2><i class="fas fa-cog"></i> Account Settings</h2>
-                <div class="settings-grid">
-                    <div class="settings-card">
-                        <i class="fas fa-lock"></i>
-                        <h3>Security</h3>
-                        <p>Password & authentication</p>
-                        <button class="settings-btn">Manage</button>
+                <div class="settings-section">
+                    <div class="settings-group">
+                        <h3><i class="fas fa-lock"></i> Security Settings</h3>
+                        <div class="settings-option">
+                            <div class="settings-option-info">
+                                <div class="settings-option-title">Change Password</div>
+                                <div class="settings-option-description">Update your password to keep your account secure</div>
+                            </div>
+                            <div class="settings-option-action">
+                                <button class="settings-btn">
+                                    <i class="fas fa-key"></i>
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+                        <div class="settings-option">
+                            <div class="settings-option-info">
+                                <div class="settings-option-title">Two-Factor Authentication</div>
+                                <div class="settings-option-description">Add an extra layer of security to your account</div>
+                            </div>
+                            <div class="settings-option-action">
+                                <button class="settings-btn">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Enable
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="settings-card">
-                        <i class="fas fa-bell"></i>
-                        <h3>Notifications</h3>
-                        <p>Email & push notifications</p>
-                        <button class="settings-btn">Configure</button>
+
+                    <div class="settings-group">
+                        <h3><i class="fas fa-bell"></i> Notification Settings</h3>
+                        <div class="settings-option">
+                            <div class="settings-option-info">
+                                <div class="settings-option-title">Email Notifications</div>
+                                <div class="settings-option-description">Manage your email notification preferences</div>
+                            </div>
+                            <div class="settings-option-action">
+                                <button class="settings-btn">
+                                    <i class="fas fa-envelope"></i>
+                                    Configure
+                                </button>
+                            </div>
+                        </div>
+                        <div class="settings-option">
+                            <div class="settings-option-info">
+                                <div class="settings-option-title">Push Notifications</div>
+                                <div class="settings-option-description">Control push notifications for mobile and desktop</div>
+                            </div>
+                            <div class="settings-option-action">
+                                <button class="settings-btn">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    Configure
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="settings-card">
-                        <i class="fas fa-credit-card"></i>
-                        <h3>Payment Methods</h3>
-                        <p>Cards & payment options</p>
-                        <button class="settings-btn">Manage</button>
+
+                    <div class="settings-group">
+                        <h3><i class="fas fa-user-shield"></i> Privacy Settings</h3>
+                        <div class="settings-option">
+                            <div class="settings-option-info">
+                                <div class="settings-option-title">Profile Visibility</div>
+                                <div class="settings-option-description">Control who can see your profile and listings</div>
+                            </div>
+                            <div class="settings-option-action">
+                                <button class="settings-btn">
+                                    <i class="fas fa-eye"></i>
+                                    Manage
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="settings-card">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Addresses</h3>
-                        <p>Shipping & billing addresses</p>
-                        <button class="settings-btn">Manage</button>
+
+                    <div class="settings-group">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Account Actions</h3>
+                        <div class="settings-option">
+                            <div class="settings-option-info">
+                                <div class="settings-option-title">Delete Account</div>
+                                <div class="settings-option-description">Permanently delete your account and all data</div>
+                            </div>
+                            <div class="settings-option-action">
+                                <button class="settings-btn danger">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -198,11 +287,15 @@
     <p class="footer-text">Copyright © 2025 iBay Inc. All Rights Reserved.</p>
   </footer>
 
+  <!-- Popup container -->
+  <div id="popup" class="popup-overlay"></div>
+
   <!-- Scripts -->
-  <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar_loader.js"></script>
-  <script src="scripts/load_user_items.js"></script>
-  <script src="scripts/menu.js"></script>
-  <script src="scripts/account.js"></script>
+  <script src="../scripts/popup.js"></script>
+  <script src="../scripts/navbar_loader.js"></script>
+  <script src="../scripts/menu.js"></script>
+  <script src="../scripts/menu_loader.js"></script>
+  <script src="../scripts/account_dropdown.js"></script>
+  <script src="../scripts/account.js"></script>
 </body>
 </html>

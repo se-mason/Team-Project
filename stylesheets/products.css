@@ -189,4 +189,99 @@
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
+}
+
+/* Category Filters */
+.category-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.category-select,
+.subcategory-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.category-select:hover,
+.subcategory-select:hover {
+    border-color: #601a8a;
+}
+
+.category-select:focus,
+.subcategory-select:focus {
+    outline: none;
+    border-color: #601a8a;
+    box-shadow: 0 0 0 2px rgba(96, 26, 138, 0.1);
+}
+
+.subcategory-select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    color: #999;
+}
+
+/* Filter Section */
+.filter-section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.filter-section h4 {
+    margin-bottom: 0.75rem;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Price Range */
+.price-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.price-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* Location Select */
+.location-select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 0.9rem;
+}
+
+/* Condition Checkboxes */
+.filter-section label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.filter-section input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #601a8a;
 } 

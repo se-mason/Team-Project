@@ -25,12 +25,12 @@ function applyUrlParams() {
     const params = getUrlParams();
     
     if (params.category) {
-        const categorySelect = document.getElementById('categoryFilter');
+        const categorySelect = document.getElementById('categorySelect');
         categorySelect.value = params.category;
         categorySelect.dispatchEvent(new Event('change')); // Trigger change event to enable subcategory
         
         if (params.subcategory) {
-            const subcategorySelect = document.getElementById('subcategoryFilter');
+            const subcategorySelect = document.getElementById('subcategorySelect');
             subcategorySelect.value = params.subcategory;
             subcategorySelect.dispatchEvent(new Event('change')); // Trigger change event to apply filter
         }
@@ -39,40 +39,51 @@ function applyUrlParams() {
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
-    // Populate category dropdown
-    const categorySelect = document.getElementById('categoryFilter');
-    Object.keys(categories).forEach(category => {
-        const option = document.createElement('option');
-        option.value = category;
-        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-        categorySelect.appendChild(option);
-    });
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    const subcategory = urlParams.get('subcategory');
+
+    // Initialize category and subcategory selects
+    const categorySelect = document.getElementById('categorySelect');
+    const subcategorySelect = document.getElementById('subcategorySelect');
 
     // Handle category selection
     categorySelect.addEventListener('change', function() {
-        const subcategorySelect = document.getElementById('subcategoryFilter');
-        subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+        const selectedCategory = this.value;
         
-        if (this.value) {
-            subcategorySelect.disabled = false;
-            categories[this.value].forEach(subcategory => {
+        // Clear and disable subcategory select
+        subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+        subcategorySelect.disabled = !selectedCategory;
+
+        // If a category is selected, populate subcategories
+        if (selectedCategory && categories[selectedCategory]) {
+            categories[selectedCategory].forEach(subcategory => {
                 const option = document.createElement('option');
                 option.value = subcategory.toLowerCase().replace(/\s+/g, '-');
                 option.textContent = subcategory;
                 subcategorySelect.appendChild(option);
             });
-        } else {
-            subcategorySelect.disabled = true;
         }
+
+        // Update URL and filter products
+        updateUrlAndFilter();
     });
 
     // Handle subcategory selection
-    const subcategorySelect = document.getElementById('subcategoryFilter');
     subcategorySelect.addEventListener('change', function() {
-        if (this.value) {
-            applyFilters();
-        }
+        updateUrlAndFilter();
     });
+
+    // If category is specified in URL, set the selects
+    if (category) {
+        categorySelect.value = category;
+        categorySelect.dispatchEvent(new Event('change'));
+        
+        if (subcategory) {
+            subcategorySelect.value = subcategory;
+        }
+    }
 
     // Handle search input
     const searchInput = document.getElementById('productSearch');
@@ -90,6 +101,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Apply URL parameters when page loads
     applyUrlParams();
+
+    // Handle category checkbox changes
+    const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
+    categoryCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                this.parentElement.classList.add('active');
+            } else {
+                this.parentElement.classList.remove('active');
+            }
+            filterProducts();
+        });
+    });
+
+    // Handle other filter changes
+    const priceInputs = document.querySelectorAll('.price-input');
+    const conditionCheckboxes = document.querySelectorAll('input[name="condition"]');
+    const locationSelect = document.querySelector('.location-select');
+
+    [].forEach.call([...priceInputs, ...conditionCheckboxes, locationSelect], element => {
+        element.addEventListener('change', filterProducts);
+    });
+
+    // Function to update URL and filter products
+    function updateUrlAndFilter() {
+        const params = new URLSearchParams(window.location.search);
+        
+        if (categorySelect.value) {
+            params.set('category', categorySelect.value);
+        } else {
+            params.delete('category');
+        }
+        
+        if (subcategorySelect.value) {
+            params.set('subcategory', subcategorySelect.value);
+        } else {
+            params.delete('subcategory');
+        }
+        
+        window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+        filterProducts();
+    }
+
+    // Function to filter products based on selected filters
+    function filterProducts() {
+        const selectedCategory = categorySelect.value;
+        const selectedSubcategory = subcategorySelect.value;
+        const searchTerm = document.getElementById('productSearch').value.toLowerCase();
+        const minPrice = document.getElementById('minPrice').value;
+        const maxPrice = document.getElementById('maxPrice').value;
+        const selectedConditions = Array.from(document.querySelectorAll('input[name="condition"]:checked'))
+            .map(checkbox => checkbox.value);
+        const selectedLocation = locationSelect.value;
+
+        // TODO: Implement actual filtering logic with your backend
+        console.log('Filtering products with:', {
+            category: selectedCategory,
+            subcategory: selectedSubcategory,
+            priceRange: { min: minPrice, max: maxPrice },
+            conditions: selectedConditions,
+            location: selectedLocation
+        });
+    }
+
+    // Initial filter
+    filterProducts();
 });
 
 // Debounce function to limit API calls
@@ -107,8 +184,8 @@ function debounce(func, wait) {
 
 // Apply filters function
 function applyFilters() {
-    const category = document.getElementById('categoryFilter').value;
-    const subcategory = document.getElementById('subcategoryFilter').value;
+    const category = document.getElementById('categorySelect').value;
+    const subcategory = document.getElementById('subcategorySelect').value;
     const searchTerm = document.getElementById('productSearch').value.toLowerCase();
     const minPrice = document.getElementById('minPrice').value;
     const maxPrice = document.getElementById('maxPrice').value;
@@ -152,9 +229,9 @@ function applyFilters() {
 
 // Clear filters function
 function clearFilters() {
-    document.getElementById('categoryFilter').value = '';
-    document.getElementById('subcategoryFilter').value = '';
-    document.getElementById('subcategoryFilter').disabled = true;
+    document.getElementById('categorySelect').value = '';
+    document.getElementById('subcategorySelect').value = '';
+    document.getElementById('subcategorySelect').disabled = true;
     document.getElementById('productSearch').value = '';
     document.getElementById('minPrice').value = '';
     document.getElementById('maxPrice').value = '';

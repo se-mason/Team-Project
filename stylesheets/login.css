@@ -3,7 +3,7 @@
     width: 100%;
     max-width: 450px;
     padding: 20px;
-    margin: 0 auto;
+    margin: 100px auto;
 }
 
 .login-container {
@@ -29,7 +29,7 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .input-group {
@@ -70,6 +70,10 @@
     transition: background 0.3s ease;
     margin-top: 10px;
     border-radius: 6px;
+    width: 100%;
+    max-width: 200px;
+    margin: 20px auto;
+    display: block;
 }
 
 .login-btn:hover {
@@ -84,6 +88,7 @@
 .form-footer p {
     color: #666;
     font-size: 14px;
+    margin: 10px 0;
 }
 
 .form-footer a {
@@ -101,6 +106,7 @@
 @media (max-width: 480px) {
     .login-wrapper {
         padding: 10px;
+        margin: 50px auto;
     }
     
     .login-container {

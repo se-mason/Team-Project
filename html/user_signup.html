@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iBay - Sign Up</title>
-  <link rel="icon" type="image/png" href="iBay i.png" />
-  <link rel="stylesheet" href="stylesheets/mainstyle.css" />
-  <link rel="stylesheet" href="stylesheets/signup.css" />
+  <link rel="icon" type="image/png" href="../iBay i.png" />
+  <link rel="stylesheet" href="../stylesheets/mainstyle.css" />
+  <link rel="stylesheet" href="../stylesheets/signup.css" />
   <!--icons, denoted with <i> tag-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
@@ -19,6 +19,45 @@
   </style>
 </head>
 <body>
+  <header>
+    <div class="header-left">
+      <button class="menu-button" id="menuButton">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="home.html" class="logo">
+        <img src="../iBay logo.png" alt="iBay">
+      </a>
+      <!-- Categories Menu -->
+      <div class="categories-menu">
+        <!-- Menu content will be loaded by menu.js -->
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for anything...">
+        <button class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="account-dropdown">
+        <button class="account-btn">
+          <i class="fas fa-user"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+          <a href="user_signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
+          <a href="account.html"><i class="fas fa-user-circle"></i> My Account</a>
+          <a href="my_listings.html"><i class="fas fa-list"></i> My Listings</a>
+          <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <div class="signup-wrapper">
     <div class="signup-container">
       <h2><i class="fas fa-user-plus"></i> Create Account</h2>
@@ -52,10 +91,10 @@
           <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required />
           <span class="password-error">Passwords do not match</span>
         </div>
-        <input type="submit" value="Create Account" />
+        <input type="submit" value="Create Account" class="signup-btn" />
       </form>
       <div class="form-footer">
-        <p>Already have an account? <a href="login.html">Sign In</a></p>
+        <p>Already have an account? <a href="login.html">Log In</a></p>
         <p><a href="home.html"><i class="fas fa-arrow-left"></i> Return to iBay</a></p>
       </div>
     </div>
@@ -67,8 +106,13 @@
 
   <!-- Popup container -->
   <div id="popup" class="popup-overlay"></div>
-  <!-- Link to the popup script -->
-  <script src="scripts/popup.js"></script>
+  
+  <!-- Scripts -->
+  <script src="../scripts/popup.js"></script>
+  <script src="../scripts/navbar_loader.js"></script>
+  <script src="../scripts/menu.js"></script>
+  <script src="../scripts/menu_loader.js"></script>
+  <script src="../scripts/account_dropdown.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const form = document.getElementById('signupForm');
@@ -106,10 +150,5 @@
       });
     });
   </script>
-
-  <!-- Scripts -->
-  <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar_loader.js"></script>
-  <script src="scripts/menu.js"></script>
 </body>
 </html>

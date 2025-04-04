@@ -1,28 +1,45 @@
 <!-- Nav bar snippet -->
 
 <!-- Main navigation header -->
-<header class="navbar">
-  <nav class="nav-container">
-    
-    <!-- Left side of the navbar: logo and navigation links -->
-    <div class="nav-left">
-      <!-- Site logo, links to the homepage -->
-      <a href="standard_index.html" class="nav-logo">iBay</a>
-
-      <!-- Link to add a new listing (behavior changes based on login status via JS) -->
-      <a href="#" id="addListingBtn" class="nav-link">Add Listing</a>
-
-      <!-- Example static link (can be renamed or redirected) -->
-      <a href="shop.html" class="nav-link">Example button</a>
-    </div>
-
-    <!-- Right side of the navbar: account/login area -->
-    <div class="nav-right">
-      <!-- This section will be populated dynamically by JavaScript -->
-      <div class="account-dropdown" id="accountSection">
-        <!-- JavaScript will insert login or account menu here -->
+<header class="header">
+  <div class="header-container">
+    <div class="header-left">
+      <button class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="home.html" class="logo">
+        <img src="../iBay logo.png" alt="iBay">
+      </a>
+      <!-- Categories Menu -->
+      <div class="categories-menu">
+        <!-- Menu content will be loaded dynamically -->
       </div>
     </div>
 
-  </nav>
+    <!-- Search Bar in the middle -->
+    <div class="header-center">
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for anything...">
+        <button class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <a href="new_listing.html" class="sell-btn">Sell</a>
+      <div class="account-dropdown">
+        <button class="account-btn">
+          <i class="fas fa-user"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="login.html">Login</a>
+          <a href="user_signup.html">Sign Up</a>
+          <a href="account.html">My Account</a>
+          <a href="my_listings.html">My Listings</a>
+          <a href="#" class="logout-btn">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
