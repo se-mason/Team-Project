@@ -2,7 +2,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch the shared navbar HTML fragment from an external file
-  fetch("../html-assets/navbar.html")
+  const basePath = window.location.pathname.includes('html/') ? 'html/' : '../';
+  fetch(`${basePath}html-assets/navbar.html`)
     .then((response) => response.text()) // Convert the response to plain text
     .then((html) => {
       // Insert the navbar HTML into the page
