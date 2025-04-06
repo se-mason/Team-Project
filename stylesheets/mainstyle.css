@@ -516,3 +516,30 @@ main {
     margin-bottom: 15px;
     display: block;
 } 
+
+/* Popup Styles */
+.popup-overlay {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(44, 62, 80, 0.95); /* dark semi-opaque box */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none; /* prevents clicks */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateX(-50%) translateY(20px);
+
+}
+
+.popup-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}

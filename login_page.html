@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Login</title>
-
-  <!-- Main site styling -->
-  <link rel="stylesheet" href="stylesheets/login.css" />
-
-  <!-- Popup message styling (for login errors, alerts, etc.) -->
-  <link rel="stylesheet" href="stylesheets/popup.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iBay - Log In</title>
+    <link rel="icon" type="image/png" href="../iBay i.png" />
+    <link rel="stylesheet" href="../stylesheets/mainstyle.css" />
+    <link rel="stylesheet" href="../stylesheets/login.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
 
@@ -30,16 +28,14 @@
       </form>
       <div class="form-footer">
         <p>Don't have an account? <a href="user_signup.html">Sign Up</a></p>
-        <p><a href="home.html"><i class="fas fa-arrow-left"></i> Return to iBay</a></p>
+        <p><a href="standard_index.html"><i class="fas fa-arrow-left"></i> Return to iBay</a></p>
       </div>
     </div>
   </div>
 
-  <!-- Popup message container (hidden by default, shown via JS) -->
-  <div id="popup" class="popup-overlay" style="display:none;"></div>
-
-  <!-- Script to handle displaying popup messages passed via URL (e.g. ?popup=Login+failed) -->
+  <!-- Script to handle popups, footers the navbar. these are essentials -->
   <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar.js"></script>
+  <script src="scripts/navbar_loader.js"></script>
+  <script src="scripts/footer_loader.js"></script>
 </body>
 </html>
