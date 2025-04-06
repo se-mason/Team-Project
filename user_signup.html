@@ -3,36 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Signup</title>
-  <link rel="stylesheet" href="stylesheets/styles.css" />
-  <link rel="stylesheet" href="stylesheets/popup.css" />
-
+  <title>iBay - Sign Up</title>
+  <link rel="icon" type="image/png" href="../iBay i.png" />
+  <link rel="stylesheet" href="../stylesheets/mainstyle.css" />
+  <link rel="stylesheet" href="../stylesheets/signup.css" />
+  <!--icons, denoted with <i> tag-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
+
 <body>
   <div class="signup-wrapper">
     <div class="signup-container">
-      <h2>Sign Up</h2>
-      <form action="php/user_signup.php" method="POST">
-          <!-- POST to hide the input information from the browser  -->
-        <input type="text" name="userId" placeholder="Username" required />
-        <input type="text" name="name" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email Address" required />
-        <input type="text" name="address" placeholder="Address" required />
-        <input type="text" name="postcode" placeholder="Postcode" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <input type="password" name="confirm_password" placeholder="Confirm Password" required />
-        <input type="submit" value="Create Account" />
+      <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+      <form action="php/user_signup.php" method="POST" id="signupForm" novalidate>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" name="userId" placeholder="Username" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-id-card"></i>
+          <input type="text" name="name" placeholder="Full Name" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" placeholder="Email Address" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-home"></i>
+          <input type="text" name="address" placeholder="Address" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" name="postcode" id="postcode" placeholder="Postcode" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" id="password" placeholder="Password" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required />
+        </div>
+        <input type="submit" value="Create Account" class="signup-btn" />
       </form>
-      <p>Already have an account? <a href="user_signup.html">Sign In</a></p>
-      <p><a href="standard_index.html">Return to iBay</a></p>
+      <div class="form-footer">
+        <p>Already have an account? <a href="login_page.html">Log In</a></p>
+        <p><a href="standard_index.html"><i class="fas fa-arrow-left"></i> Return to iBay</a></p>
+      </div>
     </div>
   </div>
 
-  <!-- Pop up scipt, leave at the end of the body, make sure ccs is linked-->
-  <!-- Popup container -->
-  <div id="popup" class="popup-overlay" style="display:none;"></div>
-  <!-- Link to the popup script -->
+
+  <!-- Script to handle popups, footers the navbar. these are essentials -->
   <script src="scripts/popup.js"></script>
+  <script src="scripts/navbar_loader.js"></script>
+  <script src="scripts/footer_loader.js"></script>
 
 </body>
 </html>
