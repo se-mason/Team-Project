@@ -10,45 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="header-left">
-            <button class="menu-button" id="menuButton">
-                <i class="fas fa-bars"></i>
-            </button>
-            <a href="home.html" class="logo">
-                <img src="../iBay logo.png" alt="iBay">
-            </a>
-            <!-- Categories Menu -->
-            <div class="categories-menu">
-                <!-- Menu content will be loaded by menu.js -->
-            </div>
-        </div>
-        <!-- i was hrerere3r -->
-
-        <div class="header-center">
-            <div class="search-container">
-                <input type="text" class="search-bar" placeholder="Search for anything...">
-                <button class="search-button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-
-        <div class="header-right">
-            <div class="account-dropdown">
-                <button class="account-btn">
-                    <i class="fas fa-user"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    <a href="user_signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
-                    <a href="account.html"><i class="fas fa-user-circle"></i> My Account</a>
-                    <a href="my_listings.html"><i class="fas fa-list"></i> My Listings</a>
-                    <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Load navbar -->
+    <div id="navbar-container"></div>
 
     <main>
         <div class="products-container">
@@ -128,5 +91,6 @@
     <script src="../scripts/menu_loader.js"></script>
     <script src="../scripts/products.js"></script>
     <script src="../scripts/search.js"></script>
+    
 </body>
 </html> 
