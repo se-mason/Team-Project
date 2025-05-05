@@ -84,6 +84,50 @@
     box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
 }
 
+.listings-filters input {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    color: #333;
+    background: white;
+    cursor: text;
+    font-size: 0.95rem;
+    min-width: 180px;
+    transition: all 0.2s ease;
+}
+
+.listings-filters input:hover {
+    border-color: #601a8a;
+}
+
+.listings-filters input:focus {
+    outline: none;
+    border-color: #8a2be2;
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+}
+
+.listings-filters textarea {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    color: #333;
+    background: white;
+    cursor: text;
+    font-size: 0.95rem;
+    min-width: 400px;
+    transition: all 0.2s ease;
+}
+
+.listings-filters textarea:hover {
+    border-color: #601a8a;
+}
+
+.listings-filters textarea:focus {
+    outline: none;
+    border-color: #8a2be2;
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+}
+
 /* Empty State
    ========================================================================== */
 .empty-state {
