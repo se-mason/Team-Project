@@ -4,8 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iBay -> Profile</title>
+  <link rel="icon" type="image/png" href="../iBay i.png" />
+  <link rel="stylesheet" href="../stylesheets/mainstyle.css" />
+  <link rel="stylesheet" href="../stylesheets/my_listings.css" />
+  <link rel="stylesheet" href="../stylesheets/popup.css" />
+  <link rel="stylesheet" href="../stylesheets/signup.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="stylesheets/styles.css" />
-  <link rel="stylesheet" href="stylesheets/popup.css" />
+ 
 </head>
 <body>
 
@@ -13,23 +20,68 @@
   <div id="navbar-container"></div>
 
   <!-- Body section -->
-  <div class="content">
-    <P>UPDATE PROFILE IMFORMATION ECT</P>
-    <p>Your listings</p>
-    <a href="new_listing.html">Add new listing</a>
-  </div>
+  <main class="listings-container">
+    <div class="signup-container">
+      <h2><i class="fas fa-user"></i> My Account</h2>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" name="userId" placeholder="Username" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-id-card"></i>
+          <input type="text" name="name" placeholder="Full Name" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" placeholder="Email Address" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-home"></i>
+          <input type="text" name="address" placeholder="Address" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" name="postcode" id="postcode" placeholder="Postcode" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" id="password" placeholder="Password" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required />
+        </div>
+        <input type="submit" value="Create Account" class="signup-btn" />
+    </div>
+    <div class="listings-header">
+      <a href="new_listing.html" class="new-listing-btn">
+        <i class="fas fa-plus"></i> New Listing
+      </a>
+      <a href="my_listings.html" class="new-listing-btn">
+        <i class="fas fa-arrow-right"></i> My Listings
+      </a>
+    </div>
+  </main>
 
-  <div id="listings-wrapper">
-    <div id="listings-container" class="listings"></div>
-  </div>
 
   <!-- Popup container -->
   <div id="popup" class="popup-overlay" style="display:none;"></div>
-  <!-- Scripts -->
-  <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar_loader.js"></script>
-  <script src="scripts/load_user_items.js"></script>
-
-
+   <!-- Scripts -->
+   <script src="../scripts/menu.js"></script>
+   <script src="../scripts/menu_loader.js"></script>
+   <script src="../scripts/account_dropdown.js"></script>
+   <script src="../scripts/search.js"></script>
+   <script src="../scripts/my_listings.js"></script>
+ 
+   <script src="scripts/navbar_loader.js"></script>
+   <script src="scripts/load_user_items.js"></script>
+   <script src="../scripts/popup.js"></script>
+   <script src="../scripts/navbar_loader.js"></script>
+ 
+  <footer class="footer">
+    <p class="footer-text">Copyright © 2025 iBay Inc. All Rights Reserved.</p>
+  </footer>
+  
+ 
 </body>
 </html>
