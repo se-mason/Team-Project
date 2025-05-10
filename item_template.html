@@ -6,7 +6,8 @@
   <title>Item Details</title>
 
   <!-- Link to shared stylesheet for consistent styling -->
-  <link rel="stylesheet" href="stylesheets/styles.css">
+  <link rel="stylesheet" href="stylesheets/mainstyle.css" />
+  <link rel="stylesheet" href="stylesheets/item_template.css" />
 </head>
 <body>
 
@@ -28,8 +29,10 @@
     <p><strong>Price: £</strong><span id="item-price"></span></p>
   </div>
 
-  <!-- Script to dynamically insert the navbar -->
+  <!-- Script to dynamically insert the navbar, footer and popups -->
+  <script src="scripts/popup.js"></script>
   <script src="scripts/navbar_loader.js"></script>
+  <script src="scripts/footer_loader.js"></script>
 
   <!-- Script to load the item details from the server using item ID from URL -->
   <script src="scripts/load_item.js"></script>

@@ -39,7 +39,10 @@
       </select>
     </div>
 
-    <div id="empty-state" class="empty-state">
+    <div id="listings-container" class="listings-grid">
+      <!-- Item cards will be injected here -->
+    </div>
+    <div id="empty-state" class="empty-state hidden">
       <i class="fas fa-box-open"></i>
       <h2>No Listings Yet</h2>
       <p>Start selling by creating your first listing!</p>
@@ -47,34 +50,16 @@
         <i class="fas fa-plus"></i> Create Listing
       </a>
     </div>
-
-    <div id="listings-wrapper">
-        <div id="listings-container" class="listings"></div>
-    </div>
-
-    <div id="listings-grid" class="listings-grid">
-      <!-- Listings will be dynamically inserted here -->
-    </div>
+    
 
   </main>
 
-  <!-- Popup container -->
-  <div id="popup" class="popup-overlay"></div>
-  
-  <footer class="footer">
-    <p class="footer-text">Copyright © 2025 iBay Inc. All Rights Reserved.</p>
-  </footer>
-
   <!-- Scripts -->
-  <script src="../scripts/menu.js"></script>
-  <script src="../scripts/menu_loader.js"></script>
-  <script src="../scripts/account_dropdown.js"></script>
-  <script src="../scripts/search.js"></script>
-  <script src="../scripts/my_listings.js"></script>
-
+  <script src="scripts/popup.js"></script>
   <script src="scripts/navbar_loader.js"></script>
-  <script src="scripts/load_user_items.js"></script>
-  <script src="../scripts/popup.js"></script>
-  <script src="../scripts/navbar_loader.js"></script>
+  <script src="scripts/footer_loader.js"></script>
+
+  <!--Retreive items from database-->
+  <script src="scripts/get_items.js"></script>
 </body>
 </html> 
