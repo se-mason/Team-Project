@@ -40,6 +40,41 @@ $stmt->bind_param("ssssssss", $_SESSION['userId'], $title, $category, $price, $p
 $stmt->execute();
 $stmt->close();
 
+// Get ID of newly created item
+$itemId = $conn->insert_id;
+
+// Process uploaded images
+$maxFiles = 10;
+$allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+if (!empty($_FILES['images']['name'][0])) {
+    $fileCount = count($_FILES['images']['name']);
+
+    if ($fileCount > $maxFiles) {
+        redirectWithPopup('../new_listing.html', 'You can only upload up to 10 images.');
+    }
+
+    for ($i = 0; $i < $fileCount; $i++) {
+        $tmpName = $_FILES['images']['tmp_name'][$i];
+        $fileName = $_FILES['images']['name'][$i];
+        $fileSize = $_FILES['images']['size'][$i];
+        $fileType = mime_content_type($tmpName);
+
+        if (!in_array($fileType, $allowedTypes)) {
+            continue; // Skip unsupported types
+        }
+
+        $imageData = file_get_contents($tmpName);
+
+        $stmtImg = $conn->prepare("INSERT INTO iBayImages (image, mimeType, imageSize, itemId) VALUES (?, ?, ?, ?)");
+        $stmtImg->bind_param("ssii", $imageData, $fileType, $fileSize, $itemId);
+        $stmtImg->send_long_data(0, $imageData); // Required for BLOBs in some configs
+        $stmtImg->execute();
+        $stmtImg->close();
+    }
+}
+
+
 // Redirect with confirmation
 require_once 'popup.php';
 redirectWithPopup('../profile.html', 'Listing created successfully');

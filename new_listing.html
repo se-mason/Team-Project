@@ -28,7 +28,8 @@
     
     <!-- Body section -->
     <div>
-      <form action="php/new_listing.php" method="POST">
+      <form action="php/new_listing.php" method="POST" enctype="multipart/form-data">
+
           <!-- POST to hide the input information from the browser  -->
 
           <!-- Drop down menu for category-->
@@ -71,9 +72,12 @@
           </div>
 
           <div class="listings-filters">
-            <label for="images">Upload up to 10 images:</label><br>
-            <input type="file" id="images" name="images[]" accept="image/*" multiple><br>
+            <label>Upload up to 10 images:</label><br>
+            <button type="button" id="addMoreBtn">Add Images</button>
+            <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+            <ul id="previewList"></ul>
           </div>
+        
 
           <!-- Submission-->
           <input type="submit" value="List Item" class= "new-listing-btn" allign="header-center" />
@@ -93,7 +97,8 @@
   <!-- Scripts -->
   <script src="scripts/popup.js"></script>
   <script src="scripts/navbar_loader.js"></script>
-  <script src="scripts/10_file_limit.js"></script>
+  <script src="scripts/add_files.js"></script>
+
 
   <footer class="footer">
     <p class="footer-text">Copyright © 2025 iBay Inc. All Rights Reserved.</p>
