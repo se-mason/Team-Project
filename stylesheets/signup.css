@@ -6,6 +6,13 @@
     margin: 100px auto;
 }
 
+.account-wrapper {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    margin: 100px auto;
+}
+
 .signup-container {
     background: white;
     padding: 40px;
@@ -25,6 +32,26 @@
     margin-right: 10px;
     color: #601a8a;
 }
+
+.signup-container h3 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.signup-container h3 i {
+    margin-right: 10px;
+    color: #601a8a;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 50px;
+  }
 
 .signup-form {
     display: flex;
