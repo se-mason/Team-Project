@@ -2,19 +2,21 @@
 .products-container {
     display: flex;
     gap: 2rem;
-    max-width: 1400px;
+    max-width: 1800px;
     margin: 0 auto;
     padding: 2rem;
     width: 100%;
 }
 
-.filters-section {
-    flex: 0 0 250px;
+.filters-sidebar {
+    flex: 0 0 280px;
     background: white;
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     height: fit-content;
+    position: sticky;
+    top: 84px;
 }
 
 .filters-section h3 {
@@ -97,8 +99,14 @@
 
 .products-grid {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.listings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
     align-content: start;
     min-height: 320px;
@@ -181,7 +189,7 @@
         padding: 1rem;
     }
 
-    .filters-section {
+    .filters-sidebar {
         flex: none;
         width: 100%;
     }
@@ -284,4 +292,42 @@
     width: 16px;
     height: 16px;
     accent-color: #601a8a;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #601a8a;
+    color: white;
+    border-color: #601a8a;
+}
+
+.pagination button:disabled {
+    background: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.pagination .current-page {
+    padding: 0.5rem 1rem;
+    background: #601a8a;
+    color: white;
+    border-radius: 4px;
 } 

@@ -1,5 +1,10 @@
 // Wait for the DOM content to fully load before executing the script
 document.addEventListener('DOMContentLoaded', () => {
+  // Constants
+  const ITEMS_PER_PAGE = 6;
+  let currentPage = 1;
+  let totalItems = 0;
+
   // Retrieve the logged-in user's ID from sessionStorage
   const userId = sessionStorage.getItem("userId");
 
@@ -10,88 +15,130 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Detect the current page from the URL (e.g., 'profile.html' or 'standard_index.html')
   // If the URL ends in '/' (i.e., home page), default to 'standard_index.html'
-  const currentPage = window.location.pathname.split("/").pop() || "standard_index.html";
+  const currentPagePath = window.location.pathname.split("/").pop() || "standard_index.html";
 
-  // Determine which PHP file to call based on the page
-  let phpEndpoint = "";
+  // Function to fetch items
+  function fetchItems(page) {
+    // Determine which PHP file to call based on the page
+    let phpEndpoint = "";
 
-  if (currentPage === "my_listings.html") {
-    // Profile page: must have a logged-in user
-    if (!userId) {
-      console.error("No user ID found in sessionStorage.");
-      return;
-    }
-    phpEndpoint = `../php/get_user_listings.php?userId=${userId}`;
-  } else {
-    // Homepage: show all items not posted by the user if logged in, or all items if not
-    phpEndpoint = userId 
-      ? `../php/get_non_user_listings.php?userId=${userId}`
-      : `../php/get_non_user_listings.php`;
-  }
-
-  // Add category and subcategory parameters if they exist
-  if (category) {
-    phpEndpoint += `&category=${encodeURIComponent(category)}`;
-  }
-  if (subcategory) {
-    phpEndpoint += `&subcategory=${encodeURIComponent(subcategory)}`;
-  }
-
-  // If we're on the products page and have a category filter, update the select element
-  if (currentPage === "products.html" && category) {
-    const categorySelect = document.getElementById('categorySelect');
-    if (categorySelect) {
-      categorySelect.value = category;
-    }
-  }
-
-  // Fetch item listings from the appropriate backend endpoint
-  fetch(phpEndpoint)
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById('listings-container');
-      const emptyState = document.getElementById('empty-state');
-    
-      if (!Array.isArray(data) || data.length === 0) {
-        if (emptyState) {
-          emptyState.classList.remove('hidden');
-        }
+    if (currentPagePath === "my_listings.html") {
+      // Profile page: must have a logged-in user
+      if (!userId) {
+        console.error("No user ID found in sessionStorage.");
         return;
       }
-    
-      if (emptyState) {
-        emptyState.classList.add('hidden');
+      phpEndpoint = `../php/get_user_listings.php?userId=${userId}`;
+    } else {
+      // Homepage: show all items not posted by the user if logged in, or all items if not
+      phpEndpoint = userId 
+        ? `../php/get_non_user_listings.php?userId=${userId}`
+        : `../php/get_non_user_listings.php`;
+    }
+
+    // Add category and subcategory parameters if they exist
+    if (category) {
+      phpEndpoint += `&category=${encodeURIComponent(category)}`;
+    }
+    if (subcategory) {
+      phpEndpoint += `&subcategory=${encodeURIComponent(subcategory)}`;
+    }
+
+    // Add pagination parameters
+    phpEndpoint += `&page=${page}&per_page=${ITEMS_PER_PAGE}`;
+
+    // If we're on the products page and have a category filter, update the select element
+    if (currentPagePath === "products.html" && category) {
+      const categorySelect = document.getElementById('categorySelect');
+      if (categorySelect) {
+        categorySelect.value = category;
       }
-      if (container) {
-        container.style.display = "grid"; // Show grid once items are added
-      }
-    
-      data.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'listing-item';
-    
-        // Use the first image, fallback to placeholder
-        const imageUrl = item.images && item.images.length > 0 
-          ? item.images[0] 
-          : '../assets/placeholder.png';
-    
-        div.innerHTML = `
-          <div class="item-card">
-            <img src="${imageUrl}" alt="${item.title}" class="item-thumbnail">
-            <h3>${item.title}</h3>
-            <p>£${item.price}</p>
-            <button onclick="viewItem(${item.itemId})">View</button>
-          </div>
-        `;
-    
-        container.appendChild(div);
+    }
+
+    // Fetch item listings from the appropriate backend endpoint
+    fetch(phpEndpoint)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('listings-container');
+        const emptyState = document.getElementById('empty-state');
+        const prevPageBtn = document.getElementById('prevPage');
+        const nextPageBtn = document.getElementById('nextPage');
+        const currentPageSpan = document.getElementById('currentPage');
+      
+        if (!Array.isArray(data.items) || data.items.length === 0) {
+          if (emptyState) {
+            emptyState.classList.remove('hidden');
+          }
+          container.innerHTML = '';
+          return;
+        }
+      
+        if (emptyState) {
+          emptyState.classList.add('hidden');
+        }
+        if (container) {
+          container.style.display = "grid"; // Show grid once items are added
+        }
+
+        // Update total items and pagination
+        totalItems = data.total || data.items.length;
+        const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+        
+        // Update pagination controls
+        prevPageBtn.disabled = page <= 1;
+        nextPageBtn.disabled = page >= totalPages;
+        currentPageSpan.textContent = page;
+      
+        // Clear existing items
+        container.innerHTML = '';
+      
+        // Add new items
+        data.items.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'listing-item';
+      
+          // Use the first image, fallback to placeholder
+          const imageUrl = item.images && item.images.length > 0 
+            ? item.images[0] 
+            : '../assets/placeholder.png';
+      
+          div.innerHTML = `
+            <div class="item-card">
+              <img src="${imageUrl}" alt="${item.title}" class="item-thumbnail">
+              <h3>${item.title}</h3>
+              <p>£${item.price}</p>
+              <button onclick="viewItem(${item.itemId})">View</button>
+            </div>
+          `;
+      
+          container.appendChild(div);
+        });
+      })
+      .catch(err => {
+        console.error("Error fetching listings:", err);
       });
-    })
-    
-    .catch(err => {
-      // Catch any fetch or server-side errors
-      console.error("Error fetching listings:", err);
+  }
+
+  // Set up pagination event listeners
+  const prevPageBtn = document.getElementById('prevPage');
+  const nextPageBtn = document.getElementById('nextPage');
+
+  if (prevPageBtn && nextPageBtn) {
+    prevPageBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchItems(currentPage);
+      }
     });
+
+    nextPageBtn.addEventListener('click', () => {
+      currentPage++;
+      fetchItems(currentPage);
+    });
+  }
+
+  // Initial fetch
+  fetchItems(currentPage);
 });
 
 // Function called when the "View" button is clicked for an item
