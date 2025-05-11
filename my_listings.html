@@ -6,6 +6,7 @@
   <title>My Listings | iBay</title>
   <link rel="icon" type="image/png" href="iBay i.png" />
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
+  <link rel="stylesheet" href="stylesheets/items.css" />
   <link rel="stylesheet" href="stylesheets/my_listings.css" />
   <link rel="stylesheet" href="stylesheets/popup.css" />
 
@@ -16,21 +17,26 @@
   <!-- Load navbar -->
   <div id="navbar-container"></div>
 
-  <main class="listings-container">
-    <div class="listings-header">
-      <h1>My Listings</h1>
-      <a href="new_listing.html" class="new-listing-btn">
-        <i class="fas fa-plus"></i> New Listing
-      </a>
-    </div>
+  <main>
+    <div class="items-container">
+      <div class="listings-header">
+        <h1>My Listings</h1>
+        <a href="new_listing.html" class="new-listing-btn">
+          <i class="fas fa-plus"></i> New Listing
+        </a>
+      </div>
 
-    <div id="empty-state" class="empty-state hidden">
       <div id="listings-container" class="listings-grid">
         <!-- Item cards will be injected here -->
       </div>
-    </div>
-    
 
+      <!-- Pagination -->
+      <div class="pagination">
+        <button id="prevPage" disabled>Previous</button>
+        <span class="current-page">Page <span id="currentPage">1</span></span>
+        <button id="nextPage">Next</button>
+      </div>
+    </div>
   </main>
 
   <!-- Scripts -->
@@ -38,7 +44,7 @@
   <script src="scripts/navbar_loader.js"></script>
   <script src="scripts/footer_loader.js"></script>
 
-  <!--Retreive items from database-->
+  <!-- Load items -->
   <script src="scripts/get_items.js"></script>
 </body>
 </html> 

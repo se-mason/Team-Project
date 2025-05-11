@@ -20,7 +20,7 @@
     margin-bottom: 2.5rem;
     padding: 1rem 0;
     border-bottom: 2px solid #f0f0f0;
-    gap: 2rem; /* Added gap between title and button */
+    gap: 2rem;
 }
 
 .listings-header h1 {
