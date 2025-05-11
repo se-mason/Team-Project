@@ -1,10 +1,30 @@
 document.querySelector(".search-button").addEventListener("click", function () {
     const query = document.getElementById("searchInput").value.trim();
+    const currentUrl = new URL(window.location.href);
+    const params = new URLSearchParams(currentUrl.search);
+
+    // Preserve existing filters
+    const category = params.get('category');
+    const subcategory = params.get('subcategory');
+    const minPrice = params.get('minPrice');
+    const maxPrice = params.get('maxPrice');
+    const condition = params.get('condition');
+    const location = params.get('location');
+
+    // Build new URL with search query and preserved filters
+    let newUrl = 'products.html?';
     if (query) {
-        // Redirect to the products page with the search query as a URL parameter
-        window.location.href = `products.html?search=${encodeURIComponent(query)}`;
-    } else {
-        // Redirect to the products page without a search query
-        window.location.href = `products.html`;
+        newUrl += `search=${encodeURIComponent(query)}`;
     }
+
+    // Add preserved filters
+    if (category) newUrl += `&category=${encodeURIComponent(category)}`;
+    if (subcategory) newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
+    if (minPrice) newUrl += `&minPrice=${encodeURIComponent(minPrice)}`;
+    if (maxPrice) newUrl += `&maxPrice=${encodeURIComponent(maxPrice)}`;
+    if (condition) newUrl += `&condition=${encodeURIComponent(condition)}`;
+    if (location) newUrl += `&location=${encodeURIComponent(location)}`;
+
+    // Redirect to the products page with all parameters
+    window.location.href = newUrl;
 });

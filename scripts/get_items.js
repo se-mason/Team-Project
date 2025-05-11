@@ -12,10 +12,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const category = params.get('category');
   const subcategory = params.get('subcategory');
+  const search = params.get('search');
 
-  // Detect the current page from the URL (e.g., 'profile.html' or 'standard_index.html')
-  // If the URL ends in '/' (i.e., home page), default to 'standard_index.html'
+  // Detect the current page from the URL
   const currentPagePath = window.location.pathname.split("/").pop() || "standard_index.html";
+
+  // Function to build filter parameters
+  function buildFilterParams() {
+    const filterParams = new URLSearchParams();
+    
+    // Add existing URL parameters
+    if (category) filterParams.append('category', category);
+    if (subcategory) filterParams.append('subcategory', subcategory);
+    if (search) filterParams.append('search', search);
+
+    // Add price range filters
+    const minPrice = document.querySelector('input[placeholder="Min"]').value;
+    const maxPrice = document.querySelector('input[placeholder="Max"]').value;
+    if (minPrice) filterParams.append('minPrice', minPrice);
+    if (maxPrice) filterParams.append('maxPrice', maxPrice);
+
+    // Add condition filters
+    const conditions = Array.from(document.querySelectorAll('input[name="condition"]:checked'))
+      .map(checkbox => checkbox.value);
+    if (conditions.length > 0) {
+      filterParams.append('condition', conditions.join(','));
+    }
+
+    // Add location filter
+    const location = document.querySelector('.location-select').value;
+    if (location) filterParams.append('location', location);
+
+    return filterParams;
+  }
 
   // Function to fetch items
   function fetchItems(page) {
@@ -36,16 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
         : `../php/get_non_user_listings.php`;
     }
 
-    // Add category and subcategory parameters if they exist
-    if (category) {
-      phpEndpoint += `&category=${encodeURIComponent(category)}`;
-    }
-    if (subcategory) {
-      phpEndpoint += `&subcategory=${encodeURIComponent(subcategory)}`;
-    }
-
     // Add pagination parameters
     phpEndpoint += `&page=${page}&per_page=${ITEMS_PER_PAGE}`;
+
+    // Add filter parameters
+    const filterParams = buildFilterParams();
+    phpEndpoint += '&' + filterParams.toString();
 
     // If we're on the products page and have a category filter, update the select element
     if (currentPagePath === "products.html" && category) {
@@ -135,6 +160,47 @@ document.addEventListener('DOMContentLoaded', () => {
       currentPage++;
       fetchItems(currentPage);
     });
+  }
+
+  // Set up filter event listeners
+  if (currentPagePath === "products.html") {
+    // Category select change
+    const categorySelect = document.getElementById('categorySelect');
+    const subcategorySelect = document.getElementById('subcategorySelect');
+    
+    if (categorySelect) {
+      categorySelect.addEventListener('change', () => {
+        currentPage = 1;
+        fetchItems(currentPage);
+      });
+    }
+
+    // Price range inputs
+    const priceInputs = document.querySelectorAll('.price-input');
+    priceInputs.forEach(input => {
+      input.addEventListener('change', () => {
+        currentPage = 1;
+        fetchItems(currentPage);
+      });
+    });
+
+    // Condition checkboxes
+    const conditionCheckboxes = document.querySelectorAll('input[name="condition"]');
+    conditionCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        currentPage = 1;
+        fetchItems(currentPage);
+      });
+    });
+
+    // Location select
+    const locationSelect = document.querySelector('.location-select');
+    if (locationSelect) {
+      locationSelect.addEventListener('change', () => {
+        currentPage = 1;
+        fetchItems(currentPage);
+      });
+    }
   }
 
   // Initial fetch
