@@ -77,5 +77,5 @@ if (!empty($_FILES['images']['name'][0])) {
 
 // Redirect with confirmation
 require_once 'popup.php';
-redirectWithPopup('../profile.html', 'Listing created successfully');
+redirectWithPopup('../my_listings.html', 'Listing created successfully');
 ?>
