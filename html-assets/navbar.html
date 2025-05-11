@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iBay Live Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="search.js" defer></script>
+</head>
+<body>
+
+
 <!-- Nav bar snippet -->
 
 <!-- Main navigation header -->
@@ -20,7 +32,8 @@
 
     <div class="header-center">
       <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search for anything...">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search for anything...">
+        <div id="searchResults" class="search-results"></div>
         <button class="search-button">
           <i class="fas fa-search"></i>
         </button>
@@ -37,3 +50,5 @@
 
   </nav>
 </header>
+</body>
+</html>
