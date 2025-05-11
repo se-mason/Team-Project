@@ -285,3 +285,40 @@
     height: 16px;
     accent-color: #601a8a;
 } 
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f9f9f9; /* Optional: Add a background color */
+}
+
+.products-container {
+    position: relative;
+    min-height: 100vh; /* Ensure the container takes up the full height of the viewport */
+    padding-bottom: 4rem; /* Add padding to prevent overlap with pagination */
+}
+
+.pagination-controls button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #601a8a;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.pagination-controls button.active {
+    background: #8a2be2;
+    font-weight: bold;
+}
+
+.pagination-controls button:hover {
+    background: #4e0d6e;
+}

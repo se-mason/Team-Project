@@ -68,6 +68,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Example product data (replace this with your actual data source)
+const products = Array.from({ length: 10 }, (_, i) => ({
+  id: i + 1,
+  name: `Product ${i + 1}`,
+  price: (Math.random() * 100).toFixed(2),
+  image: "https://via.placeholder.com/150",
+}));
+
+const itemsPerPage = 12;
+let currentPage = 1;
+
+// Function to render products for the current page
+function renderProducts(page) {
+  const listingsContainer = document.getElementById("listings-container");
+  listingsContainer.innerHTML = ""; // Clear previous products
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const productsToDisplay = products.slice(startIndex, endIndex);
+
+  productsToDisplay.forEach((product) => {
+      const productCard = document.createElement("div");
+      productCard.className = "item-card";
+      productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="item-thumbnail">
+          <h3>${product.name}</h3>
+          <p>$${product.price}</p>
+          <button>View Details</button>
+      `;
+      listingsContainer.appendChild(productCard);
+  });
+}
+
+// Function to render pagination controls
+function renderPagination() {
+  const paginationContainer = document.getElementById("pagination");
+  paginationContainer.innerHTML = ""; // Clear previous pagination buttons
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
+  if (totalPages <= 1) return; // No pagination needed if only one page
+
+  for (let i = 1; i <= totalPages; i++) {
+      const button = document.createElement("button");
+      button.textContent = i;
+      button.className = i === currentPage ? "active" : "";
+      button.addEventListener("click", () => {
+          currentPage = i;
+          renderProducts(currentPage);
+          renderPagination();
+      });
+      paginationContainer.appendChild(button);
+  }
+}
+
+// Initial render
+renderProducts(currentPage);
+renderPagination();
+
 // Function called when the "View" button is clicked for an item
 function viewItem(id) {
   // Redirect to item detail page with query parameter
