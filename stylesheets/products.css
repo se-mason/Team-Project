@@ -114,6 +114,60 @@
     accent-color: #601a8a;
 } 
 
+
+
+/* Ensure the main container takes up the full height of the viewport */
+main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Ensure the items-container grows to fill available space */
+.items-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Pagination at the bottom */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f9f9f9; /* Optional: Add a background color */
+    position: sticky; /* Keeps it at the bottom of the viewport */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: auto; /* Pushes it to the bottom of the container */
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border: none;
+    background: #601a8a;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.pagination button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #8a2be2;
+}
+
+.pagination .current-page {
+    font-weight: bold;
+    margin: 0 1rem;
+}
 .pagination-controls {
     display: flex;
     justify-content: center;
