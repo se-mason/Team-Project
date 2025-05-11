@@ -17,16 +17,23 @@
   <!-- Section to display item details fetched from the database -->
   <div class="item-details">
     <!-- Title of the item (set by JavaScript) -->
-    <h1 id="item-title">Loading...</h1>
+    <h1 id="item-title"></h1>
 
     <!-- Item image (hidden by default until loaded) -->
-    <div id="item-images" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+    <div id="image-carousel" style="overflow-x: auto; white-space: nowrap;"></div>
 
     <!-- Item description -->
     <p id="item-description"></p>
 
     <!-- Item price -->
     <p><strong>Price: £</strong><span id="item-price"></span></p>
+
+
+    <p><strong>Start Date:</strong> <span id="start-date"></span></p>
+    <p><strong>End Date:</strong> <span id="end-date"></span></p>
+    <p><strong>Time Remaining:</strong> <span id="countdown-timer"></span></p>
+    <button id="bid-button">Place Bid</button>
+
   </div>
 
   <!-- Script to dynamically insert the navbar, footer and popups -->

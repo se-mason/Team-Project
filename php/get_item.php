@@ -1,38 +1,49 @@
 <?php
-// Include the database connection script
-require 'connection.php';
+require_once("connection.php");
 
-// Check if 'id' parameter is provided in the URL
 if (!isset($_GET['id'])) {
-    http_response_code(400); // Bad request
-    echo json_encode(["error" => "Item ID not provided."]);
+    echo json_encode(["error" => "No item ID provided."]);
     exit;
 }
 
-// Sanitize the item ID by converting it to an integer
-$itemId = $_GET['id'];
+$itemId = intval($_GET['id']);
 
-// Prepare an SQL statement to fetch the item details by itemId
-$sql = "SELECT * FROM iBayItems WHERE itemId = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $itemId); // Bind the itemId as an integer
-$stmt->execute();
-$result = $stmt->get_result();
+// Fetch item details
+$itemSql = "SELECT title, description, price, start, finish FROM iBayItems WHERE itemId = ?";
+$itemStmt = $conn->prepare($itemSql);
+$itemStmt->bind_param("i", $itemId);
+$itemStmt->execute();
+$itemResult = $itemStmt->get_result();
 
-// If no item is found, return an error message
-if ($result->num_rows === 0) {
+if ($itemResult->num_rows === 0) {
     echo json_encode(["error" => "Item not found."]);
     exit;
 }
 
-// Fetch the item data as an associative array
-$item = $result->fetch_assoc();
+$item = $itemResult->fetch_assoc();
 
-// Set the response header to JSON and return the item data
-header('Content-Type: application/json');
-echo json_encode($item);
+// Fetch images for this item
+$imageSql = "SELECT image, mimeType FROM iBayImages WHERE itemId = ?";
+$imageStmt = $conn->prepare($imageSql);
+$imageStmt->bind_param("i", $itemId);
+$imageStmt->execute();
+$imageResult = $imageStmt->get_result();
 
-// Clean up by closing the prepared statement and database connection
-$stmt->close();
-$conn->close();
+$images = [];
+while ($row = $imageResult->fetch_assoc()) {
+    $base64 = base64_encode($row['image']);
+    $images[] = "data:" . $row['mimeType'] . ";base64," . $base64;
+}
+
+// Build response
+$response = [
+    "title" => $item['title'],
+    "description" => $item['description'],
+    "price" => $item['price'],
+    "startDate" => $item['start'],
+    "endDate" => $item['finish'],
+    "images" => $images
+];
+
+echo json_encode($response);
 ?>
