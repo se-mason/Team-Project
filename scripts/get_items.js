@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Retrieve the logged-in user's ID from sessionStorage
   const userId = sessionStorage.getItem("userId");
 
+  // Get URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const category = params.get('category');
+  const subcategory = params.get('subcategory');
+
   // Detect the current page from the URL (e.g., 'profile.html' or 'standard_index.html')
   // If the URL ends in '/' (i.e., home page), default to 'standard_index.html'
   const currentPage = window.location.pathname.split("/").pop() || "standard_index.html";
@@ -17,11 +22,27 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     phpEndpoint = `../php/get_user_listings.php?userId=${userId}`;
-  } else{
+  } else {
     // Homepage: show all items not posted by the user if logged in, or all items if not
     phpEndpoint = userId 
       ? `../php/get_non_user_listings.php?userId=${userId}`
       : `../php/get_non_user_listings.php`;
+  }
+
+  // Add category and subcategory parameters if they exist
+  if (category) {
+    phpEndpoint += `&category=${encodeURIComponent(category)}`;
+  }
+  if (subcategory) {
+    phpEndpoint += `&subcategory=${encodeURIComponent(subcategory)}`;
+  }
+
+  // If we're on the products page and have a category filter, update the select element
+  if (currentPage === "products.html" && category) {
+    const categorySelect = document.getElementById('categorySelect');
+    if (categorySelect) {
+      categorySelect.value = category;
+    }
   }
 
   // Fetch item listings from the appropriate backend endpoint
@@ -32,13 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const emptyState = document.getElementById('empty-state');
     
       if (!Array.isArray(data) || data.length === 0) {
-        emptyState.classList.remove('hidden');
+        if (emptyState) {
+          emptyState.classList.remove('hidden');
+        }
         return;
       }
     
-      emptyState.classList.add('hidden');
-      container.style.display = "grid"; // Show grid once items are added
-
+      if (emptyState) {
+        emptyState.classList.add('hidden');
+      }
+      if (container) {
+        container.style.display = "grid"; // Show grid once items are added
+      }
     
       data.forEach(item => {
         const div = document.createElement('div');

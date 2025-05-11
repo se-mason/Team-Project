@@ -5,13 +5,37 @@ require 'connection.php';
 // Check if a userId is provided (for logged-in users)
 $userId = isset($_GET['userId']) ? $_GET['userId'] : null;
 
+// Get category and subcategory filters
+$category = isset($_GET['category']) ? $_GET['category'] : null;
+$subcategory = isset($_GET['subcategory']) ? $_GET['subcategory'] : null;
+
+// Build the SQL query based on filters
+$sql = "SELECT itemId, title, price FROM iBayItems WHERE 1=1";
+$params = array();
+$types = "";
+
 if ($userId) {
-    // If logged in: retrieve all items not created by this user
-    $stmt = $conn->prepare("SELECT itemId, title, price FROM iBayItems WHERE userId != ?");
-    $stmt->bind_param("s", $userId); 
-} else {
-    // If not logged in: retrieve all items
-    $stmt = $conn->prepare("SELECT itemId, title, price FROM iBayItems");
+    $sql .= " AND userId != ?";
+    $params[] = $userId;
+    $types .= "s";
+}
+
+if ($category) {
+    $sql .= " AND category = ?";
+    $params[] = $category;
+    $types .= "s";
+}
+
+if ($subcategory) {
+    $sql .= " AND subcategory = ?";
+    $params[] = $subcategory;
+    $types .= "s";
+}
+
+// Prepare and execute the query
+$stmt = $conn->prepare($sql);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
 }
 $stmt->execute();
 
