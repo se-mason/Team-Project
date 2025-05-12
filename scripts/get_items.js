@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const search = params.get('search');
 
   // Detect the current page from the URL
-  const currentPagePath = window.location.pathname.split("/").pop() || "standard_index.html";
+  const currentPagePath = window.location.pathname.split("/").pop() || "main.php";
 
   // Function to build filter parameters
   function buildFilterParams() {
@@ -51,18 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Determine which PHP file to call based on the page
     let phpEndpoint = "";
 
-    if (currentPagePath === "my_listings.html") {
-      // Profile page: must have a logged-in user
-      if (!userId) {
-        console.error("No user ID found in sessionStorage.");
-        return;
-      }
-      phpEndpoint = `../php/get_user_listings.php?userId=${userId}`;
+    if (currentPagePath === "my_listings.php") {
+      phpEndpoint = `/php/get_listings.php?user_only=true`;
     } else {
-      // Homepage: show all items not posted by the user if logged in, or all items if not
-      phpEndpoint = userId 
-        ? `../php/get_non_user_listings.php?userId=${userId}`
-        : `../php/get_non_user_listings.php`;
+      phpEndpoint = `/php/get_listings.php`;
     }
 
     // Add pagination parameters
@@ -73,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     phpEndpoint += '&' + filterParams.toString();
 
     // If we're on the products page and have a category filter, update the select element
-    if (currentPagePath === "products.html" && category) {
+    if (currentPagePath === "products.php" && category) {
       const categorySelect = document.getElementById('categorySelect');
       if (categorySelect) {
         categorySelect.value = category;
@@ -269,5 +261,5 @@ renderPagination();
 // Function called when the "View" button is clicked for an item
 function viewItem(id) {
   // Redirect to item detail page with query parameter
-  window.location.href = `item_template.html?id=${id}`;
+  window.location.href = `item_template.php?id=${id}`;
 }

@@ -66,9 +66,7 @@
 
             <div class="products-grid">
                 <div id="empty-state" class="empty-state hidden">
-                    <div id="listings-container" class="listings-grid">
-                      <!-- Item cards will be injected here -->
-                    </div>
+                    <div id="listings-container" class="listings-grid"></div>
                 </div>
                 
                 <!-- Pagination -->
