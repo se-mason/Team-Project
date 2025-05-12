@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iBay Live Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts/search.js" defer></script>
+</head>
+<body>
+
+
+<!-- Nav bar snippet -->
+
+<!-- Main navigation header -->
+<header>
+  <nav class="nav-container">   
+    
+    <!-- Left side of the navbar: logo and navigation links -->
+    <div class="header-left">
+      <a href="standard_index.html" class="logo">
+        <img src="assets/iBay logo.png" alt="iBay">
+      </a>
+      <!-- Categories Menu -->
+      <div class="categories-menu">
+        <!-- Menu content will be loaded dynamically -->
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="search-container">
+        <form action="php/search.php" method="GET">
+          <input type="text" id="searchInput" name="q" class="search-bar" placeholder="Search for anything...">
+          <button type="submit" class="search-button">
+              <i class="fas fa-search"></i>
+          </button>
+      </form>
+      </div>
+    </div>
+
+    <!-- Right side of the navbar: account/login area -->
+    <div class="header-right">
+      <!-- This section will be populated dynamically by JavaScript -->
+      <div class="account-dropdown" id="accountSection">
+        <!-- JavaScript will insert login or account menu here -->
+      </div>
+    </div>
+
+  </nav>
+</header>
+</body>
+</html>
