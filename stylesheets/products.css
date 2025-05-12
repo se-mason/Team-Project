@@ -7,12 +7,10 @@
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: fit-content;
     position: sticky;
-    top: 84px; /* Header + margin */
-    z-index: 999;
-    
-}
+    top: 84px;
+    height: fit-content;
+  }
 
 .filters-section h3 {
     color: #333;

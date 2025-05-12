@@ -16,7 +16,6 @@
     <?php include 'html-assets/navbar.php'; ?>
 
     <main>
-        <div class="items-container">
         <aside class="filters-sidebar">
             <h2>Filters</h2>
                 <div class="filters-section">
@@ -64,19 +63,16 @@
             <!-- Listings Section -->
             <section class="listings-section">
                 <div id="listings-container" class="listings-grid"></div>
-
                 <div id="empty-state" class="empty-state hidden">
                     <i class="fas fa-box-open"></i>
                     <p>No items found.</p>
                 </div>
-
                 <div id="pagination" class="pagination">
                     <button id="prevPage">Previous</button>
                     <span id="currentPage">1</span>
                     <button id="nextPage">Next</button>
                 </div>
             </section>
-        </div>
     </main>
 
     <!-- Scripts -->

@@ -3,14 +3,18 @@
 /* Container Layout */
 .items-container {
     display: flex;
-    align-items: flex-start;
+    flex-direction: row; /* horizontal layout */
     gap: 2rem;
     max-width: 1800px;
-    margin: 5rem auto 2rem; /* Top margin accounts for fixed header */
+    margin: 5rem auto 2rem;
     padding: 2rem;
-    width: 100%;
   }
   
+.listings-section {
+    flex: 1; /* allow cards to fill remaining space */
+    display: flex;
+    flex-direction: column;
+  }
 
 /* Grid Layout */
 
