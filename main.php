@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,21 +11,12 @@
   <link rel="stylesheet" href="stylesheets/home.css" />
   <link rel="stylesheet" href="stylesheets/popup.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- Load navbar -->
+    <?php include 'html-assets/navbar.php'; ?>
+    
 </head>
 <body>
-
-  <!-- Load navbar -->
-  <div id="navbar-container"></div>
-
-  <!-- Body section 
-  <div class="content">
-    <p>THIS IS THE MAIN HOME PAGE: SEARCH, LISTINGS, ECT</p>
-  </div>
-
-  <div id="listings-wrapper">
-    <div id="listings-container" class="listings"></div>
-  </div>
-  -->
 
   <main>
     <section class="hero-section">
@@ -148,7 +141,6 @@
 
   <!-- Script to handle popups, footers the navbar. these are essentials -->
   <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar_loader.js"></script>
   <script src="scripts/footer_loader.js"></script>
   <script src="scripts/menu.js"></script>
   <script src="scripts/menu_loader.js"></script>
