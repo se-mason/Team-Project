@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) {
 $itemId = intval($_GET['id']);
 
 // Fetch item details
-$itemSql = "SELECT title, description, price, start, finish FROM iBayItems WHERE itemId = ?";
+$itemSql = "SELECT title, description, price, start, finish, postage FROM iBayItems WHERE itemId = ?";
 $itemStmt = $conn->prepare($itemSql);
 $itemStmt->bind_param("i", $itemId);
 $itemStmt->execute();
@@ -42,6 +42,7 @@ $response = [
     "price" => $item['price'],
     "startDate" => $item['start'],
     "endDate" => $item['finish'],
+    "postage" => $item['postage'],
     "images" => $images
 ];
 

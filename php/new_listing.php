@@ -48,31 +48,52 @@ $maxFiles = 10;
 $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
 if (!empty($_FILES['images']['name'][0])) {
-    $fileCount = count($_FILES['images']['name']);
+    $targetDir = "../uploads/";
+    $allowedExts = ['jpg', 'jpeg', 'png'];
 
-    if ($fileCount > $maxFiles) {
-        redirectWithPopup('../new_listing.html', 'You can only upload up to 10 images.');
-    }
-
-    for ($i = 0; $i < $fileCount; $i++) {
+    foreach ($_FILES['images']['name'] as $i => $name) {
         $tmpName = $_FILES['images']['tmp_name'][$i];
-        $fileName = $_FILES['images']['name'][$i];
-        $fileSize = $_FILES['images']['size'][$i];
-        $fileType = mime_content_type($tmpName);
+        $size = $_FILES['images']['size'][$i];
+        $error = $_FILES['images']['error'][$i];
 
-        if (!in_array($fileType, $allowedTypes)) {
-            continue; // Skip unsupported types
+        $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+        $uniqueName = uniqid() . '.' . $ext;
+        $targetFile = $targetDir . $uniqueName;
+
+        // Check for errors
+        if ($error !== UPLOAD_ERR_OK) {
+            echo "Error uploading file '$name'. Code: $error<br>";
+            continue;
         }
 
-        $imageData = file_get_contents($tmpName);
+        // Validate extension and MIME
+        if (!in_array($ext, $allowedExts)) {
+            echo "Unsupported file type for '$name'.<br>";
+            continue;
+        }
 
-        $stmtImg = $conn->prepare("INSERT INTO iBayImages (image, mimeType, imageSize, itemId) VALUES (?, ?, ?, ?)");
-        $stmtImg->bind_param("ssii", $imageData, $fileType, $fileSize, $itemId);
-        $stmtImg->send_long_data(0, $imageData); // Required for BLOBs in some configs
-        $stmtImg->execute();
-        $stmtImg->close();
+        // Optionally, check file size (e.g., limit to 5MB)
+        if ($size > 5 * 1024 * 1024) {
+            echo "File '$name' is too large. Max 5MB.<br>";
+            continue;
+        }
+
+        // Move uploaded file
+        if (move_uploaded_file($tmpName, $targetFile)) {
+            echo "Uploaded '$name' successfully.<br>";
+            // Save path to DB if needed: $uniqueName or $targetFile
+        } else {
+            echo "Failed to save '$name'.<br>";
+        }
     }
 }
+
+if (!empty($uploadErrors)) {
+    header('Content-Type: application/json');
+    redirectWithPopup("../new_listing.html", "Error with image uploads");
+    exit;
+}
+
 
 
 // Redirect with confirmation
