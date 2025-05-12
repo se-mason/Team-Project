@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Set up filter event listeners
-  if (currentPagePath === "products.html") {
+  if (currentPagePath === "products.php") {
     // Category select change
     const categorySelect = document.getElementById('categorySelect');
     const subcategorySelect = document.getElementById('subcategorySelect');

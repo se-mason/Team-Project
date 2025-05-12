@@ -90,7 +90,7 @@ if (!empty($_FILES['images']['name'][0])) {
 
 if (!empty($uploadErrors)) {
     header('Content-Type: application/json');
-    redirectWithPopup("../new_listing.html", "Error with image uploads");
+    redirectWithPopup("../new_listing.php", "Error with image uploads");
     exit;
 }
 
@@ -98,5 +98,5 @@ if (!empty($uploadErrors)) {
 
 // Redirect with confirmation
 require_once 'popup.php';
-redirectWithPopup('../my_listings.html', 'Listing created successfully');
+redirectWithPopup('../my_listings.php', 'Listing created successfully');
 ?>

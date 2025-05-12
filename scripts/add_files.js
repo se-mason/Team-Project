@@ -49,7 +49,7 @@
     }).then(response => response.text())
       .then(result => {
         console.log(result);
-        window.location.href = '../profile.html'; // or show popup
+        window.location.href = '../profile.php'; // or show popup
       })
       .catch(error => {
         alert('Error submitting form: ' + error.message);
