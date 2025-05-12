@@ -36,10 +36,9 @@
                 </div>
                 <div class="filter-section">
                     <h4>Price Range</h4>
-                    <div class="price-range">
-                        <input type="number" placeholder="Min" class="price-input">
-                        <span>to</span>
-                        <input type="number" placeholder="Max" class="price-input">
+                    <div class="price-range-vertical">
+                        <input type="number" class="price-input" placeholder="Min">
+                        <input type="number" class="price-input" placeholder="Max">
                     </div>
                 </div>
                 <div class="filter-section">
@@ -61,18 +60,19 @@
 
 
             <!-- Listings Section -->
-            <section class="listings-section">
-                <div id="listings-container" class="listings-grid"></div>
-                <div id="empty-state" class="empty-state hidden">
-                    <i class="fas fa-box-open"></i>
-                    <p>No items found.</p>
-                </div>
-                <div id="pagination" class="pagination">
-                    <button id="prevPage">Previous</button>
-                    <span id="currentPage">1</span>
-                    <button id="nextPage">Next</button>
-                </div>
-            </section>
+            <section class="scrollable-listings">
+            <div id="listings-container" class="listings-grid"></div>
+            <div id="empty-state" class="empty-state hidden">
+            <i class="fas fa-box-open"></i>
+            <p>No items found.</p>
+            </div>
+            <div id="pagination" class="pagination">
+            <button id="prevPage">Previous</button>
+            <span id="currentPage">1</span>
+            <button id="nextPage">Next</button>
+            </div>
+  </section>
+
     </main>
 
     <!-- Scripts -->
