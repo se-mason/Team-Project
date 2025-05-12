@@ -15,13 +15,13 @@
 </head>
 <body>
   <!-- Load navbar -->
-  <div id="navbar-container"></div>
+  <?php include 'html-assets/navbar.php'; ?>
 
   <main>
     <div class="items-container">
       <div class="listings-header">
         <h1>My Listings</h1>
-        <a href="new_listing.html" class="new-listing-btn">
+        <a href="new_listing.php" class="new-listing-btn">
           <i class="fas fa-plus"></i> New Listing
         </a>
       </div>
@@ -41,7 +41,6 @@
 
   <!-- Scripts -->
   <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar_loader.js"></script>
   <script src="scripts/footer_loader.js"></script>
 
   <!-- Load items -->

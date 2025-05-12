@@ -13,13 +13,13 @@
 
 </head>
 <body>
-  <!-- Load navbar -->
-  <div id="navbar-container"></div>
+    <!-- Load navbar -->
+    <?php include 'html-assets/navbar.php'; ?>
 
   <main class="listings-container">
     <div class="listings-header">
       <h1>Add New Listing</h1>
-      <a href="my_listings.html" class="new-listing-btn">
+      <a href="my_listings.php" class="new-listing-btn">
         <i class="fas fa-arrow-right"></i> My Listings
       </a>
     </div>
@@ -95,7 +95,6 @@
 
   <!-- Scripts -->
   <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar_loader.js"></script>
   <script src="scripts/footer_loader.js"></script>
 
   <!-- script for adding images-->

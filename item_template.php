@@ -12,8 +12,8 @@
 </head>
 <body>
 
-  <!-- Navbar will be loaded dynamically via JavaScript -->
-  <div id="navbar-container"></div>
+  <!-- Load navbar -->
+  <?php include 'html-assets/navbar.php'; ?>
 
   <!-- Section to display item details fetched from the database -->
   <div class="item-details">
@@ -42,7 +42,6 @@
 
   <!-- Script to dynamically insert the navbar, footer and popups -->
   <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar_loader.js"></script>
   <script src="scripts/footer_loader.js"></script>
 
   <!-- Script to load the item details from the server using item ID from URL -->
