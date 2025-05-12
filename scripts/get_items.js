@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const search = params.get('search');
 
   // Detect the current page from the URL
-  const currentPagePath = window.location.pathname.split("/").pop() || "standard_index.html";
+  const currentPagePath = window.location.pathname.split("/").pop() || "main.php";
 
   // Function to build filter parameters
   function buildFilterParams() {
@@ -48,37 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to fetch items
   function fetchItems(page) {
-    // Determine which PHP file to call based on the page
-    let phpEndpoint = "";
-
-    if (currentPagePath === "my_listings.html") {
-      // Profile page: must have a logged-in user
-      if (!userId) {
-        console.error("No user ID found in sessionStorage.");
-        return;
-      }
-      phpEndpoint = `../php/get_user_listings.php?userId=${userId}`;
+    let phpEndpoint;
+    let queryParams = new URLSearchParams();
+    
+    if (currentPagePath === "my_listings.php") {
+      phpEndpoint = "/php/get_listings.php";
+      queryParams.append("user_only", "true");
     } else {
-      // Homepage: show all items not posted by the user if logged in, or all items if not
-      phpEndpoint = userId 
-        ? `../php/get_non_user_listings.php?userId=${userId}`
-        : `../php/get_non_user_listings.php`;
+      phpEndpoint = "/php/get_listings.php";
     }
-
-    // Add pagination parameters
-    phpEndpoint += `&page=${page}&per_page=${ITEMS_PER_PAGE}`;
-
-    // Add filter parameters
+    
+    // Add pagination
+    queryParams.append("page", page);
+    queryParams.append("per_page", ITEMS_PER_PAGE); 
+    
+    // Add filters
     const filterParams = buildFilterParams();
-    phpEndpoint += '&' + filterParams.toString();
-
-    // If we're on the products page and have a category filter, update the select element
-    if (currentPagePath === "products.html" && category) {
-      const categorySelect = document.getElementById('categorySelect');
-      if (categorySelect) {
-        categorySelect.value = category;
-      }
-    }
+    filterParams.forEach((value, key) => queryParams.append(key, value));
+    
+    // Final full URL
+    phpEndpoint += "?" + queryParams.toString();
+    
 
     // Fetch item listings from the appropriate backend endpoint
     fetch(phpEndpoint)
@@ -163,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Set up filter event listeners
-  if (currentPagePath === "products.html") {
+  if (currentPagePath === "products.php") {
     // Category select change
     const categorySelect = document.getElementById('categorySelect');
     const subcategorySelect = document.getElementById('subcategorySelect');
@@ -233,7 +223,7 @@ function renderProducts(page) {
       productCard.innerHTML = `
           <img src="${product.image}" alt="${product.name}" class="item-thumbnail">
           <h3>${product.name}</h3>
-          <p>$${product.price}</p>
+          <p>£${product.price}</p>
           <button>View Details</button>
       `;
       listingsContainer.appendChild(productCard);
@@ -269,5 +259,5 @@ renderPagination();
 // Function called when the "View" button is clicked for an item
 function viewItem(id) {
   // Redirect to item detail page with query parameter
-  window.location.href = `item_template.html?id=${id}`;
+  window.location.href = `item_template.php?id=${id}`;
 }

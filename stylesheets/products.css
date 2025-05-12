@@ -1,16 +1,24 @@
 /* Products Page Specific Styles */
 
+/*sticky header */
+header {
+    position: sticky; /* was fixed */
+    top: 0;
+    z-index: 1000;
+  }
+
 /* Filters Sidebar */
 .filters-sidebar {
-    flex: 0 0 280px;
+    width: 280px;
+    position: sticky;
+    top: 84px; /* header height */
+    align-self: flex-start;
     background: white;
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: fit-content;
-    position: sticky;
-    top: 84px;
-}
+    z-index: 10;
+  }
 
 .filters-section h3 {
     color: #333;
@@ -25,6 +33,12 @@
     flex-direction: column;
     gap: 1rem;
 }
+
+.price-range-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
 .category-select,
 .subcategory-select {
@@ -204,3 +218,31 @@ main {
 .pagination-controls button:hover {
     background: #4e0d6e;
 }
+
+.page-layout {
+    display: flex;
+    height: calc(100vh - 64px); /* fill screen under header */
+    overflow: hidden;
+  }
+  
+  .filters-sidebar {
+    flex: 0 0 280px;
+    padding: 1.5rem;
+    background: white;
+    position: sticky;
+    top: 64px;
+    align-self: flex-start;
+    height: fit-content;
+    z-index: 10;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .main-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  

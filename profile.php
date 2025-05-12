@@ -12,7 +12,7 @@
 </head>
 <body>
   <!-- Load navbar -->
-  <div id="navbar-container"></div>
+  <?php include 'html-assets/navbar.php'; ?>
 
   <main>
     <div class="profile-container">
@@ -50,7 +50,6 @@
 
   <!-- Scripts -->
   <script src="scripts/popup.js"></script>
-  <script src="scripts/navbar_loader.js"></script>
   <script src="scripts/footer_loader.js"></script>
 
   <script>

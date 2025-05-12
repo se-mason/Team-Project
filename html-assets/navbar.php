@@ -27,8 +27,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
             <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['userId']); ?> ▾
           </button>
           <div class="dropdown-content" id="accountMenu">
-            <a href="profile.html"><i class="fas fa-user-circle"></i> My Account</a>
-            <a href="my_listings.html"><i class="fas fa-list"></i> My Listings</a>
+            <a href="profile.php"><i class="fas fa-user-circle"></i> My Account</a>
+            <a href="my_listings.php"><i class="fas fa-list"></i> My Listings</a>
             <a href="php/logout.php"><i class="fas fa-sign-out-alt"></i> Log out</a>
           </div>
         </div>
