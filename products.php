@@ -60,18 +60,14 @@
 
 
             <!-- Listings Section -->
-            <section class="scrollable-listings">
-            <div id="listings-container" class="listings-grid"></div>
-            <div id="empty-state" class="empty-state hidden">
-            <i class="fas fa-box-open"></i>
-            <p>No items found.</p>
-            </div>
-            <div id="pagination" class="pagination">
-            <button id="prevPage">Previous</button>
-            <span id="currentPage">1</span>
-            <button id="nextPage">Next</button>
-            </div>
-  </section>
+            <section class="main-scroll-area">
+                <div class="listings-grid" id="listings-container"></div>
+                <div id="pagination" class="pagination">
+                <button id="prevPage">Previous</button>
+                <span id="currentPage">1</span>
+                <button id="nextPage">Next</button>
+                </div>
+            </section>
 
     </main>
 
