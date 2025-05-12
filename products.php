@@ -12,10 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+<main>
+
     <!-- Load navbar -->
     <?php include 'html-assets/navbar.php'; ?>
 
-    <main>
+    <div class="page-layout">
+
         <aside class="filters-sidebar">
             <h2>Filters</h2>
                 <div class="filters-section">
@@ -62,13 +65,14 @@
             <!-- Listings Section -->
             <section class="main-scroll-area">
                 <div class="listings-grid" id="listings-container"></div>
-                <div id="pagination" class="pagination">
+
+                <div id="pagination-controls" class="pagination-controls">
                 <button id="prevPage">Previous</button>
                 <span id="currentPage">1</span>
                 <button id="nextPage">Next</button>
-                </div>
+</div>
             </section>
-
+        </div>
     </main>
 
     <!-- Scripts -->

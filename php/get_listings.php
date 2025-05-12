@@ -4,7 +4,7 @@ require 'connection.php';
 
 $userId = $_SESSION['userId'] ?? null;
 $page = $_GET['page'] ?? 1;
-$perPage = $_GET['per_page'] ?? 6;
+$perPage = isset($_GET['per_page']) ? max(1, (int)$_GET['per_page']) : 9;
 $offset = ($page - 1) * $perPage;
 
 $filters = [];

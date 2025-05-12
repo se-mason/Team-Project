@@ -1,7 +1,7 @@
 // Wait for the DOM content to fully load before executing the script
 document.addEventListener('DOMContentLoaded', () => {
   // Constants
-  const ITEMS_PER_PAGE = 6;
+  const ITEMS_PER_PAGE = 9;
   let currentPage = 1;
   let totalItems = 0;
 
