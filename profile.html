@@ -7,65 +7,88 @@
   <link rel="icon" type="image/png" href="../iBay i.png" />
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
   <link rel="stylesheet" href="stylesheets/my_listings.css" />
-  <link rel="stylesheet" href="stylesheets/popup.css" />
   <link rel="stylesheet" href="stylesheets/signup.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <link rel="stylesheet" href="stylesheets/styles.css" />
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Retrieve user information from sessionStorage
-      const userId = sessionStorage.getItem("userId") || "Guest";
-      const userName = sessionStorage.getItem("userName") || "Not provided";
-      const userEmail = sessionStorage.getItem("userEmail") || "Not provided";
-      const userAddress = sessionStorage.getItem("userAddress") || "Not provided";
-      const userPostcode = sessionStorage.getItem("userPostcode") || "Not provided";
-
-      // Update the display dynamically
-      document.getElementById("username").textContent = userId;
-      document.getElementById("name").textContent = userName;
-      document.getElementById("email").textContent = userEmail;
-      document.getElementById("address").textContent = userAddress;
-      document.getElementById("postcode").textContent = userPostcode;
-    });
-  </script>
 </head>
 <body>
   <!-- Load navbar -->
   <div id="navbar-container"></div>
 
-  <!-- Body section -->
-   <div class="account-wrapper">
-    <div class="signup-container">
-      <h2><i class="fas fa-lock"></i> My Account</h2>
-      <div class="icon-container">
-        <h2><i class="fas fa-user"></i></h2>
+  <main>
+    <div class="profile-container">
+      <div class="profile-picture">
+        <img src="../assets/default-profile.png" alt="Profile Picture">
+        <button class="change-photo-btn">
+          <i class="fas fa-camera"></i> Change Photo
+        </button>
       </div>
-      <h3>Username: <span id="username"></span></h3>
-      <div class="icon-container">
-        <h2><i class="fas fa-id-card"></i></h2>
+
+      <div class="personal-info">
+        <div class="info-group">
+          <label>Username:</label>
+          <span class="value" id="username">Loading...</span>
+        </div>
+        <div class="info-group">
+          <label>Name:</label>
+          <span class="value" id="name">Loading...</span>
+        </div>
+        <div class="info-group">
+          <label>Email:</label>
+          <span class="value" id="email">Loading...</span>
+        </div>
+        <div class="info-group">
+          <label>Address:</label>
+          <span class="value" id="address">Loading...</span>
+        </div>
+        <div class="info-group">
+          <label>Postcode:</label>
+          <span class="value" id="postcode">Loading...</span>
+        </div>
       </div>
-      <h3>Name: <span id="name"></span></h3>
-      <div class="icon-container">
-        <h2><i class="fas fa-envelope"></i></h2>
-      </div>
-      <h3>Email: <span id="email"></span></h3>
-      <div class="icon-container">
-        <h2><i class="fas fa-home"></i></h2>
-      </div>
-      <h3>Address: <span id="address"></span></h3>
-      <div class="icon-container">
-        <h2><i class="fas fa-map-marker-alt"></i></h2>
-      </div>
-      <h3>Postcode: <span id="postcode"></span></h3>
     </div>
-  </div>
-  
+  </main>
 
+  <!-- Scripts -->
+  <script src="scripts/popup.js"></script>
+  <script src="scripts/navbar_loader.js"></script>
+  <script src="scripts/footer_loader.js"></script>
 
-   <!-- Scripts -->
-   <script src="scripts/popup.js"></script>
-   <script src="scripts/navbar_loader.js"></script>
-   <script src="scripts/footer_loader.js"></script>
- 
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get user ID from session storage
+      const userId = sessionStorage.getItem("userId");
+      if (!userId) {
+        window.location.href = "login_page.html";
+        return;
+      }
+
+      // Set username from session storage
+      document.getElementById("username").textContent = userId;
+
+      // Fetch user profile data from PHP endpoint
+      fetch("../php/get_user_profile.php")
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch profile data");
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Update the profile information
+          document.getElementById("name").textContent = data.name || "Not provided";
+          document.getElementById("email").textContent = data.email || "Not provided";
+          document.getElementById("address").textContent = data.address || "Not provided";
+          document.getElementById("postcode").textContent = data.postcode || "Not provided";
+        })
+        .catch(error => {
+          console.error("Error fetching profile data:", error);
+          // Show error state in the UI
+          document.getElementById("name").textContent = "Error loading data";
+          document.getElementById("email").textContent = "Error loading data";
+          document.getElementById("address").textContent = "Error loading data";
+          document.getElementById("postcode").textContent = "Error loading data";
+        });
+    });
+  </script>
 </body>
 </html>
