@@ -48,29 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to fetch items
   function fetchItems(page) {
-    // Determine which PHP file to call based on the page
-    let phpEndpoint = "";
-
+    let phpEndpoint;
+    let queryParams = new URLSearchParams();
+    
     if (currentPagePath === "my_listings.php") {
-      phpEndpoint = `/php/get_listings.php?user_only=true`;
+      phpEndpoint = "/php/get_listings.php";
+      queryParams.append("user_only", "true");
     } else {
-      phpEndpoint = `/php/get_listings.php`;
+      phpEndpoint = "/php/get_listings.php";
     }
-
-    // Add pagination parameters
-    phpEndpoint += `&page=${page}&per_page=${ITEMS_PER_PAGE}`;
-
-    // Add filter parameters
+    
+    // Add pagination
+    queryParams.append("page", page);
+    queryParams.append("per_page", ITEMS_PER_PAGE); 
+    
+    // Add filters
     const filterParams = buildFilterParams();
-    phpEndpoint += '&' + filterParams.toString();
-
-    // If we're on the products page and have a category filter, update the select element
-    if (currentPagePath === "products.php" && category) {
-      const categorySelect = document.getElementById('categorySelect');
-      if (categorySelect) {
-        categorySelect.value = category;
-      }
-    }
+    filterParams.forEach((value, key) => queryParams.append(key, value));
+    
+    // Final full URL
+    phpEndpoint += "?" + queryParams.toString();
+    
 
     // Fetch item listings from the appropriate backend endpoint
     fetch(phpEndpoint)
@@ -225,7 +223,7 @@ function renderProducts(page) {
       productCard.innerHTML = `
           <img src="${product.image}" alt="${product.name}" class="item-thumbnail">
           <h3>${product.name}</h3>
-          <p>$${product.price}</p>
+          <p>£${product.price}</p>
           <button>View Details</button>
       `;
       listingsContainer.appendChild(productCard);

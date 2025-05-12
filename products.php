@@ -16,11 +16,9 @@
     <?php include 'html-assets/navbar.php'; ?>
 
     <main>
-        <div class="items-container">
-            <div class="filters-sidebar">
-                <h3>Filters</h3>
-                <div class="filter-section">
-                    <h4>Category</h4>
+        <aside class="filters-sidebar">
+            <h2>Filters</h2>
+                <div class="filters-section">
                     <div class="category-filters">
                         <select class="category-select" id="categorySelect">
                             <option value="">All Categories</option>
@@ -34,17 +32,13 @@
                             <option value="toys">Toys & games</option>
                             <option value="other">Other categories</option>
                         </select>
-                        <select class="subcategory-select" id="subcategorySelect" disabled>
-                            <option value="">Select a category first</option>
-                        </select>
                     </div>
                 </div>
                 <div class="filter-section">
                     <h4>Price Range</h4>
-                    <div class="price-range">
-                        <input type="number" placeholder="Min" class="price-input">
-                        <span>to</span>
-                        <input type="number" placeholder="Max" class="price-input">
+                    <div class="price-range-vertical">
+                        <input type="number" class="price-input" placeholder="Min">
+                        <input type="number" class="price-input" placeholder="Max">
                     </div>
                 </div>
                 <div class="filter-section">
@@ -62,21 +56,19 @@
                         <option value="eu">Europe</option>
                     </select>
                 </div>
-            </div>
+            </aside>
 
-            <div class="products-grid">
-                <div id="empty-state" class="empty-state hidden">
-                    <div id="listings-container" class="listings-grid"></div>
+
+            <!-- Listings Section -->
+            <section class="main-scroll-area">
+                <div class="listings-grid" id="listings-container"></div>
+                <div id="pagination" class="pagination">
+                <button id="prevPage">Previous</button>
+                <span id="currentPage">1</span>
+                <button id="nextPage">Next</button>
                 </div>
-                
-                <!-- Pagination -->
-                <div class="pagination">
-                    <button id="prevPage" disabled>Previous</button>
-                    <span class="current-page">Page <span id="currentPage">1</span></span>
-                    <button id="nextPage">Next</button>
-                </div>
-            </div>
-        </div>
+            </section>
+
     </main>
 
     <!-- Scripts -->

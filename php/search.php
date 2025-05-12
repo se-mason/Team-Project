@@ -1,4 +1,3 @@
-
 <?php
 header("Content-Type: text/html; charset=UTF-8");
 
@@ -34,9 +33,9 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
         exit();
     }
 } else {
-    // Redirect to products.html if no query is provided
+    // Redirect to products.html with a "no query" flag
     $conn->close();
-    header("Location: ../products.html");
+    header("Location: ../products.html?noquery=true");
     exit();
 }
 ?>

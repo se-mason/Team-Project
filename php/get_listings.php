@@ -36,7 +36,7 @@ if (!empty($_GET['search'])) {
 
 $where = $filters ? "WHERE " . implode(" AND ", $filters) : "";
 
-$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM iBayItems $where ORDER BY created_at DESC LIMIT ?, ?";
+$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM iBayItems $where ORDER BY finish DESC LIMIT ?, ?";
 $params[] = $offset;
 $params[] = $perPage;
 $types .= "ii";
