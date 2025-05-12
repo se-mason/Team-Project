@@ -1,3 +1,4 @@
+
 <?php
 header("Content-Type: text/html; charset=UTF-8");
 
@@ -19,22 +20,23 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
 
     $result = $stmt->get_result();
 
-    // If results are found, display them
+    // If results are found, redirect to products.html with the search query
     if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<div class='result-item'>" . htmlspecialchars($row['item_name']) . "</div>";
-        }
+        $stmt->close();
+        $conn->close();
+        header("Location: ../products.html?search=" . urlencode($_GET['q']));
+        exit();
     } else {
-        // No results found
-        echo "<div class='result-item'>No results found</div>";
+        // No results found, redirect to products.html with a "no results" flag
+        $stmt->close();
+        $conn->close();
+        header("Location: ../products.html?search=" . urlencode($_GET['q']) . "&noresults=true");
+        exit();
     }
-
-    $stmt->close();
 } else {
     // Redirect to products.html if no query is provided
-    redirectWithPopup('../products.html');
+    $conn->close();
+    header("Location: ../products.html");
     exit();
 }
-
-$conn->close();
 ?>

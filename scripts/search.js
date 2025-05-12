@@ -1,41 +1,72 @@
-<?php
-header("Content-Type: text/html; charset=UTF-8");
-
-// Database connection
-$conn = new mysqli("localhost", "username", "password", "database");
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if the search query exists
-if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
-    $query = "%" . $_GET['q'] . "%"; // Wildcard for LIKE query
-
-    // Prepare and execute the SQL statement
-    $stmt = $conn->prepare("SELECT item_name FROM items WHERE item_name LIKE ? LIMIT 5");
-    $stmt->bind_param("s", $query);
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    // If results are found, redirect to products.html with the search query
-    if ($result->num_rows > 0) {
-        $stmt->close();
-        $conn->close();
-        header("Location: ../products.html?search=" . urlencode($_GET['q']));
-        exit();
-    } else {
-        // No results found, redirect to products.html with a "no results" flag
-        $stmt->close();
-        $conn->close();
-        header("Location: ../products.html?search=" . urlencode($_GET['q']) . "&noresults=true");
-        exit();
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to handle search
+    function handleSearch() {
+      const searchInput = document.getElementById('searchInput');
+      if (!searchInput) return; // Exit if search input isn't found
+  
+      const query = searchInput.value.trim();
+      const currentUrl = new URL(window.location.href);
+      const params = new URLSearchParams(currentUrl.search);
+  
+      // Preserve existing filters
+      const category = params.get('category');
+      const subcategory = params.get('subcategory');
+      const minPrice = params.get('minPrice');
+      const maxPrice = params.get('maxPrice');
+      const condition = params.get('condition');
+      const location = params.get('location');
+  
+      // Build new URL with search query and preserved filters
+      let newUrl = 'products.html?';
+      if (query) {
+        newUrl += `search=${encodeURIComponent(query)}`;
+      }
+  
+      // Add preserved filters
+      if (category) newUrl += `&category=${encodeURIComponent(category)}`;
+      if (subcategory) newUrl += `&subcategory=${encodeURIComponent(subcategory)}`;
+      if (minPrice) newUrl += `&minPrice=${encodeURIComponent(minPrice)}`;
+      if (maxPrice) newUrl += `&maxPrice=${encodeURIComponent(maxPrice)}`;
+      if (condition) newUrl += `&condition=${encodeURIComponent(condition)}`;
+      if (location) newUrl += `&location=${encodeURIComponent(location)}`;
+  
+      // Redirect to the products page with all parameters
+      window.location.href = newUrl;
     }
-} else {
-    // Redirect to products.html if no query is provided
-    $conn->close();
-    header("Location: ../products.html");
-    exit();
-}
-?>
+  
+    // Attach event listeners to the search button and input
+    function setupSearchListeners() {
+      const searchButton = document.querySelector('.search-button');
+      const searchInput = document.getElementById('searchInput');
+  
+      if (searchButton) {
+        searchButton.addEventListener('click', handleSearch);
+      }
+  
+      if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSearch();
+          }
+        });
+      }
+    }
+  
+    // Check if the navbar is dynamically loaded
+    const navbarContainer = document.getElementById('navbar-container');
+    if (navbarContainer) {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.addedNodes.length) {
+            setupSearchListeners();
+          }
+        });
+      });
+  
+      observer.observe(navbarContainer, { childList: true, subtree: true });
+    } else {
+      // If the navbar is already loaded, set up listeners immediately
+      setupSearchListeners();
+    }
+  });
