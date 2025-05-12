@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById("item-title").textContent = item.title;
       document.getElementById("item-description").textContent = item.description;
       document.getElementById("item-price").textContent = item.price;
+      document.getElementById("postage").textContent = item.postage;
+
     
       // Display dates
       const startDate = new Date(item.startDate);

@@ -1,0 +1,4 @@
+## Default .htaccess file
+Options +Indexes
+RewriteEngine On
+RewriteRule ^$ main.php [L]
