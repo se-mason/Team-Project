@@ -17,10 +17,9 @@
 
     <main>
         <div class="items-container">
-            <div class="filters-sidebar">
-                <h3>Filters</h3>
-                <div class="filter-section">
-                    <h4>Category</h4>
+        <aside class="filters-sidebar">
+            <h2>Filters</h2>
+                <div class="filters-section">
                     <div class="category-filters">
                         <select class="category-select" id="categorySelect">
                             <option value="">All Categories</option>
@@ -33,9 +32,6 @@
                             <option value="motors">Motors</option>
                             <option value="toys">Toys & games</option>
                             <option value="other">Other categories</option>
-                        </select>
-                        <select class="subcategory-select" id="subcategorySelect" disabled>
-                            <option value="">Select a category first</option>
                         </select>
                     </div>
                 </div>
@@ -62,20 +58,24 @@
                         <option value="eu">Europe</option>
                     </select>
                 </div>
-            </div>
+            </aside>
 
-            <div class="products-grid">
+
+            <!-- Listings Section -->
+            <section class="listings-section">
+                <div id="listings-container" class="listings-grid"></div>
+
                 <div id="empty-state" class="empty-state hidden">
-                    <div id="listings-container" class="listings-grid"></div>
+                    <i class="fas fa-box-open"></i>
+                    <p>No items found.</p>
                 </div>
-                
-                <!-- Pagination -->
-                <div class="pagination">
-                    <button id="prevPage" disabled>Previous</button>
-                    <span class="current-page">Page <span id="currentPage">1</span></span>
+
+                <div id="pagination" class="pagination">
+                    <button id="prevPage">Previous</button>
+                    <span id="currentPage">1</span>
                     <button id="nextPage">Next</button>
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 
