@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Item Details | iBay</title>
-
+  <link rel="icon" type="image/png" href="iBay i.png" />
   <!-- Link to shared stylesheet for consistent styling -->
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
   <link rel="stylesheet" href="stylesheets/item_template.css" />

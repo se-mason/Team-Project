@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Account | iBay</title>
-  <link rel="icon" type="image/png" href="../iBay i.png" />
+  <link rel="icon" type="image/png" href="iBay i.png" />
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
   <link rel="stylesheet" href="stylesheets/my_listings.css" />
   <link rel="stylesheet" href="stylesheets/signup.css" />
