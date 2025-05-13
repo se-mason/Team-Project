@@ -6,7 +6,7 @@ require_once 'popup.php';
 session_start();
 
 // Redirect with a popup if user is not logged in, catcehes log out when on listing page
-if (!isset($_SESSION['userId'])) {
+if (!isset($_SESSION['userId'])) { 
     require_once 'popup.php';
     redirectWithPopup('../login_page.html', 'Please log in to list an item');
 }
@@ -44,48 +44,56 @@ $stmt->close();
 $itemId = $conn->insert_id;
 
 // Process uploaded images
+// Process uploaded images
 $maxFiles = 10;
-$allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+$allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+$allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+$uploadErrors = [];
+
+echo "<pre>";
+print_r($_FILES);
+echo "</pre>";
+exit;
 
 if (!empty($_FILES['images']['name'][0])) {
-    $targetDir = "../uploads/";
-    $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-    
     foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
         $fileName = $_FILES['images']['name'][$index];
         $fileTmp  = $_FILES['images']['tmp_name'][$index];
-    
+
         // Get actual MIME type
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $fileTmp);
         finfo_close($finfo);
-    
-        // Get file extension
+
         $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-    
+
         if (!in_array($mimeType, $allowedMimeTypes) || !in_array($ext, $allowedExtensions)) {
-            echo "<script>showPopup('Unsupported image format. Please upload JPEG, PNG, GIF, or WebP.');</script>";
-            continue; // Skip this file
+            $uploadErrors[] = "Unsupported format for $fileName.";
+            continue;
         }
 
-        // Move uploaded file
-        if (move_uploaded_file($tmpName, $targetFile)) {
-            echo "Uploaded '$name' successfully.<br>";
-            // Save path to DB if needed: $uniqueName or $targetFile
+        // Create a unique filename and destination path
+        $uniqueName = uniqid('img_', true) . '.' . $ext;
+        $targetFile = "../uploads/" . $uniqueName;
+
+        // Move file
+        if (move_uploaded_file($fileTmp, $targetFile)) {
+            // Save image path to DB
+            $imageData = file_get_contents($targetFile);
+            $stmt = $conn->prepare("INSERT INTO iBayImages (itemId, image, mimeType) VALUES (?, ?, ?)");
+            $stmt->bind_param("iss", $itemId, $imageData, $mimeType);
+            $stmt->execute();
+            $stmt->close();
         } else {
-            echo "Failed to save '$name'.<br>";
+            $uploadErrors[] = "Failed to move $fileName.";
         }
     }
 }
 
 if (!empty($uploadErrors)) {
-    header('Content-Type: application/json');
-    redirectWithPopup("../new_listing.php", "Error with image uploads");
+    redirectWithPopup("../new_listing.php", "Some images failed to upload: " . implode(', ', $uploadErrors));
     exit;
 }
-
-
 
 // Redirect with confirmation
 require_once 'popup.php';
