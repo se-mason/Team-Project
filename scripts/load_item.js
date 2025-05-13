@@ -54,19 +54,79 @@ document.addEventListener('DOMContentLoaded', () => {
     
       // Load images
       const carousel = document.getElementById("image-carousel");
-      carousel.innerHTML = '';
-      item.images.slice(0, 10).forEach(url => {
-        const img = document.createElement('img');
-        img.src = url;
-        img.style.height = '120px';
-        img.style.marginRight = '10px';
-        img.style.borderRadius = '8px';
-        img.style.border = '1px solid #ccc';
-        carousel.appendChild(img);
-      });
+      const navDots = carousel.querySelector('.carousel-nav');
+      let currentImageIndex = 0;
+      
+      if (item.images && item.images.length > 0) {
+        // Create image elements
+        item.images.forEach((imageUrl, index) => {
+          const img = document.createElement('img');
+          img.src = imageUrl;
+          img.className = 'carousel-image';
+          if (index === 0) img.classList.add('active');
+          carousel.insertBefore(img, navDots);
+          
+          // Create navigation dot
+          const dot = document.createElement('div');
+          dot.className = 'carousel-dot';
+          if (index === 0) dot.classList.add('active');
+          dot.addEventListener('click', () => showImage(index));
+          navDots.appendChild(dot);
+        });
+        
+        // Set up carousel navigation
+        const prevBtn = carousel.querySelector('.carousel-prev');
+        const nextBtn = carousel.querySelector('.carousel-next');
+        
+        prevBtn.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex - 1 + item.images.length) % item.images.length;
+          showImage(currentImageIndex);
+        });
+        
+        nextBtn.addEventListener('click', () => {
+          currentImageIndex = (currentImageIndex + 1) % item.images.length;
+          showImage(currentImageIndex);
+        });
+        
+        // Show first image
+        showImage(0);
+      } else {
+        // No images, show placeholder
+        const placeholder = document.createElement('div');
+        placeholder.className = 'carousel-image active';
+        placeholder.style.display = 'flex';
+        placeholder.style.flexDirection = 'column';
+        placeholder.style.alignItems = 'center';
+        placeholder.style.justifyContent = 'center';
+        placeholder.style.height = '100%';
+        placeholder.style.color = '#666';
+        placeholder.innerHTML = `
+          <i class="fas fa-image fa-5x" style="margin-bottom: 1rem; color: #601a8a;"></i>
+          <p style="font-size: 1.2rem; margin: 0;">No images available</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #888;">This item has no images</p>
+        `;
+        carousel.insertBefore(placeholder, navDots);
+        
+        // Hide navigation elements when no images
+        carousel.querySelector('.carousel-prev').style.display = 'none';
+        carousel.querySelector('.carousel-next').style.display = 'none';
+        navDots.style.display = 'none';
+      }
     })
     
     .catch(err => {
-      console.error(err);
+      console.error("Error loading item:", err);
+      document.getElementById("item-title").textContent = "Error loading item details.";
     });
 });
+
+function showImage(index) {
+  const images = document.querySelectorAll('.carousel-image');
+  const dots = document.querySelectorAll('.carousel-dot');
+  
+  images.forEach(img => img.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('active'));
+  
+  images[index].classList.add('active');
+  dots[index].classList.add('active');
+}
