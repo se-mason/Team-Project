@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevPageBtn = document.getElementById('prevPage');
         const nextPageBtn = document.getElementById('nextPage');
         const currentPageSpan = document.getElementById('currentPage');
+        const sessionUserId = data.sessionUserId;
       
         if (!Array.isArray(data.items) || data.items.length === 0) {
           container.innerHTML = '<div class="empty-state"><p>No items found matching your filters.</p></div>';
@@ -151,14 +152,17 @@ document.addEventListener('DOMContentLoaded', () => {
             ? item.images[0] 
             : '../assets/placeholder.jpg'
       
-          div.innerHTML = `
+            div.innerHTML = `
             <div class="item-card">
               <img src="${imageUrl}" alt="${item.title}" class="item-thumbnail">
               <h3>${item.title}</h3>
               <p>£${item.price}</p>
-              <button onclick="viewItem(${item.itemId})">View</button>
+              ${item.userId == sessionUserId
+                ? `<button class="edit-button" onclick="editItem(${item.itemId})">Edit</button>`
+                : `<button onclick="viewItem(${item.itemId})">View</button>`}
             </div>
           `;
+          
       
           container.appendChild(div);
         });
@@ -203,59 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchItems(currentPage);
 });
 
-const itemsPerPage = 12;
-let currentPage = 1;
-
-// Function to render products for the current page
-function renderProducts(page) {
-  const listingsContainer = document.getElementById("listings-container");
-  listingsContainer.innerHTML = ""; // Clear previous products
-
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const productsToDisplay = products.slice(startIndex, endIndex);
-
-  productsToDisplay.forEach((product) => {
-      const productCard = document.createElement("div");
-      productCard.className = "item-card";
-      productCard.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="item-thumbnail">
-          <h3>${product.name}</h3>
-          <p>£${product.price}</p>
-          <button>View Details</button>
-      `;
-      listingsContainer.appendChild(productCard);
-  });
-}
-
-// Function to render pagination controls
-function renderPagination() {
-  const paginationContainer = document.getElementById("pagination");
-  paginationContainer.innerHTML = ""; // Clear previous pagination buttons
-
-  const totalPages = Math.ceil(products.length / itemsPerPage);
-
-  if (totalPages <= 1) return; // No pagination needed if only one page
-
-  for (let i = 1; i <= totalPages; i++) {
-      const button = document.createElement("button");
-      button.textContent = i;
-      button.className = i === currentPage ? "active" : "";
-      button.addEventListener("click", () => {
-          currentPage = i;
-          renderProducts(currentPage);
-          renderPagination();
-      });
-      paginationContainer.appendChild(button);
-  }
-}
-
-// Initial render
-renderProducts(currentPage);
-renderPagination();
-
 // Function called when the "View" button is clicked for an item
 function viewItem(id) {
   // Redirect to item detail page with query parameter
   window.location.href = `item_template.php?id=${id}`;
+}
+
+function editItem(id) {
+  // Redirect to item detail page with query parameter
+  window.location.href = `item_edit.php?id=${id}`;
 }
