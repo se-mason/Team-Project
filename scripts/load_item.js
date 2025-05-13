@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const img = document.createElement('img');
           img.src = imageUrl;
           img.className = 'carousel-image';
+          img.alt = `Item image ${index + 1}`;
           if (index === 0) img.classList.add('active');
           carousel.insertBefore(img, navDots);
           
@@ -70,7 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
           const dot = document.createElement('div');
           dot.className = 'carousel-dot';
           if (index === 0) dot.classList.add('active');
-          dot.addEventListener('click', () => showImage(index));
+          dot.addEventListener('click', () => {
+            currentImageIndex = index;
+            showImage(index);
+          });
           navDots.appendChild(dot);
         });
         
