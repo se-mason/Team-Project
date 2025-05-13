@@ -17,8 +17,8 @@ body {
     text-align: center;
     color: white;
     position: relative;
-    margin-top: -64px; /* Offset for header height */
-    padding-top: calc(6rem + 64px); /* Add header height to padding */
+    margin-top: -40px; /* Offset for header height */
+    padding-top: calc(6rem + 40px); /* Add header height to padding */
     width: 100vw;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
