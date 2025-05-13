@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const category = params.get('category');
   const subcategory = params.get('subcategory');
   const search = params.get('search');
+  const sort = params.get('sort');
 
   // Detect the current page from the URL
   const currentPagePath = window.location.pathname.split("/").pop() || "main.php";
@@ -28,6 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set initial category if provided in URL
   if (category && categorySelect) {
     categorySelect.value = category;
+  }
+
+  // Set initial sort if provided in URL
+  if (sort) {
+    const radioToCheck = sort === 'price_asc' ? 'lowToHigh' : 'highToLow';
+    const radio = document.querySelector(`input[name="priceSort"][value="${radioToCheck}"]`);
+    if (radio) {
+      radio.checked = true;
+    }
   }
 
   // Function to clear all filters
