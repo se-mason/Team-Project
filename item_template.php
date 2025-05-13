@@ -36,13 +36,20 @@
 
     <!-- Item information -->
     <div class="item-info">
-      <p id="item-description"></p>
-      <p><strong>Price: £</strong><span id="item-price"></span></p>
-      <p><strong>Postage:</strong> <span id="postage"></span></p>
-      <p><strong>Start Date:</strong> <span id="start-date"></span></p>
-      <p><strong>End Date:</strong> <span id="end-date"></span></p>
-      <p><strong>Time Remaining:</strong> <span id="countdown-timer"></span></p>
-      <button id="bid-button">Place Bid</button>
+      <div class="item-info-section">
+        <h3>Item Details</h3>
+        <p id="item-description"></p>
+        <p><strong>Price:</strong> £<span id="item-price"></span></p>
+        <p><strong>Postage:</strong> <span id="postage"></span></p>
+      </div>
+
+      <div class="item-info-section">
+        <h3>Auction Information</h3>
+        <p><strong>Start Date:</strong> <span id="start-date"></span></p>
+        <p><strong>End Date:</strong> <span id="end-date"></span></p>
+        <p><strong>Time Remaining:</strong> <span id="countdown-timer"></span></p>
+        <button id="bid-button">Place Bid</button>
+      </div>
     </div>
   </div>
 
