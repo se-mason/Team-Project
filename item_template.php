@@ -34,7 +34,7 @@
           <button id="bid-button">Buy</button>
         </div>
         <div class="item-meta">
-          <p><strong>Condition:</strong> <span id="item-condition"></span></p>
+          <p><strong>Category:</strong> <span id="category-choice"></span></p>
           <p><strong>Postage:</strong> <span id="postage"></span></p>
           <p><strong>Time Remaining:</strong> <span id="countdown-timer"></span></p>
           <p><strong>Start Date:</strong> <span id="start-date"></span></p>

@@ -8,49 +8,50 @@ if (!isset($_GET['id'])) {
 
 $itemId = intval($_GET['id']);
 
-// Fetch item details
-$itemSql = "SELECT title, description, price, start, finish, postage FROM iBayItems WHERE itemId = ?";
+// Prepare item query
+$itemSql = "SELECT title, description, price, start AS startDate, finish AS endDate, postage, category FROM iBayItems WHERE itemId = ?";
 $itemStmt = $conn->prepare($itemSql);
+
+if (!$itemStmt) {
+    echo json_encode(["error" => "Failed to prepare item statement: " . $conn->error]);
+    exit;
+}
+
 $itemStmt->bind_param("i", $itemId);
 $itemStmt->execute();
+
 $itemResult = $itemStmt->get_result();
 
-if ($itemResult->num_rows === 0) {
-    echo json_encode(["error" => "Item not found."]);
+if (!$itemResult || $itemResult->num_rows === 0) {
+    echo json_encode(["error" => "Item not found or failed to retrieve."]);
     exit;
 }
 
 $item = $itemResult->fetch_assoc();
 
-while ($row = $result->fetch_assoc()) {
-    $itemId = $row['itemId'];
 
-    // Fetch FIRST image blob for this item
-    $imgStmt = $conn->prepare("SELECT image, mimeType FROM iBayImages WHERE itemId = ?");
-    $imgStmt->bind_param("i", $itemId);
-    $imgStmt->execute();
-    $imgResult = $imgStmt->get_result();
+$imageSql = "SELECT image, mimeType FROM iBayImages WHERE itemId = ?";
+$imageStmt = $conn->prepare($imageSql);
 
-    $images = [];
-    if ($img = $imgResult->fetch_assoc()) {
-        $base64 = base64_encode($img['image']);
-        $images[] = "data:" . $img['mimeType'] . ";base64," . $base64;
-    }
-
-    $row['images'] = $images;
-    $items[] = $row;
+if (!$imageStmt) {
+    echo json_encode(["error" => "Failed to prepare image statement: " . $conn->error]);
+    exit;
 }
 
-// Build response
-$response = [
-    "title" => $item['title'],
-    "description" => $item['description'],
-    "price" => $item['price'],
-    "startDate" => $item['start'],
-    "endDate" => $item['finish'],
-    "postage" => $item['postage'],
-    "images" => $images
-];
+$imageStmt->bind_param("i", $itemId);
+$imageStmt->execute();
+$imageResult = $imageStmt->get_result();
 
-echo json_encode($response);
+$images = [];
+while ($row = $imageResult->fetch_assoc()) {
+    $base64 = base64_encode($row['image']);
+    $images[] = "data:" . $row['mimeType'] . ";base64," . $base64;
+}
+
+$item['images'] = $images;
+
+// Output JSON
+header('Content-Type: application/json');
+echo json_encode($item);
+
 ?>
