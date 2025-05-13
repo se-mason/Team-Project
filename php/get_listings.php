@@ -42,33 +42,30 @@ if (!empty($_GET['maxPrice'])) {
     $types .= "d";
 }
 
+// Build the ORDER BY clause
+$orderBy = "i.itemId DESC"; // Default sorting
 if (!empty($_GET['sort'])) {
-    $sort = explode(',', $_GET['sort']);
-    $placeholders = implode(',', array_fill(0, count($sort), '?'));
-    $filters[] = "i.itemSort IN ($placeholders)";
-    foreach ($sort as $cond) {
-        $params[] = $cond;
-        $types .= "s";
+    switch ($_GET['sort']) {
+        case 'price_asc':
+            $orderBy = "i.price ASC";
+            break;
+        case 'price_desc':
+            $orderBy = "i.price DESC";
+            break;
     }
-}
-
-
-if (!empty($_GET['search'])) {
-    $filters[] = "(i.title LIKE ? OR i.description LIKE ?)";
-    $searchTerm = '%' . $_GET['search'] . '%';
-    $params[] = $searchTerm;
-    $params[] = $searchTerm;
-    $types .= "ss";
 }
 
 $whereClause = count($filters) ? "WHERE " . implode(" AND ", $filters) : "";
 
-// Main query (without image for now)
+// Main query
 $sql = "
-    SELECT i.itemId, i.title, i.description, i.price
+    SELECT i.itemId, i.title, i.description, i.price, i.category,
+           GROUP_CONCAT(im.imagePath) as images
     FROM iBayItems i
+    LEFT JOIN iBayImages im ON i.itemId = im.itemId
     $whereClause
-    ORDER BY i.itemId DESC
+    GROUP BY i.itemId
+    ORDER BY $orderBy
     LIMIT ? OFFSET ?
 ";
 
@@ -81,46 +78,45 @@ if (!$stmt) {
     echo json_encode(["error" => "SQL error: " . $conn->error]);
     exit;
 }
+
 $stmt->bind_param($types, ...$params);
 $stmt->execute();
 $result = $stmt->get_result();
 
 $items = [];
-
 while ($row = $result->fetch_assoc()) {
-    $itemId = $row['itemId'];
-
-    // Fetch FIRST image blob for this item
-    $imgStmt = $conn->prepare("SELECT image, mimeType FROM iBayImages WHERE itemId = ? LIMIT 1");
-    $imgStmt->bind_param("i", $itemId);
-    $imgStmt->execute();
-    $imgResult = $imgStmt->get_result();
-
-    $images = [];
-    if ($img = $imgResult->fetch_assoc()) {
-        $base64 = base64_encode($img['image']);
-        $images[] = "data:" . $img['mimeType'] . ";base64," . $base64;
-    }
-
-    $row['images'] = $images;
+    // Process images
+    $row['images'] = $row['images'] ? explode(',', $row['images']) : [];
     $items[] = $row;
 }
 
-// Count for pagination
-$countSql = "SELECT COUNT(*) as total FROM iBayItems i $whereClause";
-$countStmt = $conn->prepare($countSql);
-if ($types !== "ii") {
-    $countTypes = substr($types, 0, -2);
-    $countParams = array_slice($params, 0, -2);
-    $countStmt->bind_param($countTypes, ...$countParams);
-}
-$countStmt->execute();
-$countResult = $countStmt->get_result();
-$total = $countResult->fetch_assoc()['total'] ?? count($items);
+// Get total count for pagination
+$countSql = "
+    SELECT COUNT(DISTINCT i.itemId) as total
+    FROM iBayItems i
+    $whereClause
+";
 
-// Output JSON
+$countStmt = $conn->prepare($countSql);
+if ($countStmt) {
+    if (count($params) > 2) { // Remove LIMIT and OFFSET params
+        array_pop($params);
+        array_pop($params);
+        $types = substr($types, 0, -2);
+    }
+    if (!empty($types)) {
+        $countStmt->bind_param($types, ...$params);
+    }
+    $countStmt->execute();
+    $total = $countStmt->get_result()->fetch_assoc()['total'];
+} else {
+    $total = count($items);
+}
+
 echo json_encode([
     "items" => $items,
-    "total" => $total
+    "total" => $total,
+    "page" => $page,
+    "perPage" => $perPage
 ]);
 ?>
