@@ -98,6 +98,13 @@
           
         </form>
 
+        <form action="php/delete_listing.php" method="POST" style="display: inline;">
+        <input type="hidden" name="itemId" value="<?php echo $_SESSION['itemId']; ?>" />
+        <button type="submit" class="new-listing-btn" onclick="return confirm('Are you sure you want to delete this listing?');">
+          Delete Listing
+        </button>
+      </form>
+
   </div>
 
   </main>

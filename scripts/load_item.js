@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const countdownEl = document.getElementById("countdown-timer");
       const bidBtn = document.getElementById("bid-button");
     
+      // Declare the timer variable before using it
+      let timer;
+    
       function updateCountdown() {
         const now = new Date();
         const diff = endDate - now;
@@ -52,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     
       updateCountdown();
-      const timer = setInterval(updateCountdown, 1000);
+      timer = setInterval(updateCountdown, 1000);
     
       // Load images
       const carousel = document.getElementById("image-carousel");
