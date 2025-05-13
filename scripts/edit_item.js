@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Create delete button
                     const deleteBtn = document.createElement('button');
                     deleteBtn.className = 'delete-btn';
-                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.type = 'button';
                     deleteBtn.dataset.imageId = imageData.imageId; // Use imageId from the response
                     deleteBtn.addEventListener('click', (e) => {
                         const imageId = e.target.dataset.imageId;

@@ -490,3 +490,33 @@
 .carousel-image .delete-checkbox {
   vertical-align: middle;
 }
+
+.delete-listing-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.6rem 1.4rem 0.6rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 2px 8px rgba(220,53,69,0.12);
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.delete-listing-btn i {
+  font-size: 1.2rem;
+}
+
+.delete-listing-btn:hover, .delete-listing-btn:focus {
+  background: #b71c2b;
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(220,53,69,0.18);
+}
