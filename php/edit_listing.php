@@ -42,15 +42,33 @@ $endDate = date("Y-m-d", strtotime($end));
 
 // Bind parameters and execute
 $stmt->bind_param("ssdssssii", $title, $description, $price, $postage, $category, $startDate, $endDate, $itemId, $userId);
+$stmt->execute();
 
-if ($stmt->execute()) {
-    // Success: return a success message or redirect
-    unset($_SESSION['itemId']);
-    redirectWithPopup("../my_listings.php", "Item Updated!");
+// Handle image upload
+if (!empty($_FILES['newImages']['name'][0])) {
+    $fileCount = count($_FILES['newImages']['name']);
+    for ($i = 0; $i < $fileCount; $i++) {
+        $imageName = $_FILES['newImages']['name'][$i];
+        $imageTmpName = $_FILES['newImages']['tmp_name'][$i];
+        $imageData = file_get_contents($imageTmpName);
 
-} else {
-    // Error: return the error message
-    unset($_SESSION['itemId']);
-    redirectWithPopup("../my_listings.php", "Update Failed");
+        // Insert the new image into the database
+        $stmt = $conn->prepare("INSERT INTO iBayImages (itemId, image) VALUES (?, ?)");
+        $stmt->bind_param("is", $itemId, $imageData);
+
+        if ($stmt->execute()) {
+            // Success: return a success message or redirect
+            unset($_SESSION['itemId']);
+            redirectWithPopup("../my_listings.php", "Item Updated!");
+        
+        } else {
+            // Error: return the error message
+            unset($_SESSION['itemId']);
+            redirectWithPopup("../my_listings.php", "Update Failed");
+        }
+    }
 }
+
+redirectWithPopup("../my_listings.php", "Item Updated!");
+
 ?>

@@ -81,53 +81,9 @@
 
           <div class="listings-filters">
             <label>Upload up to 10 images:</label><br>
-            <button type="button" id="addMoreBtn">Add Images</button>
-            <input type="file" id="fileInput" name="images[]" accept="image/*" multiple style="display: none;">
-            <ul id="previewList"></ul>
-
-            <script>
-              document.addEventListener('DOMContentLoaded', function () {
-                const fileInput = document.getElementById('fileInput');
-                const addMoreBtn = document.getElementById('addMoreBtn');
-                const previewList = document.getElementById('previewList');
-
-                let selectedFiles = [];
-
-                addMoreBtn.addEventListener('click', () => {
-                  fileInput.click();
-                });
-
-                fileInput.addEventListener('change', (e) => {
-                  const newFiles = Array.from(e.target.files);
-
-                  // Merge and enforce limit of 10
-                  const combined = selectedFiles.concat(newFiles).slice(0, 10);
-                  selectedFiles = combined;
-
-                  // Clear and re-add a new file input element with updated FileList
-                  const dataTransfer = new DataTransfer();
-                  selectedFiles.forEach(file => dataTransfer.items.add(file));
-                  fileInput.files = dataTransfer.files;
-
-                  // Update preview
-                  updatePreview();
-                });
-
-                function updatePreview() {
-                  previewList.innerHTML = '';
-                  selectedFiles.forEach(file => {
-                    const li = document.createElement('li');
-                    const img = document.createElement('img');
-                    img.src = URL.createObjectURL(file);
-                    img.style.maxHeight = '60px';
-                    img.style.margin = '5px';
-                    li.appendChild(img);
-                    previewList.appendChild(li);
-                  });
-                }
-              });
-            </script>
-
+            <!-- Existing Images Section -->
+            <div id="image-carousel"></div>
+            <input type="file" name="newImages[]" multiple />
           </div>
           <input type="hidden" name="itemId" id="itemId">
 
