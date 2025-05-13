@@ -16,13 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
   
         // Populate form fields
-        document.getElementById("title").value = item.title;
-        document.getElementById("description").value = item.description;
-        document.getElementById("price").value = item.price;
+        document.getElementById("item-title").value = item.title;
+        document.getElementById("item-description").value = item.description;
+        document.getElementById("item-price").value = item.price;
         document.getElementById("postage").value = item.postage;
         document.getElementById("category-choice").value = item.category;
-        document.getElementById("start").value = item.startDate.split("T")[0];
-        document.getElementById("end").value = item.endDate.split("T")[0];
+        
+
+        const formatDate = (dateStr) => {
+            const date = new Date(dateStr);  // Create a Date object
+            return date.toISOString().split("T")[0];  // Convert to yyyy-MM-dd format
+        }
+
+        document.getElementById("start-date").value = formatDate(item.startDate);
+        document.getElementById("end-date").value = formatDate(item.endDate);
   
         // Add item ID to a hidden input (if it exists)
         const hiddenId = document.getElementById("itemId");
