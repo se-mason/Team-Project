@@ -31,7 +31,7 @@
         <div class="seller-info" id="seller-info"></div>
         <div class="item-price-row">
           <span id="item-price"></span>
-          <button id="bid-button">Submit bid</button>
+          <button id="bid-button">Buy</button>
         </div>
         <div class="item-meta">
           <p><strong>Condition:</strong> <span id="item-condition"></span></p>
