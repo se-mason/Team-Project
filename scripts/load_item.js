@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
         placeholder.style.color = '#666';
         placeholder.innerHTML = `
           <i class="fas fa-image fa-5x" style="margin-bottom: 1rem; color: #601a8a;"></i>
-          <p style="font-size: 1.2rem; margin: 0;">No images available</p>
-          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #888;">This item has no images</p>
+          <p style="font-size: 1.2rem; margin: 0;">No photo yet</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #888;"></p>
         `;
         carousel.insertBefore(placeholder, navDots);
         
