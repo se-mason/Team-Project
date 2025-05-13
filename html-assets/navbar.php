@@ -11,7 +11,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
   <div class="header-center">
       <div class="search-container">
         <form action="php/search.php" method="GET">
-          <input type="text" id="searchInput" name="q" class="search-bar" placeholder="Search for anything...">
+          <input type="text" id="searchInput" name="searchInput" class="search-bar" placeholder="Search for anything...">
           <button type="submit" class="search-button">
               <i class="fas fa-search"></i>
           </button>
