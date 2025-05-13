@@ -10,9 +10,16 @@ $filters = [];
 $params = [];
 $types = "";
 
-// Filter: User's own listings
-if (!empty($_GET['user_only']) && isset($_SESSION['userId'])) {
-    $filters[] = "i.userId = ?";
+if (isset($_SESSION['userId'])) {
+    $referer = $_SERVER['HTTP_REFERER'] ?? '';
+    $refererPage = basename(parse_url($referer, PHP_URL_PATH));
+
+    if ($refererPage === 'my_listings.php') {
+        $filters[] = "i.userId = ?";
+    } else {
+        $filters[] = "i.userId != ?";
+    }
+
     $params[] = $_SESSION['userId'];
     $types .= "s";
 }
@@ -29,12 +36,6 @@ if (!empty($_GET['search'])) {
 if (!empty($_GET['category'])) {
     $filters[] = "i.category = ?";
     $params[] = $_GET['category'];
-    $types .= "s";
-}
-
-if (!empty($_GET['subcategory'])) {
-    $filters[] = "i.subcategory = ?";
-    $params[] = $_GET['subcategory'];
     $types .= "s";
 }
 
