@@ -14,7 +14,11 @@
 </head>
 <body>
     <!-- Load navbar -->
-    <?php include 'html-assets/navbar.php'; ?>
+    <?php include 'html-assets/navbar.php'; 
+
+    if (isset($_GET['id'])) {
+    $_SESSION['itemId'] = $_GET['id'];  // Store itemId in session
+    }?>
 
   <main class="listings-container">
     <div class="listings-header">
@@ -23,7 +27,7 @@
         <i class="fas fa-arrow-right"></i> My Listings
       </a>
     </div>
-    
+
     <!-- Body section -->
     <div>
       <form id="listingForm" action="php/edit_listing.php" method="POST" enctype="multipart/form-data">
