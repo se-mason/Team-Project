@@ -50,11 +50,6 @@ $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 $uploadErrors = [];
 
-echo "<pre>";
-print_r($_FILES);
-echo "</pre>";
-exit;
-
 if (!empty($_FILES['images']['name'][0])) {
     foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
         $fileName = $_FILES['images']['name'][$index];

@@ -77,7 +77,7 @@
           <div class="listings-filters">
             <label>Upload up to 10 images:</label><br>
             <button type="button" id="addMoreBtn">Add Images</button>
-            <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+            <input type="file" id="fileInput" name="images[]" accept="image/*" multiple style="display: none;">
             <ul id="previewList"></ul>
           </div>
         
