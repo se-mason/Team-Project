@@ -23,6 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const minPriceInput = document.getElementById('minPrice');
   const maxPriceInput = document.getElementById('maxPrice');
   const priceSortRadios = document.querySelectorAll('input[name="priceSort"]');
+  const clearFiltersBtn = document.getElementById('clearFilters');
+
+  // Set initial category if provided in URL
+  if (category && categorySelect) {
+    categorySelect.value = category;
+  }
+
+  // Function to clear all filters
+  function clearFilters() {
+    categorySelect.value = '';
+    minPriceInput.value = '';
+    maxPriceInput.value = '';
+    priceSortRadios.forEach(radio => radio.checked = false);
+    currentPage = 1;
+    fetchItems(currentPage);
+  }
 
   // Function to build filter parameters
   function buildFilterParams() {
@@ -35,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Price range
     const minPrice = minPriceInput.value;
     const maxPrice = maxPriceInput.value;
-    if (minPrice) params.append('minPrice', minPrice);
-    if (maxPrice) params.append('maxPrice', maxPrice);
+    if (minPrice) params.append('minPrice', parseFloat(minPrice));
+    if (maxPrice) params.append('maxPrice', parseFloat(maxPrice));
     
     // Price sort
     const selectedPriceSort = document.querySelector('input[name="priceSort"]:checked');
@@ -134,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
     currentPage = 1;
     fetchItems(currentPage);
   });
+
+  // Clear filters button handler
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', clearFilters);
+  }
   
   // Initial fetch
   fetchItems(currentPage);
