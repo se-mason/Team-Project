@@ -6,7 +6,7 @@ if (isset($_GET['searchInput']) && !empty(trim($_GET['searchInput']))) {
     $query = "%" . $_GET['searchInput'] . "%"; // Wildcard for LIKE query
 
     // Prepare and execute the SQL statement
-    $stmt = $conn->prepare("SELECT itemId FROM iBayItems WHERE title LIKE ? OR description LIKE ? LIMIT 5");
+    $stmt = $conn->prepare("SELECT itemId FROM iBayItems WHERE title LIKE ? OR description LIKE ?");
     $stmt->bind_param("ss", $query, $query);
     $stmt->execute();
 

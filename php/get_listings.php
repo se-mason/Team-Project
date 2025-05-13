@@ -17,6 +17,14 @@ if (!empty($_GET['user_only']) && isset($_SESSION['userId'])) {
     $types .= "s";
 }
 
+if (!empty($_GET['search'])) {
+    $filters[] = "(i.title LIKE ? OR i.description LIKE ?)";
+    $searchTerm = "%" . $_GET['search'] . "%";
+    $params[] = $searchTerm;
+    $params[] = $searchTerm;
+    $types .= "ss";
+}
+
 // Other filters
 if (!empty($_GET['category'])) {
     $filters[] = "i.category = ?";
@@ -63,24 +71,20 @@ if (!empty($_GET['search'])) {
 
 $whereClause = count($filters) ? "WHERE " . implode(" AND ", $filters) : "";
 
-// Main query (without image for now)
-$sql = "
-    SELECT i.itemId, i.title, i.description, i.price
-    FROM iBayItems i
-    $whereClause
-    ORDER BY i.itemId DESC
-    LIMIT ? OFFSET ?
-";
+// Construct the SQL query
+$sql = "SELECT * FROM iBayItems i";
+if (!empty($filters)) {
+    $sql .= " WHERE " . implode(" AND ", $filters);
+}
+$sql .= " LIMIT ? OFFSET ?";
 
+// Add pagination params
 $params[] = $perPage;
 $params[] = $offset;
 $types .= "ii";
 
+// Prepare and bind
 $stmt = $conn->prepare($sql);
-if (!$stmt) {
-    echo json_encode(["error" => "SQL error: " . $conn->error]);
-    exit;
-}
 $stmt->bind_param($types, ...$params);
 $stmt->execute();
 $result = $stmt->get_result();
