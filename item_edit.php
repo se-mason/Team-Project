@@ -27,9 +27,6 @@
       <a href="my_listings.php" class="new-listing-btn">
         <i class="fas fa-arrow-right"></i> My Listings
       </a>
-      <button class="delete-listing-btn" type="button" onclick="deleteListing()">
-        <i class="fas fa-trash"></i> Delete Listing
-      </button>
     </div>
 
     <!-- Body section -->
@@ -99,7 +96,7 @@
 
           <div class="edit-actions-row">
             <input type="submit" value="Save" class="new-listing-btn" />
-            <button type="submit" class="new-listing-btn delete-listing" onclick="return confirm('Are you sure you want to delete this listing?');">
+            <button type="submit" class="new-listing-btn delete-listing" onclick=deleteListing()">
               <i class="fas fa-trash"></i> Delete Listing
             </button>
           </div>
