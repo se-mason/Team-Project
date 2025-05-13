@@ -47,19 +47,25 @@ document.addEventListener('DOMContentLoaded', () => {
     minPriceInput.value = '';
     maxPriceInput.value = '';
     priceSortRadios.forEach(radio => radio.checked = false);
-    
+  
+    // ✅ Clear the search bar
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.value = '';
+    }
+  
     // Reset page
     currentPage = 1;
-    
+  
     // Clear URL parameters
     const url = new URL(window.location.href);
     url.search = '';
     window.history.pushState({}, '', url);
-    
+  
     // Fetch items without filters
     fetchItems(currentPage);
   }
-
+  
   // Function to build filter parameters
   function buildFilterParams() {
     const params = new URLSearchParams();
