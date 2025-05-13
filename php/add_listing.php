@@ -51,39 +51,32 @@ $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 $uploadErrors = [];
 
 if (!empty($_FILES['images']['name'][0])) {
+    $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
     foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
         $fileName = $_FILES['images']['name'][$index];
-        $fileTmp  = $_FILES['images']['tmp_name'][$index];
+        $fileTmp = $_FILES['images']['tmp_name'][$index];
+        $fileError = $_FILES['images']['error'][$index];
 
-        // Get actual MIME type
+        if ($fileError !== UPLOAD_ERR_OK) continue;
+
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $fileTmp);
         finfo_close($finfo);
 
-        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        if (!in_array($mimeType, $allowedMimeTypes) || !in_array($ext, $allowedExtensions)) continue;
 
-        if (!in_array($mimeType, $allowedMimeTypes) || !in_array($ext, $allowedExtensions)) {
-            $uploadErrors[] = "Unsupported format for $fileName.";
-            continue;
-        }
-
-        // Create a unique filename and destination path
-        $uniqueName = uniqid('img_', true) . '.' . $ext;
-        $targetFile = "../uploads/" . $uniqueName;
-
-        // Move file
-        if (move_uploaded_file($fileTmp, $targetFile)) {
-            // Save image path to DB
-            $imageData = file_get_contents($targetFile);
-            $stmt = $conn->prepare("INSERT INTO iBayImages (itemId, image, mimeType) VALUES (?, ?, ?)");
-            $stmt->bind_param("iss", $itemId, $imageData, $mimeType);
-            $stmt->execute();
-            $stmt->close();
-        } else {
-            $uploadErrors[] = "Failed to move $fileName.";
-        }
+        // Save image to DB
+        $imageData = file_get_contents($fileTmp);
+        $stmt = $conn->prepare("INSERT INTO iBayImages (itemId, image, mimeType) VALUES (?, ?, ?)");
+        $stmt->bind_param("iss", $itemId, $imageData, $mimeType);
+        $stmt->execute();
+        $stmt->close();
     }
 }
+
 
 if (!empty($uploadErrors)) {
     redirectWithPopup("../new_listing.php", "Some images failed to upload: " . implode(', ', $uploadErrors));

@@ -26,7 +26,8 @@
     
     <!-- Body section -->
     <div>
-      <form action="php/add_listing.php" method="POST" enctype="multipart/form-data">
+      <form id="listingForm" action="php/add_listing.php" method="POST" enctype="multipart/form-data">
+
 
           <!-- POST to hide the input information from the browser  -->
 
@@ -76,14 +77,10 @@
 
           <div class="listings-filters">
             <label>Upload up to 10 images:</label><br>
-            <button type="button" id="addMoreBtn">Add Images</button>
-            <input type="file" id="fileInput" name="images[]" accept="image/*" multiple style="display: none;">
-            <ul id="previewList"></ul>
+            <input type="file" name="images[]" accept="image/*" multiple required>
           </div>
-        
 
-          <!-- Submission-->
-          <input type="submit" value="List Item" class= "new-listing-btn" allign="header-center" />
+          <input type="submit" value="List Item" class="new-listing-btn" />
           
         </form>
 
@@ -96,9 +93,6 @@
   <!-- Scripts -->
   <script src="scripts/popup.js"></script>
   <script src="scripts/footer_loader.js"></script>
-
-  <!-- script for adding images-->
-  <script src="scripts/add_files.js"></script>
 
 </body>
 </html>
