@@ -520,3 +520,11 @@
   transform: scale(1.05);
   box-shadow: 0 4px 16px rgba(220,53,69,0.18);
 }
+
+.edit-actions-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2.5rem 0 1.5rem 0;
+}

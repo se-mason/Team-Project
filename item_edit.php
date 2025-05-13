@@ -97,16 +97,14 @@
           </div>
           <input type="hidden" name="itemId" id="itemId">
 
-          <input type="submit" value="Save" class="new-listing-btn" />
+          <div class="edit-actions-row">
+            <input type="submit" value="Save" class="new-listing-btn" />
+            <button class="delete-listing-btn" type="button" onclick="deleteListing()">
+              <i class="fas fa-trash"></i> Delete Listing
+            </button>
+          </div>
           
         </form>
-
-        <form action="php/delete_listing.php" method="POST" style="display: inline;">
-        <input type="hidden" name="itemId" value="<?php echo $_SESSION['itemId']; ?>" />
-        <button type="submit" class="new-listing-btn" onclick="return confirm('Are you sure you want to delete this listing?');">
-          Delete Listing
-        </button>
-      </form>
 
   </div>
 
