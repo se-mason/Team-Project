@@ -41,7 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Price sort
     const selectedPriceSort = document.querySelector('input[name="priceSort"]:checked');
     if (selectedPriceSort) {
-      params.append('priceSort', selectedPriceSort.value);
+      if (selectedPriceSort.value === 'lowToHigh') {
+        params.append('sort', 'price_asc');
+      } else if (selectedPriceSort.value === 'highToLow') {
+        params.append('sort', 'price_desc');
+      }
     }
     
     return params;
