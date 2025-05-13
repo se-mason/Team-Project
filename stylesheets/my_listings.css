@@ -50,6 +50,30 @@
     box-shadow: 0 6px 8px rgba(96, 26, 138, 0.3);
 }
 
+.new-listing-btn.delete-listing, .new-listing-btn.delete {
+    background: linear-gradient(135deg, #dc3545 0%, #b71c2b 100%);
+    color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(220,53,69,0.12);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: none;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.new-listing-btn.delete-listing i, .new-listing-btn.delete i {
+    font-size: 1.2rem;
+}
+
+.new-listing-btn.delete-listing:hover, .new-listing-btn.delete-listing:focus,
+.new-listing-btn.delete:hover, .new-listing-btn.delete:focus {
+    background: linear-gradient(135deg, #b71c2b 0%, #dc3545 100%);
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(220,53,69,0.18);
+}
+
 /* Filter Section
    ========================================================================== */
 .listings-filters {

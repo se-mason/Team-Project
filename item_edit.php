@@ -99,7 +99,7 @@
 
           <div class="edit-actions-row">
             <input type="submit" value="Save" class="new-listing-btn" />
-            <button class="delete-listing-btn" type="button" onclick="deleteListing()">
+            <button type="submit" class="new-listing-btn delete-listing" onclick="return confirm('Are you sure you want to delete this listing?');">
               <i class="fas fa-trash"></i> Delete Listing
             </button>
           </div>
