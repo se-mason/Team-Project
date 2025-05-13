@@ -17,81 +17,55 @@ document.addEventListener('DOMContentLoaded', () => {
   // Detect the current page from the URL
   const currentPagePath = window.location.pathname.split("/").pop() || "main.php";
 
+  // Get the filter form and elements
+  const filterForm = document.getElementById('filterForm');
+  const categorySelect = document.getElementById('categorySelect');
+  const minPriceInput = document.getElementById('minPrice');
+  const maxPriceInput = document.getElementById('maxPrice');
+  const priceSortRadios = document.querySelectorAll('input[name="priceSort"]');
+
   // Function to build filter parameters
   function buildFilterParams() {
-    const filterParams = new URLSearchParams();
+    const params = new URLSearchParams();
     
-    // Add existing URL parameters
-    if (category) filterParams.append('category', category);
-    if (search) filterParams.append('search', search);
-
-    // Add price range filters
-    const minPrice = document.querySelector('input[placeholder="Min"]').value;
-    const maxPrice = document.querySelector('input[placeholder="Max"]').value;
-    if (minPrice) filterParams.append('minPrice', minPrice);
-    if (maxPrice) filterParams.append('maxPrice', maxPrice);
-
-    // Add condition filters
-    const sort = Array.from(document.querySelectorAll('input[name="sort"]:checked'))
-      .map(checkbox => checkbox.value);
-    if (sort.length > 0) {
-      filterParams.append('sort', sort.join(','));
+    // Category
+    const category = categorySelect.value;
+    if (category) params.append('category', category);
+    
+    // Price range
+    const minPrice = minPriceInput.value;
+    const maxPrice = maxPriceInput.value;
+    if (minPrice) params.append('minPrice', minPrice);
+    if (maxPrice) params.append('maxPrice', maxPrice);
+    
+    // Price sort
+    const selectedPriceSort = document.querySelector('input[name="priceSort"]:checked');
+    if (selectedPriceSort) {
+      params.append('priceSort', selectedPriceSort.value);
     }
-
-    // Add location filter
-
-
-    return filterParams;
+    
+    return params;
   }
 
   // Function to fetch items
   function fetchItems(page) {
-    let phpEndpoint;
-    let queryParams = new URLSearchParams();
+    const params = buildFilterParams();
+    params.append('page', page);
     
-    if (currentPagePath === "my_listings.php") {
-      phpEndpoint = "/php/get_listings.php";
-      queryParams.append("user_only", "true");
-    } else {
-      phpEndpoint = "/php/get_listings.php";
-    }
-    
-    // Add pagination
-    queryParams.append("page", page);
-    queryParams.append("per_page", ITEMS_PER_PAGE); 
-    
-    // Add filters
-    const filterParams = buildFilterParams();
-    filterParams.forEach((value, key) => queryParams.append(key, value));
-    
-    // Final full URL
-    phpEndpoint += "?" + queryParams.toString();
-    
-
-    // Fetch item listings from the appropriate backend endpoint
-    fetch(phpEndpoint)
+    fetch(`php/get_listings.php?${params.toString()}`)
       .then(res => res.json())
       .then(data => {
         const container = document.getElementById('listings-container');
-        const emptyState = document.getElementById('empty-state');
         const prevPageBtn = document.getElementById('prevPage');
         const nextPageBtn = document.getElementById('nextPage');
         const currentPageSpan = document.getElementById('currentPage');
       
         if (!Array.isArray(data.items) || data.items.length === 0) {
-          if (emptyState) {
-            emptyState.classList.remove('hidden');
-          }
-          container.innerHTML = '';
+          container.innerHTML = '<div class="empty-state"><p>No items found matching your filters.</p></div>';
           return;
         }
       
-        if (emptyState) {
-          emptyState.classList.add('hidden');
-        }
-        if (container) {
-          container.style.display = "grid"; // Show grid once items are added
-        }
+        container.style.display = "grid";
 
         // Update total items and pagination
         totalItems = data.total || data.items.length;
@@ -150,47 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Set up filter event listeners
-  if (currentPagePath === "products.php") {
-    // Category select change
-    const categorySelect = document.getElementById('categorySelect');
-    const subcategorySelect = document.getElementById('subcategorySelect');
-    
-    if (categorySelect) {
-      categorySelect.addEventListener('change', () => {
-        currentPage = 1;
-        fetchItems(currentPage);
-      });
-    }
-
-    // Price range inputs
-    const priceInputs = document.querySelectorAll('.price-input');
-    priceInputs.forEach(input => {
-      input.addEventListener('change', () => {
-        currentPage = 1;
-        fetchItems(currentPage);
-      });
-    });
-
-    // Condition checkboxes
-    const conditionCheckboxes = document.querySelectorAll('input[name="condition"]');
-    conditionCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', () => {
-        currentPage = 1;
-        fetchItems(currentPage);
-      });
-    });
-
-    // Location select
-    const locationSelect = document.querySelector('.location-select');
-    if (locationSelect) {
-      locationSelect.addEventListener('change', () => {
-        currentPage = 1;
-        fetchItems(currentPage);
-      });
-    }
-  }
-
+  // Form submission handler
+  filterForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    currentPage = 1;
+    fetchItems(currentPage);
+  });
+  
   // Initial fetch
   fetchItems(currentPage);
 });
