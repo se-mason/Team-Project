@@ -14,10 +14,10 @@ header {
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  max-width: 1800px;
-  width: 90vw;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem 0.5rem;
+  padding: 2rem;
 }
 
 /* Sidebar stays fixed during scroll */
@@ -28,7 +28,7 @@ header {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 2rem 1.5rem;
   position: sticky;
-  top: 90px;
+  top: 60px;
   height: fit-content;
   z-index: 10;
 }

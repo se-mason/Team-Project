@@ -3,11 +3,12 @@
 /* Container Layout */
 .items-container {
     display: flex;
-    flex-direction: row; /* horizontal layout */
+    flex-direction: row;
     gap: 2rem;
-    max-width: 1800px;
-    margin: 5rem auto 2rem;
-    padding: 2rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 3rem auto 2rem;
+    padding: 0 2rem;
   }
   
   .listings-section {
@@ -15,6 +16,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
   }
 
 
@@ -31,9 +33,10 @@
 
   .items-layout {
     display: flex;
-    height: calc(100vh - 64px); /* viewport minus header height */
-    margin-top: 64px; /* to clear sticky header */
+    height: calc(100vh - 48px); /* Updated to match new header height */
+    margin-top: 48px; /* Updated to match new header height */
     overflow: hidden;
+    width: 100%;
   }
   
   .scrollable-listings {
@@ -42,6 +45,7 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
 /* Grid Layout */
@@ -57,9 +61,10 @@
 
     .listings-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1.5rem;
-      }
+        width: 100%;
+    }
       
 /* Item Card Styles */
 .listing-item {
