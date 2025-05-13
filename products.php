@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products | iBay</title>
-    <link rel="icon" type="image/png" href="../iBay logo.png">
+    <link rel="icon" type="image/png" href="iBay logo.png">
     <link rel="stylesheet" href="stylesheets/mainstyle.css">
     <link rel="stylesheet" href="stylesheets/items.css">
     <link rel="stylesheet" href="stylesheets/products.css">
@@ -41,8 +41,8 @@
                 <div class="filter-section">
                     <h4>Price Range</h4>
                     <div class="price-range-vertical">
-                        <input type="number" class="price-input" id="minPrice" name="minPrice" placeholder="Min">
-                        <input type="number" class="price-input" id="maxPrice" name="maxPrice" placeholder="Max">
+                        <input type="number" class="price-input" id="minPrice" name="minPrice" placeholder="Min" min="0" step="0.01">
+                        <input type="number" class="price-input" id="maxPrice" name="maxPrice" placeholder="Max" min="0" step="0.01">
                     </div>
                 </div>
                 <div class="filter-section">
@@ -51,6 +51,7 @@
                     <label><input type="radio" name="priceSort" value="highToLow"> Price: High to Low</label>
                 </div>
                 <button type="submit" class="apply-filters-btn">Apply Filters</button>
+                <button type="button" id="clearFilters" class="clear-filters-btn">Clear Filters</button>
             </form>
         </aside>
 
