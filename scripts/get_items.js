@@ -87,10 +87,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return params;
   }
 
+  // Function to update URL with current filters
+  function updateURL(params) {
+    const url = new URL(window.location.href);
+    url.search = params.toString();
+    window.history.pushState({}, '', url);
+  }
+
   // Function to fetch items
   function fetchItems(page) {
     const params = buildFilterParams();
     params.append('page', page);
+    
+    // Update URL with current filters
+    updateURL(params);
     
     fetch(`php/get_listings.php?${params.toString()}`)
       .then(res => res.json())
