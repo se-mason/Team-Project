@@ -91,6 +91,7 @@ $result = $stmt->get_result();
 
 $items = [];
 
+
 while ($row = $result->fetch_assoc()) {
     $itemId = $row['itemId'];
 

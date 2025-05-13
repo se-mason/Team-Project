@@ -63,18 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to build filter parameters
   function buildFilterParams() {
     const params = new URLSearchParams();
-    
-    // Category
+  
+    // Get search term from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const search = urlParams.get("search");
+    if (search) {
+      params.append("search", search);
+    }
+  
+    // Add other filters
     const category = categorySelect.value;
     if (category) params.append('category', category);
-    
-    // Price range
+  
     const minPrice = minPriceInput.value;
     const maxPrice = maxPriceInput.value;
     if (minPrice) params.append('minPrice', parseFloat(minPrice));
     if (maxPrice) params.append('maxPrice', parseFloat(maxPrice));
-    
-    // Price sort
+  
     const selectedPriceSort = document.querySelector('input[name="priceSort"]:checked');
     if (selectedPriceSort) {
       if (selectedPriceSort.value === 'lowToHigh') {
@@ -83,9 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
         params.append('sort', 'price_desc');
       }
     }
-    
+  
     return params;
   }
+  
 
   // Function to update URL with current filters
   function updateURL(params) {
@@ -155,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Error fetching listings:", err);
       });
   }
+  
 
   // Set up pagination event listeners
   const prevPageBtn = document.getElementById('prevPage');
