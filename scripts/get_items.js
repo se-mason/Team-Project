@@ -17,31 +17,83 @@ document.addEventListener('DOMContentLoaded', () => {
   // Detect the current page from the URL
   const currentPagePath = window.location.pathname.split("/").pop() || "main.php";
 
-  // Function to build filter parameters
-  function buildFilterParams() {
-    const filterParams = new URLSearchParams();
+  // Get the filter form and elements
+  const filterForm = document.getElementById('filterForm');
+  const categorySelect = document.getElementById('category');
+  const subcategorySelect = document.getElementById('subcategory');
+  const minPriceInput = document.getElementById('minPrice');
+  const maxPriceInput = document.getElementById('maxPrice');
+  const conditionCheckboxes = document.querySelectorAll('input[name="condition"]');
+  const locationSelect = document.getElementById('location');
+  const priceSortRadios = document.querySelectorAll('input[name="priceSort"]');
+
+  // Initialize subcategories based on selected category
+  function initializeSubcategories() {
+    const category = categorySelect.value;
+    subcategorySelect.innerHTML = '<option value="">All Subcategories</option>';
     
-    // Add existing URL parameters
-    if (category) filterParams.append('category', category);
-    if (search) filterParams.append('search', search);
-
-    // Add price range filters
-    const minPrice = document.querySelector('input[placeholder="Min"]').value;
-    const maxPrice = document.querySelector('input[placeholder="Max"]').value;
-    if (minPrice) filterParams.append('minPrice', minPrice);
-    if (maxPrice) filterParams.append('maxPrice', maxPrice);
-
-    // Add condition filters
-    const sort = Array.from(document.querySelectorAll('input[name="sort"]:checked'))
-      .map(checkbox => checkbox.value);
-    if (sort.length > 0) {
-      filterParams.append('sort', sort.join(','));
+    if (category) {
+      const subcategories = getSubcategories(category);
+      subcategories.forEach(sub => {
+        const option = document.createElement('option');
+        option.value = sub;
+        option.textContent = sub;
+        subcategorySelect.appendChild(option);
+      });
+      subcategorySelect.disabled = false;
+    } else {
+      subcategorySelect.disabled = true;
     }
+  }
 
-    // Add location filter
+  // Get subcategories for a given category
+  function getSubcategories(category) {
+    const subcategories = {
+      'Electronics': ['Phones', 'Laptops', 'Tablets', 'Accessories'],
+      'Clothing': ['Men', 'Women', 'Kids', 'Accessories'],
+      'Home': ['Furniture', 'Decor', 'Kitchen', 'Garden'],
+      'Sports': ['Equipment', 'Clothing', 'Accessories'],
+      'Books': ['Fiction', 'Non-Fiction', 'Textbooks', 'Comics'],
+      'Other': ['Miscellaneous']
+    };
+    return subcategories[category] || [];
+  }
 
-
-    return filterParams;
+  // Build filter parameters
+  function buildFilterParams() {
+    const params = new URLSearchParams();
+    
+    // Category and subcategory
+    const category = categorySelect.value;
+    const subcategory = subcategorySelect.value;
+    if (category) params.append('category', category);
+    if (subcategory) params.append('subcategory', subcategory);
+    
+    // Price range
+    const minPrice = minPriceInput.value;
+    const maxPrice = maxPriceInput.value;
+    if (minPrice) params.append('minPrice', minPrice);
+    if (maxPrice) params.append('maxPrice', maxPrice);
+    
+    // Condition
+    const selectedConditions = Array.from(conditionCheckboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+    if (selectedConditions.length > 0) {
+      params.append('condition', selectedConditions.join(','));
+    }
+    
+    // Location
+    const location = locationSelect.value;
+    if (location) params.append('location', location);
+    
+    // Price sort
+    const selectedPriceSort = document.querySelector('input[name="priceSort"]:checked');
+    if (selectedPriceSort) {
+      params.append('priceSort', selectedPriceSort.value);
+    }
+    
+    return params;
   }
 
   // Function to fetch items
@@ -191,8 +243,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Initial fetch
-  fetchItems(currentPage);
+  // Event Listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize subcategories
+    initializeSubcategories();
+    
+    // Category change handler
+    categorySelect.addEventListener('change', initializeSubcategories);
+    
+    // Form submission handler
+    filterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      fetchItems(1); // Reset to first page when applying new filters
+    });
+    
+    // Initial fetch
+    fetchItems(currentPage);
+  });
 });
 
 const itemsPerPage = 12;

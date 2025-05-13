@@ -20,15 +20,13 @@ header {
   /* Sidebar stays fixed during scroll */
   .filters-sidebar {
     flex: 0 0 280px;
-    padding: 1.5rem;
     background: white;
-    position: sticky;
-    top: 64px;
-    height: fit-content;
-    align-self: flex-start;
-    z-index: 10;
+    padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: fit-content;
+    position: sticky;
+    top: 84px;
   }
   
   /* Scrollable main area */
@@ -41,13 +39,52 @@ header {
   }
   
   /* Filters */
-  .filters-section h3,
-  .filter-section h4 {
-    font-size: 1rem;
-    font-weight: 600;
+  .filters-section h3 {
     color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
   }
   
+  /* Category Filters */
+  .category-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .category-select,
+  .subcategory-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  
+  .category-select:hover,
+  .subcategory-select:hover {
+    border-color: #601a8a;
+  }
+  
+  .category-select:focus,
+  .subcategory-select:focus {
+    outline: none;
+    border-color: #601a8a;
+    box-shadow: 0 0 0 2px rgba(96, 26, 138, 0.1);
+  }
+  
+  .subcategory-select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    color: #999;
+  }
+  
+  /* Filter Section */
   .filter-section {
     margin-bottom: 1.5rem;
     padding: 1rem;
@@ -56,19 +93,29 @@ header {
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
   
-  .category-select,
-  .subcategory-select,
-  .location-select,
+  .filter-section h4 {
+    margin-bottom: 0.75rem;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  /* Price Range */
+  .price-range-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
   .price-input {
     width: 100%;
     padding: 0.75rem;
-    margin-top: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    background-color: #fff;
     font-size: 0.9rem;
   }
   
+  /* Sort By Price */
   .filter-section label {
     display: flex;
     align-items: center;
@@ -76,17 +123,39 @@ header {
     margin-bottom: 0.5rem;
     color: #666;
     font-size: 0.9rem;
+    cursor: pointer;
   }
   
-  .filter-section input[type="checkbox"] {
+  .filter-section input[type="radio"] {
     width: 16px;
     height: 16px;
     accent-color: #601a8a;
   }
   
-  .price-range-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  /* Apply Filters Button */
+  .apply-filters-btn {
+    width: 100%;
+    padding: 0.875rem;
+    background: #601a8a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 1rem;
+  }
+  
+  .apply-filters-btn:hover {
+    background: #4a1366;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .filters-sidebar {
+      flex: none;
+      width: 100%;
+    }
   }
   
