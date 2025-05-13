@@ -12,32 +12,30 @@ header {
 /* Layout below header */
 .page-layout {
   display: flex;
-  height: calc(100vh - 140px); /* full view minus header */
-  margin-top: 1px;
-  overflow: hidden;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 /* Sidebar stays fixed during scroll */
 .filters-sidebar {
-  flex: 0 0 280px;
-  padding: 1.5rem;
-  background: white;
+  flex: 0 0 300px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem;
   position: sticky;
-  top: 64px;
+  top: 90px;
   height: fit-content;
-  align-self: flex-start;
   z-index: 10;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Scrollable main area */
 .main-scroll-area {
   flex: 1;
-  overflow-y: auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  padding: 0;
 }
 
 /* Filters */
@@ -154,4 +152,37 @@ header {
 
 .clear-filters-btn:active {
   background: #eee;
+}
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.listing-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .page-layout {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .filters-sidebar {
+    width: 100%;
+    position: static;
+    margin-bottom: 1.5rem;
+  }
+  .listings-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
 }
