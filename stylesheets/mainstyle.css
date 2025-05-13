@@ -18,7 +18,7 @@ body {
   position: relative;
   margin: 0;
   padding: 0;
-  padding-top: 72px; /* Same as header height */
+  padding-top: 56px; /* Adjust to match new header height */
 }
 
 main {
@@ -51,14 +51,14 @@ main {
 ========================== */
 header {
   background-color: white;
-  padding: 1.5rem 2rem 1.5rem 2rem;
+  padding: 0.5rem 2rem 0.2rem 2rem; /* Less bottom padding */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 750;
-  height: 72px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
