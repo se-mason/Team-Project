@@ -51,17 +51,6 @@ if (!empty($_GET['maxPrice'])) {
     $types .= "d";
 }
 
-if (!empty($_GET['sort'])) {
-    $sort = explode(',', $_GET['sort']);
-    $placeholders = implode(',', array_fill(0, count($sort), '?'));
-    $filters[] = "i.itemSort IN ($placeholders)";
-    foreach ($sort as $cond) {
-        $params[] = $cond;
-        $types .= "s";
-    }
-}
-
-
 if (!empty($_GET['search'])) {
     $filters[] = "(i.title LIKE ? OR i.description LIKE ?)";
     $searchTerm = '%' . $_GET['search'] . '%';
@@ -77,6 +66,24 @@ $sql = "SELECT * FROM iBayItems i";
 if (!empty($filters)) {
     $sql .= " WHERE " . implode(" AND ", $filters);
 }
+// Default sort: by finish time (soonest ending first)
+$orderBy = " ORDER BY i.finish ASC";
+
+// If sort parameter is set, override the ORDER BY
+if (!empty($_GET['sort'])) {
+    switch ($_GET['sort']) {
+        case 'price_asc':
+            $orderBy = " ORDER BY i.price ASC";
+            break;
+        case 'price_desc':
+            $orderBy = " ORDER BY i.price DESC";
+            break;
+    }
+}
+
+$sql .= $orderBy;
+
+
 $sql .= " LIMIT ? OFFSET ?";
 
 // Add pagination params
