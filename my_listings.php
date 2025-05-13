@@ -26,7 +26,9 @@
         </a>
       </div>
 
-      <div id="listings-container" class="listings-grid"></div>
+      <div id="listings-container" class="listings-grid">
+        <!-- Item cards will be injected here -->
+      </div>
 
       <!-- Pagination -->
       <div class="pagination">
