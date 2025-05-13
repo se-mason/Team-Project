@@ -42,21 +42,16 @@ if (!empty($_GET['maxPrice'])) {
     $types .= "d";
 }
 
-if (!empty($_GET['condition'])) {
-    $conditions = explode(',', $_GET['condition']);
-    $placeholders = implode(',', array_fill(0, count($conditions), '?'));
-    $filters[] = "i.itemCondition IN ($placeholders)";
-    foreach ($conditions as $cond) {
+if (!empty($_GET['sort'])) {
+    $sort = explode(',', $_GET['sort']);
+    $placeholders = implode(',', array_fill(0, count($sort), '?'));
+    $filters[] = "i.itemSort IN ($placeholders)";
+    foreach ($sort as $cond) {
         $params[] = $cond;
         $types .= "s";
     }
 }
 
-if (!empty($_GET['location'])) {
-    $filters[] = "i.location = ?";
-    $params[] = $_GET['location'];
-    $types .= "s";
-}
 
 if (!empty($_GET['search'])) {
     $filters[] = "(i.title LIKE ? OR i.description LIKE ?)";

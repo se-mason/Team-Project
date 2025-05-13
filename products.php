@@ -45,19 +45,9 @@
                     </div>
                 </div>
                 <div class="filter-section">
-                    <h4>Condition</h4>
-                    <label><input type="checkbox" name="condition" value="new"> New</label>
-                    <label><input type="checkbox" name="condition" value="used"> Used</label>
-                    <label><input type="checkbox" name="condition" value="refurbished"> Refurbished</label>
-                </div>
-                <div class="filter-section">
-                    <h4>Location</h4>
-                    <select class="location-select">
-                        <option value="">All Locations</option>
-                        <option value="uk">United Kingdom</option>
-                        <option value="us">United States</option>
-                        <option value="eu">Europe</option>
-                    </select>
+                    <h4>Sort By</h4>
+                    <label><input type="checkbox" name="Sort" value="Ending"> Ending Soon</label>
+                    <label><input type="checkbox" name="sort" value="Starting"> Most Recent</label>
                 </div>
             </aside>
 

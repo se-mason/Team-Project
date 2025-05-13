@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Add existing URL parameters
     if (category) filterParams.append('category', category);
-    if (subcategory) filterParams.append('subcategory', subcategory);
     if (search) filterParams.append('search', search);
 
     // Add price range filters
@@ -33,15 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (maxPrice) filterParams.append('maxPrice', maxPrice);
 
     // Add condition filters
-    const conditions = Array.from(document.querySelectorAll('input[name="condition"]:checked'))
+    const sort = Array.from(document.querySelectorAll('input[name="sort"]:checked'))
       .map(checkbox => checkbox.value);
-    if (conditions.length > 0) {
-      filterParams.append('condition', conditions.join(','));
+    if (sort.length > 0) {
+      filterParams.append('sort', sort.join(','));
     }
 
     // Add location filter
-    const location = document.querySelector('.location-select').value;
-    if (location) filterParams.append('location', location);
+
 
     return filterParams;
   }

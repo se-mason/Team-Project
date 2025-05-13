@@ -23,19 +23,19 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
     if ($result->num_rows > 0) {
         $stmt->close();
         $conn->close();
-        header("Location: ../products.html?search=" . urlencode($_GET['q']));
+        header("Location: ../products.php?search=" . urlencode($_GET['q']));
         exit();
     } else {
         // No results found, redirect to products.html with a "no results" flag
         $stmt->close();
         $conn->close();
-        header("Location: ../products.html?search=" . urlencode($_GET['q']) . "&noresults=true");
+        header("Location: ../products.php?search=" . urlencode($_GET['q']) . "&noresults=true");
         exit();
     }
 } else {
     // Redirect to products.html with a "no query" flag
     $conn->close();
-    header("Location: ../products.html?noquery=true");
+    header("Location: ../products.php?noquery=true");
     exit();
 }
 ?>
