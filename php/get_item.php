@@ -22,17 +22,23 @@ if ($itemResult->num_rows === 0) {
 
 $item = $itemResult->fetch_assoc();
 
-// Fetch images for this item
-$imageSql = "SELECT image, mimeType FROM iBayImages WHERE itemId = ?";
-$imageStmt = $conn->prepare($imageSql);
-$imageStmt->bind_param("i", $itemId);
-$imageStmt->execute();
-$imageResult = $imageStmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    $itemId = $row['itemId'];
 
-$images = [];
-while ($row = $imageResult->fetch_assoc()) {
-    $base64 = base64_encode($row['image']);
-    $images[] = "data:" . $row['mimeType'] . ";base64," . $base64;
+    // Fetch FIRST image blob for this item
+    $imgStmt = $conn->prepare("SELECT image, mimeType FROM iBayImages WHERE itemId = ?");
+    $imgStmt->bind_param("i", $itemId);
+    $imgStmt->execute();
+    $imgResult = $imgStmt->get_result();
+
+    $images = [];
+    if ($img = $imgResult->fetch_assoc()) {
+        $base64 = base64_encode($img['image']);
+        $images[] = "data:" . $img['mimeType'] . ";base64," . $base64;
+    }
+
+    $row['images'] = $images;
+    $items[] = $row;
 }
 
 // Build response
