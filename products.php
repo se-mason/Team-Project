@@ -50,8 +50,10 @@
                     <label><input type="radio" name="priceSort" value="lowToHigh"> Price: Low to High</label>
                     <label><input type="radio" name="priceSort" value="highToLow"> Price: High to Low</label>
                 </div>
-                <button type="submit" class="apply-filters-btn">Apply Filters</button>
-                <button type="button" id="clearFilters" class="clear-filters-btn">Clear Filters</button>
+                <div class="filter-buttons">
+                    <button type="submit" class="apply-filters-btn">Apply Filters</button>
+                    <button type="button" id="clearFilters" class="clear-filters-btn">Clear Filters</button>
+                </div>
             </form>
         </aside>
 

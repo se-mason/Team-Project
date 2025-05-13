@@ -101,6 +101,13 @@ header {
   gap: 0.75rem;
 }
 
+.filter-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
 .apply-filters-btn {
   width: 100%;
   padding: 12px;
@@ -112,7 +119,6 @@ header {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 20px;
   box-shadow: 0 2px 4px rgba(96, 26, 138, 0.2);
 }
 
@@ -129,24 +135,35 @@ header {
 
 .clear-filters-btn {
   width: 100%;
-  padding: 10px;
-  background: transparent;
-  color: #666;
-  border: 1px solid #ddd;
+  padding: 12px;
+  background: #f8f9fa;
+  color: #601a8a;
+  border: 2px solid #601a8a;
   border-radius: 8px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .clear-filters-btn:hover {
-  background: #f5f5f5;
-  color: #333;
-  border-color: #ccc;
+  background: #601a8a;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(96, 26, 138, 0.2);
 }
 
 .clear-filters-btn:active {
-  background: #eee;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.clear-filters-btn::before {
+  content: '×';
+  font-size: 18px;
+  font-weight: bold;
 }

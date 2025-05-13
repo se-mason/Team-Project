@@ -32,11 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to clear all filters
   function clearFilters() {
+    // Clear form inputs
     categorySelect.value = '';
     minPriceInput.value = '';
     maxPriceInput.value = '';
     priceSortRadios.forEach(radio => radio.checked = false);
+    
+    // Reset page
     currentPage = 1;
+    
+    // Clear URL parameters
+    const url = new URL(window.location.href);
+    url.search = '';
+    window.history.pushState({}, '', url);
+    
+    // Fetch items without filters
     fetchItems(currentPage);
   }
 
