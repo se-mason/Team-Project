@@ -26,7 +26,7 @@
     
     <!-- Body section -->
     <div>
-      <form id="listingForm" action="php/add_listing.php" method="POST" enctype="multipart/form-data">
+      <form id="listingForm" action="php/edit_listing.php" method="POST" enctype="multipart/form-data">
 
 
           <!-- POST to hide the input information from the browser  -->
@@ -34,7 +34,7 @@
           <!-- Drop down menu for category-->
           <div class="listings-filters">
 
-            <input type="text" name="title" placeholder="Item Name" required />
+            <input type="text" name="title" id='item-title' placeholder="Item Name" required />
 
             <select id="category-choice" name="category" required>
               <option value="" disabled selected hidden>Select a category</option>
@@ -50,7 +50,7 @@
             </select>
 
             <!-- Price, capped at 1 million-->
-            <input type="number" id="price" placeholder="Price (£)" name="price" min="0" max="1000001" step="0.01" required>
+            <input type="number" id="item-price" placeholder="Price (£)" name="price" min="0" max="1000001" step="0.01" required>
 
 
           </div>
@@ -59,19 +59,19 @@
           
             <!-- Date mangement-->
             <label for="start">Bid start date:</label>
-            <input type="date" id="start" name="start"/>
+            <input type="date" id="start-date" name="start"/>
 
             <label for="end">Bid end date:</label>
-            <input type="date" id="end" name="finish" required/>
+            <input type="date" id="end-date" name="finish" required/>
 
           </div>
 
           <div class="listings-filters">
             <!-- Postage-->
-            <input type="text" name="postage" placeholder="Postage Information" required />
+            <input type="text" id='postage' name="postage" placeholder="Postage Information" required />
 
             <!-- Description text area-->
-            <textarea id="description" name="description" rows="6" placeholder="Enter a detailed Item description..." required></textarea>
+            <textarea id="item-description" name="description" rows="6" placeholder="Enter a detailed Item description..." required></textarea>
 
           </div>
 
@@ -125,6 +125,7 @@
             </script>
 
           </div>
+          <input type="hidden" name="itemId" id="itemId">
 
           <input type="submit" value="Save" class="new-listing-btn" />
           
@@ -139,6 +140,8 @@
   <!-- Scripts -->
   <script src="scripts/popup.js"></script>
   <script src="scripts/footer_loader.js"></script>
+  <script src="scripts/edit_item.js"></script>
+
 
 </body>
 </html>

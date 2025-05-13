@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById("item-description").textContent = item.description;
       document.getElementById("item-price").textContent = `£${item.price}`;
       document.getElementById("postage").textContent = item.postage;
+      document.getElementById("category-choice").textContent = item.category;
+
 
     
       // Display dates
