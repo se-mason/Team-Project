@@ -24,11 +24,16 @@ $sql = "UPDATE iBayItems
         SET title=?, description=?, price=?, postage=?, category=?, start=?, finish=?
         WHERE itemId=? AND userId=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssdsssiii", $title, $description, $price, $postage, $category, $start, $end, $itemId, $userId);
+
+// Make sure start and end dates are correctly formatted as strings
+$startDate = date("Y-m-d", strtotime($start));
+$endDate = date("Y-m-d", strtotime($end));
+
+$stmt->bind_param("ssdssssii", $title, $description, $price, $postage, $category, $startDate, $endDate, $itemId, $userId);
 
 if ($stmt->execute()) {
-    echo json_encode(["success" => true]);
+    redirectWithPopup("../my_listings.php", "Edit Successful!");
 } else {
-    echo json_encode(["success" => false, "error" => $stmt->error]);
+    redirectWithPopup("../my_listings.php", "Edit Unseccessful");
 }
 ?>
