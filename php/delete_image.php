@@ -1,37 +1,37 @@
 <?php
-// delete_image.php
+session_start();
+require_once 'connection.php';  // Include the database connection file
 
-require 'connection.php';
+// Check if the necessary parameters are passed
+if (isset($_GET['itemId']) && isset($_GET['imageId'])) {
+    $itemId = $_GET['itemId'];  // Item ID to which the image belongs
+    $imageId = $_GET['imageId'];  // The ID of the image to delete
 
-// Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the input data
-    $data = json_decode(file_get_contents('php://input'), true);
-    $imageIds = $data['imageIds'] ?? [];
+    // Prepare SQL to delete the image based on image ID and item ID
+    $sql = "DELETE FROM iBayImages WHERE itemId = ? AND imageId = ?";
 
-    if (empty($imageIds)) {
-        echo json_encode(['success' => false, 'error' => 'No images to delete']);
-        exit;
-    }
+    // Prepare statement
+    if ($stmt = $conn->prepare($sql)) {
+        // Bind parameters
+        $stmt->bind_param("ii", $itemId, $imageId);
 
-    // Prepare the DELETE query for images
-    $placeholders = implode(',', array_fill(0, count($imageIds), '?'));
-    $sql = "DELETE FROM iBayImages WHERE id IN ($placeholders)";
-    
-    // Prepare the statement
-    $stmt = $conn->prepare($sql);
-    if ($stmt) {
-        // Bind the image IDs
-        $stmt->bind_param(str_repeat('i', count($imageIds)), ...$imageIds);
-        
+        // Execute the statement
         if ($stmt->execute()) {
-            echo json_encode(['success' => true]);
+            // Return a success response
+            echo json_encode(['success' => true, 'message' => 'Image deleted successfully.']);
         } else {
-            echo json_encode(['success' => false, 'error' => 'Failed to delete images']);
+            // Return an error response
+            echo json_encode(['success' => false, 'message' => 'Error deleting image.']);
         }
+        $stmt->close();
     } else {
-        echo json_encode(['success' => false, 'error' => 'Database error']);
+        // Return error if SQL preparation fails
+        echo json_encode(['success' => false, 'message' => 'Database error.']);
     }
-    exit;
+} else {
+    // Return an error if parameters are missing
+    echo json_encode(['success' => false, 'message' => 'Missing itemId or imageId.']);
 }
+
+$conn->close();
 ?>

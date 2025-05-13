@@ -29,8 +29,8 @@ if (!$itemResult || $itemResult->num_rows === 0) {
 
 $item = $itemResult->fetch_assoc();
 
-
-$imageSql = "SELECT image, mimeType FROM iBayImages WHERE itemId = ?";
+// Prepare image query (include imageId)
+$imageSql = "SELECT image, imageId, mimeType FROM iBayImages WHERE itemId = ?";
 $imageStmt = $conn->prepare($imageSql);
 
 if (!$imageStmt) {
@@ -44,14 +44,19 @@ $imageResult = $imageStmt->get_result();
 
 $images = [];
 while ($row = $imageResult->fetch_assoc()) {
+    // Base64 encode the image
     $base64 = base64_encode($row['image']);
-    $images[] = "data:" . $row['mimeType'] . ";base64," . $base64;
+    // Store both imageId and base64-encoded image
+    $images[] = [
+        'imageId' => $row['imageId'], // Include the imageId
+        'image' => "data:" . $row['mimeType'] . ";base64," . $base64
+    ];
 }
 
+// Attach images to the item data
 $item['images'] = $images;
 
 // Output JSON
 header('Content-Type: application/json');
 echo json_encode($item);
-
 ?>

@@ -328,3 +328,24 @@ body {
   }
   
   
+  #image-carousel {
+    position: relative; /* Ensure relative positioning for the button */
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px; /* Distance from the top of the image */
+    right: 10px; /* Distance from the right of the image */
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 10; /* Ensure it appears on top of other elements */
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+

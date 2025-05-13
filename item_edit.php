@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" href="iBay i.png" />
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
   <link rel="stylesheet" href="stylesheets/my_listings.css" />
+  <link rel="stylesheet" href="stylesheets/item_template.css" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
@@ -80,9 +81,15 @@
           </div>
 
           <div class="listings-filters">
-            <label>Upload up to 10 images:</label><br>
             <!-- Existing Images Section -->
-            <div id="image-carousel"></div>
+            <div id="image-carousel">
+              <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+              <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+              <div class="carousel-nav"></div>
+            </div>
+          </div>
+          <div class="listings-filters">
+            <label>Upload up to 10 images:</label><br>
             <input type="file" name="newImages[]" multiple />
           </div>
           <input type="hidden" name="itemId" id="itemId">
