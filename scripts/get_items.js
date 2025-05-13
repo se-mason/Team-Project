@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Use the first image, fallback to placeholder
           const imageUrl = item.images && item.images.length > 0 
             ? item.images[0] 
-            : '../assets/placeholder.png';
+            : '../assets/placeholder.jpg'
       
           div.innerHTML = `
             <div class="item-card">
@@ -196,14 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial fetch
   fetchItems(currentPage);
 });
-
-// Example product data (replace this with your actual data source)
-const products = Array.from({ length: 10 }, (_, i) => ({
-  id: i + 1,
-  name: `Product ${i + 1}`,
-  price: (Math.random() * 100).toFixed(2),
-  image: "https://via.placeholder.com/150",
-}));
 
 const itemsPerPage = 12;
 let currentPage = 1;

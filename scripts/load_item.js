@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  fetch(`../php/get_items.php?id=${itemId}`)
+  fetch(`../php/get_item.php?id=${itemId}`)
     .then(res => res.json())
     .then(item => {
       if (item.error) {

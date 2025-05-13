@@ -22,16 +22,16 @@ $finish = $_POST['finish'];
 
 // Additional validation
 if ($price < 0 || $price > 1000000) {
-    redirectWithPopup('../new_listing.html', 'Invalid price entered');
+    redirectWithPopup('../new_listing.php', 'Invalid price entered');
 }
 
 if (!$finish) {
-    redirectWithPopup('../new_listing.html', 'You must enter an finish date');
+    redirectWithPopup('../new_listing.php', 'You must enter an finish date');
 }
 
 // Check that finish date is not before start date (if start date provided)
 if ($start && strtotime($start) > strtotime($finish)) {
-    redirectWithPopup('../new_listing.html', 'Finish date must be after start date');
+    redirectWithPopup('../new_listing.php', 'Finish date must be after start date');
 }
 
 
@@ -49,33 +49,24 @@ $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
 if (!empty($_FILES['images']['name'][0])) {
     $targetDir = "../uploads/";
-    $allowedExts = ['jpg', 'jpeg', 'png'];
-
-    foreach ($_FILES['images']['name'] as $i => $name) {
-        $tmpName = $_FILES['images']['tmp_name'][$i];
-        $size = $_FILES['images']['size'][$i];
-        $error = $_FILES['images']['error'][$i];
-
-        $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-        $uniqueName = uniqid() . '.' . $ext;
-        $targetFile = $targetDir . $uniqueName;
-
-        // Check for errors
-        if ($error !== UPLOAD_ERR_OK) {
-            echo "Error uploading file '$name'. Code: $error<br>";
-            continue;
-        }
-
-        // Validate extension and MIME
-        if (!in_array($ext, $allowedExts)) {
-            echo "Unsupported file type for '$name'.<br>";
-            continue;
-        }
-
-        // Optionally, check file size (e.g., limit to 5MB)
-        if ($size > 5 * 1024 * 1024) {
-            echo "File '$name' is too large. Max 5MB.<br>";
-            continue;
+    $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    
+    foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
+        $fileName = $_FILES['images']['name'][$index];
+        $fileTmp  = $_FILES['images']['tmp_name'][$index];
+    
+        // Get actual MIME type
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $fileTmp);
+        finfo_close($finfo);
+    
+        // Get file extension
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    
+        if (!in_array($mimeType, $allowedMimeTypes) || !in_array($ext, $allowedExtensions)) {
+            echo "<script>showPopup('Unsupported image format. Please upload JPEG, PNG, GIF, or WebP.');</script>";
+            continue; // Skip this file
         }
 
         // Move uploaded file

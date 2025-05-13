@@ -26,7 +26,7 @@
     
     <!-- Body section -->
     <div>
-      <form action="php/new_listing.php" method="POST" enctype="multipart/form-data">
+      <form action="php/add_listing.php" method="POST" enctype="multipart/form-data">
 
           <!-- POST to hide the input information from the browser  -->
 
