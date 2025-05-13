@@ -32,12 +32,6 @@ if (!empty($_GET['category'])) {
     $types .= "s";
 }
 
-if (!empty($_GET['subcategory'])) {
-    $filters[] = "i.subcategory = ?";
-    $params[] = $_GET['subcategory'];
-    $types .= "s";
-}
-
 if (!empty($_GET['minPrice'])) {
     $filters[] = "i.price >= ?";
     $params[] = $_GET['minPrice'];

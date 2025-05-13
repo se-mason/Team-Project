@@ -22,7 +22,7 @@
         <aside class="filters-sidebar">
             <h2>Filters</h2>
             <form id="filterForm">
-                <div class="filters-section">
+                <div class="filter-section">
                     <div class="category-filters">
                         <select class="category-select" id="categorySelect" name="category">
                             <option value="">All Categories</option>
@@ -66,7 +66,7 @@
             <button id="prevPage">Previous</button>
             <span id="currentPage">1</span>
             <button id="nextPage">Next</button>
-</div>
+            </div>
         </section>
     </div>
 </main>

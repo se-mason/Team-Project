@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
   <link rel="stylesheet" href="stylesheets/items.css" />
   <link rel="stylesheet" href="stylesheets/my_listings.css" />
+  <link rel="stylesheet" href="stylesheets/my_listings.css" />
+
   <link rel="stylesheet" href="stylesheets/popup.css" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
@@ -26,15 +28,18 @@
         </a>
       </div>
 
-      <div id="listings-container" class="listings-grid">
-        <!-- Item cards will be injected here -->
-      </div>
+      <div class="page-layout">
 
-      <!-- Pagination -->
-      <div class="pagination">
-        <button id="prevPage" disabled>Previous</button>
-        <span class="current-page">Page <span id="currentPage">1</span></span>
-        <button id="nextPage">Next</button>
+        <!-- Listings Section -->
+        <section class="main-scroll-area">
+              <div class="listings-grid" id="listings-container"></div>
+
+              <div id="pagination-controls" class="pagination-controls">
+              <button id="prevPage">Previous</button>
+              <span id="currentPage">1</span>
+              <button id="nextPage">Next</button>
+              </div>
+          </section>
       </div>
     </div>
   </main>
