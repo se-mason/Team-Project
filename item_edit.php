@@ -96,7 +96,7 @@
 
           <div class="edit-actions-row">
             <input type="submit" value="Save" class="new-listing-btn" />
-            <button type="submit" class="new-listing-btn delete-listing" onclick=deleteListing()">
+            <button type="submit" class="new-listing-btn delete-listing" onclick="deleteListing()">
               <i class="fas fa-trash"></i> Delete Listing
             </button>
           </div>
