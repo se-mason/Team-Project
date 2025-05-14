@@ -1,7 +1,6 @@
 <?php
 require 'connection.php';
 require_once 'popup.php';
-
 session_start();
 
 // Read Form Data
@@ -53,10 +52,8 @@ $stmt->bind_param("ssssss", $userId, $name, $email, $address, $postcode, $hashed
 
 // Execute the statement and check for errors
 if ($stmt->execute()) {
-    // Start session for user data
+
     $_SESSION['userId'] = $userId;
-    exit;
-    
     redirectWithPopup("../main.php", "Account created successfully");
 
 } else {

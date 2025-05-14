@@ -1,6 +1,8 @@
 <?php
 session_start();
 require 'connection.php';
+require_once 'popup.php';
+
 
 if (isset($_POST['userId'])) {
     $userId = $_POST['userId'];
@@ -9,6 +11,8 @@ if (isset($_POST['userId'])) {
     $sql = "DELETE FROM iBayMembers WHERE userId = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $userId);
+
+    unset($_SESSION['userId']);
 
     redirectWithPopup("../main.php", "Account Deleted. Bye Bye");
 
