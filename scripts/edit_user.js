@@ -1,30 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Assuming the `userId` is available globally from the inline script
-  
+    // Retrieve the userId from sessionStorage
+    const userId = sessionStorage.getItem('userId');
+    
+    if (!userId) {
+        console.error('No userId found in sessionStorage');
+        alert('User ID not found. Please log in again.');
+        return;
+    }
     // Fetch user data from the server
     fetch(`php/user_data.php?userId=${userId}`)
-      .then(response => response.json())
-      .then(data => {
-        if (data.success && data.user) {
-          const user = data.user;
+      .then(res => {
+          // Check if the response is okay (status 200)
+          if (!res.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return res.json(); // Parse the response as JSON
+      })
+      .then(user => {
+          if (user.error) {
+              alert("Error loading user data: " + user.error);
+              return;
+          }
   
-          // Populate form fields with user data, excluding the password
-          document.querySelector('input[name="userId"]').value = user.userId;
-          document.querySelector('input[name="name"]').value = user.name;
-          document.querySelector('input[name="email"]').value = user.email;
-          document.querySelector('input[name="address"]').value = user.address;
-          document.querySelector('input[name="postcode"]').value = user.postcode;
-          
-          // Optionally, you can populate other fields as needed
+          // Populate form fields using element IDs (similar to item data)
+          document.getElementById("userId").value = user.userId;
+          document.getElementById("name").value = user.name;
+          document.getElementById("email").value = user.email;
+          document.getElementById("address").value = user.address;
+          document.getElementById("postcode").value = user.postcode;
+  
           // Leave password fields empty
-          document.querySelector('input[name="password"]').value = ''; 
-          document.querySelector('input[name="confirm_password"]').value = '';
-        } else {
-          console.error('Failed to load user data', data.error);
-        }
+          document.getElementById("password").value = ''; 
+          document.getElementById("confirmPassword").value = '';
       })
       .catch(error => {
-        console.error('Error fetching user data:', error);
+          console.error("Error fetching user data:", error);
+          alert("An error occurred while loading the user data. Please try again later.");
       });
   });
   

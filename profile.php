@@ -14,28 +14,35 @@
 </head>
 <body>
   <!-- Load navbar -->
-  <?php include 'html-assets/navbar.php'; ?>
+  <?php include 'html-assets/navbar.php';
+
+  $userId = $_SESSION['userId']; // Get the userId from PHP session
+?>
+<script>
+  // Set userId to sessionStorage from PHP session
+  sessionStorage.setItem('userId', '<?php echo $userId; ?>');
+</script>>
 
   <main>
   <div class="signup-wrapper">
     <div class="signup-container">
       <h2><i class="fas fa-user"></i> Your Account Details</h2>
-      <form action="php/user_editp.php" method="POST" id="signupForm" novalidate>
+      <form action="php/user_edit.php" method="POST" id="signupForm" novalidate>
         <div class="input-group">
           <i class="fas fa-user"></i>
-          <input type="text" name="userId" placeholder="Username" required />
+          <input type="text" name="userId" id="userId" placeholder="Username" required />
         </div>
         <div class="input-group">
           <i class="fas fa-id-card"></i>
-          <input type="text" name="name" placeholder="Full Name" required />
+          <input type="text" name="name" id="name" placeholder="Full Name" required />
         </div>
         <div class="input-group">
           <i class="fas fa-envelope"></i>
-          <input type="email" name="email" placeholder="Email Address" required />
+          <input type="email" name="email" id="email" placeholder="Email Address" required />
         </div>
         <div class="input-group">
           <i class="fas fa-home"></i>
-          <input type="text" name="address" placeholder="Address" required />
+          <input type="text" name="address" id="address" placeholder="Address" required />
         </div>
         <div class="input-group">
           <i class="fas fa-map-marker-alt"></i>
@@ -55,12 +62,6 @@
   </div>
 
   </main>
-
-  <script>
-    const userId = <?php echo json_encode($_SESSION['userId']); ?>;
-    console.log('User ID:', userId);
-  </script>
-
   <!-- Scripts -->
   <script src="scripts/popup.js"></script>
   <script src="scripts/footer_loader.js"></script>

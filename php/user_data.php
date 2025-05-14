@@ -1,34 +1,17 @@
 <?php
-session_start();
-require_once 'connection.php';
+require 'connection.php';
+$userId = $_GET['userId']; // Get userId from the query string
 
-header('Content-Type: application/json');
-
-// Ensure the user is logged in
-if (!isset($_SESSION['userId'])) {
-    echo json_encode(['success' => false, 'error' => 'User not logged in']);
-    exit;
-}
-
-$userId = $_SESSION['userId']; // Get userId from session
-
-// Query to retrieve user data, excluding the password
-$sql = "SELECT userId, name, email, address, postcode FROM users WHERE userId = ?";
-$stmt = $conn->prepare($sql);
+$query = "SELECT * FROM iBayMembers WHERE userId = ?";
+$stmt = $conn->prepare($query);
 $stmt->bind_param("s", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// If no user is found, return an error
-if ($result->num_rows === 0) {
-    echo json_encode(['success' => false, 'error' => 'User not found']);
-    exit;
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+    echo json_encode($user); // Return the user data as JSON
+} else {
+    echo json_encode(['error' => 'User not found']);
 }
-
-// Fetch the user data
-$user = $result->fetch_assoc();
-
-// Return the user data as JSON
-echo json_encode(['success' => true, 'user' => $user]);
-exit;
 ?>

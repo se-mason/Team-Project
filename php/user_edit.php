@@ -15,23 +15,39 @@ $postcode = $_POST['postcode'];
 $password = $_POST['password'];
 
 // Start the update query
-$sql = "UPDATE users SET name = ?, email = ?, address = ?, postcode = ?";
+$sql = "UPDATE iBayMembers SET name = ?, email = ?, address = ?, postcode = ? WHERE userId = ?";
 
 if (!empty($password)) {
     // If the password is provided, hash it before updating
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $sql .= ", password = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $name, $email, $address, $postcode, $hashedPassword);
+    if (!$stmt) {
+        // Check for errors in preparing the statement
+        echo "Error preparing statement: " . $conn->error;
+        exit;
+    }
+    $stmt->bind_param("ssssss", $name, $email, $address, $postcode, $userId, $hashedPassword);
 } else {
     // If no password is provided, exclude the password field from the update
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $name, $email, $address, $postcode);
+    if (!$stmt) {
+        // Check for errors in preparing the statement
+        echo "Error preparing statement: " . $conn->error;
+        exit;
+    }
+    $stmt->bind_param("sssss", $name, $email, $address, $postcode, $userId);
 }
 
-$stmt->execute();
+if (!$stmt->execute()) {
+    // Check if execution is successful
+    echo "Error executing query: " . $stmt->error;
+    exit;
+}
+
 $stmt->close();
 $conn->close();
 
-header('Location: my_account.php'); // Redirect after update
+header('Location: ../profile.php'); // Redirect after update
 exit;
+?>
