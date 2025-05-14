@@ -47,6 +47,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
   </div>
 </nav>
 
+<div id="popup" class="popup-overlay"></div>
+
+
 <script>
 function toggleDropdown() {
   const menu = document.getElementById("accountMenu");

@@ -8,6 +8,8 @@
   <!-- Link to shared stylesheet for consistent styling -->
   <link rel="stylesheet" href="stylesheets/mainstyle.css" />
   <link rel="stylesheet" href="stylesheets/item_template.css" />
+  <link rel="stylesheet" href="stylesheets/popup.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
@@ -31,7 +33,10 @@
         <div class="seller-info" id="seller-info"></div>
         <div class="item-price-row">
           <span id="item-price"></span>
-          <button id="bid-button">Buy</button>
+          <form action="php/buy_item.php" method="POST">
+            <input type="hidden" name="itemId" value="<?php echo $_GET['id']; ?>">
+            <input type="submit" value="Buy" id="bid-button" />
+          </form>
         </div>
         <div class="item-meta">
           <p><strong>Category:</strong> <span id="category-choice"></span></p>
