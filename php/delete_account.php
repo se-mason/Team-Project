@@ -10,7 +10,9 @@ if (isset($_POST['userId'])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $userId);
 
+    redirectWithPopup("../main.php", "Account Deleted. Bye Bye");
+
 } else {
-    echo "Invalid request.";
+    redirectWithPopup("../main.php", "Account Deletion Failed.");
 }
 ?>

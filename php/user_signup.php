@@ -57,7 +57,7 @@ if ($stmt->execute()) {
     $_SESSION['userId'] = $userId;
     exit;
     
-    redirectWithPopup("../standard_index.html", "Account created successfully");
+    redirectWithPopup("../main.php", "Account created successfully");
 
 } else {
     redirectWithPopup("../user_signup.html", "Error");

@@ -97,7 +97,7 @@
 
           <div class="edit-actions-row">
             <input type="submit" value="Save" class="new-listing-btn" />
-            <button type="submit" class="new-listing-btn delete-listing" onclick="deleteListing()">
+            <button type="button" class="new-listing-btn delete-listing" onclick="deleteListing()">
               <i class="fas fa-trash"></i> Delete Listing
             </button>
           </div>
@@ -116,6 +116,37 @@
   <script src="scripts/popup.js"></script>
   <script src="scripts/footer_loader.js"></script>
   <script src="scripts/edit_item.js"></script>
+  <script>  function deleteListing() {
+  // Confirm the delete action
+  if (confirm('Are you sure you want to delete this listing? This cannot be undone.')) {
+    
+    // Prepare the data to send to the PHP script
+    const itemId = <?php echo $_SESSION['itemId']; ?>;  // PHP variable to get the itemId from the session
+    
+    // Use fetch API to send the request to the server
+    fetch('php/delete_listing.php', {
+      method: 'POST',  // Use POST to send data
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `itemId=${itemId}`  // Send itemId as a POST parameter
+    })
+    .then(response => response.text())  // Receive the response as text
+    .then(data => {
+      // Handle the response
+      if (data === 'success') {
+        window.location.href = 'my_listings.php';  // Redirect to the listings page after successful deletion
+      } else {
+        alert('Error deleting the listing. Please try again.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
+    });
+  }
+}
+</script>
 
 
 </body>
