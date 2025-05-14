@@ -21,7 +21,7 @@
 <script>
   // Set userId to sessionStorage from PHP session
   sessionStorage.setItem('userId', '<?php echo $userId; ?>');
-</script>>
+</script>
 
   <main>
   <div class="signup-wrapper">
