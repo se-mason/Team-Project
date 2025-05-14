@@ -262,3 +262,34 @@ background-color: #f1f1f1;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0);
 }
+
+
+
+
+/* Container for both forms */
+.action-buttons-container {
+  display: block;  /* Makes the forms stack vertically */
+  margin-top: 20px;  /* Adds space above the buttons */
+  gap: 10px; /* Optional: adds space between buttons */
+}
+
+/* Button Styles */
+.new-listing-btn, .delete-listing-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: auto; /* Make sure buttons don't stretch */
+  margin: 5px 0; /* Adds space between buttons */
+}
+
+/* Optional: Styling for delete button */
+.delete-listing-btn {
+  background-color: red; /* Red background */
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.delete-listing-btn:hover {
+  background-color: darkred; /* Darker red when hovered */
+}

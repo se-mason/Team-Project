@@ -31,6 +31,7 @@
 
     <!-- Body section -->
     <div>
+    <div class="action-buttons-container">
       <form id="listingForm" action="php/edit_listing.php" method="POST" enctype="multipart/form-data">
 
 
@@ -104,6 +105,8 @@
           Delete Listing
         </button>
       </form>
+
+      </div>
 
   </div>
 
