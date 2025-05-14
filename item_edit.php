@@ -22,7 +22,7 @@
     }?>
 
   <main class="listings-container">
-    <div class="listings-header" style="position: relative;">
+  <div class="listings-header" style="position: relative;">
       <h1>Edit Listing</h1>
       <a href="my_listings.php" class="new-listing-btn">
         <i class="fas fa-arrow-right"></i> My Listings
@@ -94,14 +94,16 @@
           </div>
           <input type="hidden" name="itemId" id="itemId">
 
-          <div class="edit-actions-row">
-            <input type="submit" value="Save" class="new-listing-btn" />
-            <button type="submit" class="new-listing-btn delete-listing" onclick="deleteListing()">
-              <i class="fas fa-trash"></i> Delete Listing
-            </button>
-          </div>
+          <input type="submit" value="Save" class="new-listing-btn" />
           
         </form>
+
+        <form action="php/delete_listing.php" method="POST" style="display: inline;">
+        <input type="hidden" name="itemId" value="<?php echo $_SESSION['itemId']; ?>" />
+        <button type="submit" class="delete-listing-btn" onclick="return confirm('Are you sure you want to delete this listing?');">
+          Delete Listing
+        </button>
+      </form>
 
   </div>
 
@@ -114,14 +116,6 @@
   <script src="scripts/footer_loader.js"></script>
   <script src="scripts/edit_item.js"></script>
 
-  <script>
-  function deleteListing() {
-    if (confirm('Are you sure you want to delete this listing? This cannot be undone.')) {
-      // You may want to use AJAX or a form POST for real deletion
-      window.location.href = 'php/delete_listing.php?id=<?php echo isset($_GET['id']) ? intval($_GET['id']) : 0; ?>';
-    }
-  }
-  </script>
 
 </body>
 </html>
