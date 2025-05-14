@@ -58,6 +58,12 @@
         </div>
         <input type="submit" value="Edit Account" class="signup-btn" />
       </form>
+      <form action="php/delete_account.php" method="POST" style="display: inline;">
+        <input type="hidden" name="userId" value="<?php echo $_SESSION['userId']; ?>" />
+        <button type="submit" class="signup-btn" onclick="return confirm('Are you sure you want to delete your account?');">
+          Delete Account
+        </button>
+      </form>
     </div>
   </div>
 
