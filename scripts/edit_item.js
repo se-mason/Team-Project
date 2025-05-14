@@ -1,3 +1,6 @@
+let imageElements = [];
+let currentImageIndex = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const itemId = params.get('id');
@@ -33,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Check if images exist and is an array
             const carousel = document.getElementById("image-carousel");
             const navDots = carousel.querySelector('.carousel-nav');
-            let currentImageIndex = 0;
 
             if (item.images && Array.isArray(item.images) && item.images.length > 0) {
                 // Create image elements
@@ -41,17 +43,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     const img = document.createElement('img');
                     img.src = imageData.image; // Base64-encoded image
                     img.className = 'carousel-image';
+                    img.dataset.imageId = imageData.imageId;
+
                     img.alt = `Item image ${index + 1}`;
                     if (index === 0) img.classList.add('active');
                     carousel.insertBefore(img, navDots);
+
+                    imageElements.push(img);
+
 
                     // Create delete button
                     const deleteBtn = document.createElement('button');
                     deleteBtn.className = 'delete-btn';
                     deleteBtn.type = 'button';
-                    deleteBtn.dataset.imageId = imageData.imageId; // Use imageId from the response
+                    deleteBtn.dataset.imageId = imageData.imageId; // Make sure imageId is set correctly
                     deleteBtn.addEventListener('click', (e) => {
-                        const imageId = e.target.dataset.imageId;
+                        const imageId = e.target.dataset.imageId;  // Get the imageId from the clicked button
 
                         if (imageId) {
                             deleteImage(imageId, itemId); // Call deleteImage with imageId and itemId
@@ -61,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     carousel.insertBefore(deleteBtn, img.nextSibling);
 
+
                     // Create navigation dot
                     const dot = document.createElement('div');
                     dot.className = 'carousel-dot';
@@ -69,23 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentImageIndex = index;
                         showImage(index);
                     });
-                    navDots.appendChild(dot);
+                    navDots.appendChild(dot);   
                 });
 
                 // Set up carousel navigation
                 const prevBtn = carousel.querySelector('.carousel-prev');
                 const nextBtn = carousel.querySelector('.carousel-next');
 
-                prevBtn.addEventListener('click', () => {
+                prevBtn.addEventListener('click', (e) => {
+                    e.preventDefault();  // Prevent any default behavior (if needed)
                     currentImageIndex = (currentImageIndex - 1 + item.images.length) % item.images.length;
                     showImage(currentImageIndex);
                 });
-
-                nextBtn.addEventListener('click', () => {
+                
+                nextBtn.addEventListener('click', (e) => {
+                    e.preventDefault();  // Prevent any default behavior (if needed)
                     currentImageIndex = (currentImageIndex + 1) % item.images.length;
                     showImage(currentImageIndex);
                 });
-
                 // Show first image
                 showImage(0);
             } else {
@@ -131,33 +140,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Delete an image from the database
 function deleteImage(imageId, itemId) {
     fetch(`php/delete_image.php?itemId=${itemId}&imageId=${imageId}`, {
-        method: 'GET',  // Use GET to pass parameters via the URL
+        method: 'GET',
     })
-        .then(res => res.json())
-        .then(response => {
-            if (response.success) {
-                alert(response.message);
-                location.reload(); // Refresh the page to update the image list
-            } else {
-                alert(response.message);
+    .then(res => res.json())
+    .then(response => {
+        if (response.success) {
+            alert(response.message);
+
+            // Remove the image and the corresponding navigation dot
+            const imageToRemove = document.querySelector(`img[data-image-id="${imageId}"]`);
+            const dotToRemove = document.querySelector(`.carousel-dot[data-image-id="${imageId}"]`);
+            const indexToRemove = imageElements.findIndex(img => img.dataset.imageId === imageId);
+            if (indexToRemove !== -1) {
+                imageElements[indexToRemove].remove();
+                imageElements.splice(indexToRemove, 1);
+                }
+
+
+            if (imageToRemove) {
+                imageToRemove.remove();  // Remove the image from DOM
             }
-        })
-        .catch(err => {
-            console.error("Error deleting image:", err);
-            alert("Error deleting image.");
-        });
+            if (dotToRemove) {
+                dotToRemove.remove();  // Remove the corresponding navigation dot from DOM
+            }
+
+            // Adjust active image if the current one is deleted
+            if (imageToRemove && imageToRemove.classList.contains('active')) {
+                currentImageIndex = (currentImageIndex >= imageElements.length) ? 0 : currentImageIndex;
+                showImage(currentImageIndex);
+            }
+            location.reload();
+
+
+        } else {
+            alert(response.message);
+        }
+    })
+    .catch(err => {
+        console.error("Error deleting image:", err);
+        alert("Error deleting image.");
+    });
 }
 
+
 function showImage(index) {
-    const images = document.querySelectorAll('.carousel-image');
+    imageElements.forEach(img => img.classList.remove('active'));
     const dots = document.querySelectorAll('.carousel-dot');
-    
-    images.forEach(img => img.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
-    
-    images[index].classList.add('active');
-    dots[index].classList.add('active');
+
+    if (imageElements[index]) imageElements[index].classList.add('active');
+    if (dots[index]) dots[index].classList.add('active');
 }

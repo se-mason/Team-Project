@@ -56,7 +56,7 @@
             </select>
 
             <!-- Price, capped at 1 million-->
-            <input type="number" id="item-price" placeholder="Price (£)" name="price" min="0" max="1000001" step="0.01" required>
+            <input type="number" id="item-price" placeholder="Price (£)" name="price" min="0" max="100000001" step="0.01" required>
 
 
           </div>
