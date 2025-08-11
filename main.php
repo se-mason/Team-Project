@@ -143,6 +143,6 @@
   <script src="scripts/menu.js"></script>
   <script src="scripts/menu_loader.js"></script>
   <script src="scripts/get_items.js"></script>
-
+  <script src="scripts/search_autocomplete.js"></script>
 </body>
 </html>

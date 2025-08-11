@@ -74,6 +74,7 @@
 <!-- Scripts -->
 <script src="scripts/popup.js"></script>
 <script src="scripts/footer_loader.js"></script>
+<script src="scripts/search_autocomplete.js"></script>
 
 <!-- Load items -->
 <script src="scripts/get_items.js"></script>

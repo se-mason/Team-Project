@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     div.textContent = item;
                     div.classList.add('autocomplete-item');
                     div.onclick = function() {
-                        searchInput.value = item;
-                        autocompleteList.innerHTML = '';
+                        // Redirect to the search results page with the selected suggestion
+                        window.location.href = `products.php?search=${encodeURIComponent(item)}`;
                     };
                     autocompleteList.appendChild(div);
                 });

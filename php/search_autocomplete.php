@@ -5,14 +5,14 @@ $term = isset($_GET['term']) ? $conn->real_escape_string($_GET['term']) : '';
 
 $suggestions = [];
 if ($term !== '') {
-    $sql = "SELECT productName FROM Products WHERE productName LIKE ? LIMIT 10";
+    $sql = "SELECT title FROM iBayItems WHERE title LIKE ? LIMIT 10";
     $stmt = $conn->prepare($sql);
     $likeTerm = "%$term%";
     $stmt->bind_param("s", $likeTerm);
     $stmt->execute();
-    $stmt->bind_result($productName);
+    $stmt->bind_result($title);
     while ($stmt->fetch()) {
-        $suggestions[] = $productName;
+        $suggestions[] = $title;
     }
     $stmt->close();
 }
