@@ -263,9 +263,6 @@ background-color: #f1f1f1;
   transform: translateX(-50%) translateY(0);
 }
 
-
-
-
 /* Container for both forms */
 .action-buttons-container {
   display: block;  /* Makes the forms stack vertically */
@@ -292,4 +289,24 @@ background-color: #f1f1f1;
 
 .delete-listing-btn:hover {
   background-color: darkred; /* Darker red when hovered */
+}
+
+/* =======================
+   Autocomplete Styles
+========================== */
+.autocomplete-items {
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  background: #fff;
+  z-index: 1000;
+  width: 100%;
+}
+.autocomplete-item {
+  padding: 8px;
+  cursor: pointer;
+}
+.autocomplete-item:hover {
+  background: #f0f0f0;
 }

@@ -19,6 +19,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
                 placeholder="Search for anything..."
                 value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
               />
+          <div id="autocomplete-list" class="autocomplete-items"></div>
 
           <button type="submit" class="search-button">
               <i class="fas fa-search"></i>
@@ -49,7 +50,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 <div id="popup" class="popup-overlay"></div>
 
-
+<script src="scripts/search_autocomplete.js"></script>
 <script>
 function toggleDropdown() {
   const menu = document.getElementById("accountMenu");
