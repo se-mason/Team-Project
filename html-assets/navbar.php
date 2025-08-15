@@ -10,21 +10,23 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
   <div class="header-center">
       <div class="search-container">
-        <form action="php/search.php" method="GET">
-          <input
-                type="text"
-                id="searchInput"
-                name="searchInput"
-                class="search-bar"
-                placeholder="Search for anything..."
-                value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
-              />
-          <div id="autocomplete-list" class="autocomplete-items"></div>
-
+        <form action="php/search.php" method="GET" autocomplete="off">
+          <div class="autocomplete">
+            <input
+                  type="text"
+                  id="searchInput"
+                  name="searchInput"
+                  class="search-bar"
+                  placeholder="Search for anything..."
+                  value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
+                  autocomplete="off"
+                />
+            <div id="autocomplete-list" class="autocomplete-dropdown"></div>
+          </div>
           <button type="submit" class="search-button">
               <i class="fas fa-search"></i>
           </button>
-      </form>
+        </form>
       </div>
     </div>
 

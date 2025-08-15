@@ -125,6 +125,8 @@ header {
   margin: 0;
   max-width: 600px;
   height: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .search-container form {
@@ -294,19 +296,38 @@ background-color: #f1f1f1;
 /* =======================
    Autocomplete Styles
 ========================== */
-.autocomplete-items {
-  border: 1px solid #ddd;
-  max-height: 200px;
-  overflow-y: auto;
-  position: absolute;
-  background: #fff;
-  z-index: 1000;
+.autocomplete {
+  position: relative;
+  display: inline-block;
   width: 100%;
 }
-.autocomplete-item {
-  padding: 8px;
-  cursor: pointer;
+/* Style the autocomplete items (dropdown) */
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border: 1px solid #ddd;
+  border-top: none;
+  background: #fff;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
-.autocomplete-item:hover {
-  background: #f0f0f0;
+
+/* Style each suggestion item */
+.autocomplete-dropdown div{
+  padding: 10px;
+  cursor: pointer;
+  background: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-dropdown div:hover {
+  background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+  background-color: #f0e6ff;
 }
