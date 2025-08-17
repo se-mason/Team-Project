@@ -36,6 +36,11 @@
       <h2 class="section-title">Popular Categories</h2>
       <div class="categories-grid">
         <div class="category-card">
+          <i class="fas fa-book-open"></i>
+          <h3>Books</h3>
+          <a href="products.php?category=books" class="browse-category-btn">Browse</a>
+        </div>
+        <div class="category-card">
           <i class="fas fa-mobile-alt"></i>
           <h3>Electronics</h3>
           <a href="products.php?category=electronics" class="browse-category-btn">Browse</a>
@@ -51,9 +56,34 @@
           <a href="products.php?category=home" class="browse-category-btn">Browse</a>
         </div>
         <div class="category-card">
+          <i class="fas fa-gem"></i>
+          <h3>Jewellery</h3>
+          <a href="products.php?category=jewellery" class="browse-category-btn">Browse</a>
+        </div>
+        <div class="category-card">
           <i class="fas fa-car"></i>
           <h3>Motors</h3>
           <a href="products.php?category=motors" class="browse-category-btn">Browse</a>
+        </div>
+        <div class="category-card">
+          <i class="fas fa-futbol"></i>
+          <h3>Sports</h3>
+          <a href="products.php?category=sporting" class="browse-category-btn">Browse</a>
+        </div>
+        <div class="category-card">
+          <i class="fas fa-gamepad"></i>
+          <h3>Toys</h3>
+          <a href="products.php?category=toys" class="browse-category-btn">Browse</a>
+        </div>
+        <div class="category-card">
+          <i class="fas fa-medal"></i>
+          <h3>Collectables</h3>
+          <a href="products.php?category=collectables" class="browse-category-btn">Browse</a>
+        </div>
+        <div class="category-card">
+          <i class="fas fa-magnifying-glass"></i>
+          <h3>Others</h3>
+          <a href="products.php?category=other" class="browse-category-btn">Browse</a>
         </div>
       </div>
     </section>
