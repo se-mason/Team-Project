@@ -147,7 +147,15 @@
       </div>
     </section>
     -->
-    
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+      <h2 class="section-title">What Our Users Say</h2>
+      <div id="testimonial-container">
+        <blockquote id="testimonial-text"></blockquote>
+        <p id="testimonial-name"></p>
+      </div>
+    </section>
 
     <!-- Ready to get started? -->
 
@@ -174,5 +182,6 @@
   <script src="scripts/menu_loader.js"></script>
   <script src="scripts/get_items.js"></script>
   <script src="scripts/search_autocomplete.js"></script>
+  <script src="scripts/review_runthru.js"></script>
 </body>
 </html>
