@@ -32,6 +32,11 @@
       </div>
     </section>
 
+    <section class="sales-section">
+      <h2 class="section-title">Today's Top Finds</h2>
+      <div class="sales-carousel" id="sales-carousel"></div>
+    </section>
+
     <section class="featured-categories">
       <h2 class="section-title">Popular Categories</h2>
       <div class="categories-grid">
@@ -183,5 +188,6 @@
   <script src="scripts/get_items.js"></script>
   <script src="scripts/search_autocomplete.js"></script>
   <script src="scripts/review_runthru.js"></script>
+  <script src="scripts/get_sales.js"></script>
 </body>
 </html>

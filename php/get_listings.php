@@ -5,7 +5,7 @@ session_start();
 header('Content-Type: application/json');
 
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-$perPage = isset($_GET['per_page']) ? max(1, (int)$_GET['per_page']) : 8;
+$perPage = isset($_GET['per_page']) ? max(1, (int)$_GET['per_page']) : 10;
 $offset = ($page - 1) * $perPage;
 
 $filters = [];
