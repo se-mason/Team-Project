@@ -9,6 +9,7 @@ $name = trim($_POST['name']);
 $email = trim($_POST['email']);
 $address = trim($_POST['address']);
 $postcode = trim($_POST['postcode']);
+$hobbies = trim($_POST['hobbies']);
 $password = $_POST['password'];
 $confirm_password = $_POST['confirm_password'];
 
@@ -47,11 +48,19 @@ if ($stmt->num_rows > 0) {
 $stmt->close();
 
 // Create account with SQL statement
-$stmt = $conn->prepare("INSERT INTO iBayMembers (userId, name, email, address, postcode, password) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssss", $userId, $name, $email, $address, $postcode, $hashed_password);
+$stmt = $conn->prepare("INSERT INTO iBayMembers (userId, name, email, address, postcode, hobbies, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("sssssss", $userId, $name, $email, $address, $postcode, $hobbies, $hashed_password);
 
 // Execute the statement and check for errors
 if ($stmt->execute()) {
+    if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] === UPLOAD_ERR_OK) {
+        $imgData = file_get_contents($_FILES['profilePic']['tmp_name']);
+        $picStmt = $conn->prepare("INSERT INTO iBayProfilePictures (userId, image) VALUES (?, ?)");
+        $picStmt->bind_param("sb", $userId, $null);
+        $picStmt->send_long_data(1, $imgData);
+        $picStmt->execute();
+        $picStmt->close();
+    }
 
     $_SESSION['userId'] = $userId;
     redirectWithPopup("../main.php", "Account created successfully");

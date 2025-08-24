@@ -28,10 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
           document.getElementById("email").value = user.email;
           document.getElementById("address").value = user.address;
           document.getElementById("postcode").value = user.postcode;
-  
+          document.getElementById("hobbies").value = user.hobbies;
+
           // Leave password fields empty
           document.getElementById("password").value = ''; 
           document.getElementById("confirmPassword").value = '';
+
+          const profilePic = document.getElementById("profilePicDisplay");
+          profilePic.src = `php/get_profile_pic.php?userId=${user.userId}`;
       })
       .catch(error => {
           console.error("Error fetching user data:", error);

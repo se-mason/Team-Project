@@ -26,8 +26,8 @@
   <main>
   <div class="signup-wrapper">
     <div class="signup-container">
-      <h2><i class="fas fa-user"></i> Your Account Details</h2>
-      <form action="php/user_edit.php" method="POST" id="signupForm" novalidate>
+      <h2><img id="profilePicDisplay" src="assets/placeholder.jpg" alt="Profile Picture" style="width:50px; height:50px; border-radius:50%; margin-right:10px; vertical-align:middle;"></img> Your Account Details</h2>
+      <form action="php/user_edit.php" method="POST" id="signupForm" novalidate enctype="multipart/form-data">
         <div class="input-group">
           <i class="fas fa-user"></i>
           <input type="text" name="userId" id="userId" placeholder="Username" required />
@@ -35,6 +35,10 @@
         <div class="input-group">
           <i class="fas fa-id-card"></i>
           <input type="text" name="name" id="name" placeholder="Full Name" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-image"></i>
+          <input type="file" name="profilePic" id="profilePic" accept="image/*" />
         </div>
         <div class="input-group">
           <i class="fas fa-envelope"></i>
@@ -47,6 +51,10 @@
         <div class="input-group">
           <i class="fas fa-map-marker-alt"></i>
           <input type="text" name="postcode" id="postcode" placeholder="Postcode" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-heart"></i>
+          <input type="text" name="hobbies" id="hobbies" placeholder="Hobbies" required />
         </div>
         <div class="input-group">
           <i class="fas fa-lock"></i>
