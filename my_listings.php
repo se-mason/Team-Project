@@ -35,6 +35,7 @@
                     <div class="category-filters">
                         <select class="category-select" id="categorySelect" name="category">
                             <option value="">All Categories</option>
+                            <option value="books">Books</option>
                             <option value="collectables">Collectables & antiques</option>
                             <option value="electronics">Electronics</option>
                             <option value="home">Home & garden</option>

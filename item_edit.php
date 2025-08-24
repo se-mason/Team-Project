@@ -44,6 +44,7 @@
 
             <select id="category-choice" name="category" required>
               <option value="" disabled selected hidden>Select a category</option>
+              <option value="books">Books</option>
               <option value="collectables">Collectables & antiques</option>
               <option value="electronics">Electronics</option>
               <option value="home">Home & garden</option>
