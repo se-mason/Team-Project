@@ -82,7 +82,7 @@
   <script src="scripts/popup.js"></script>
   <script src="scripts/footer_loader.js"></script>
   <script src="scripts/edit_user.js"></script>
-
+  
 
 </body>
 </html>
